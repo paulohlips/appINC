@@ -15,6 +15,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import { bindActionCreators } from 'redux';
 import { Creators as FormAction} from '../../store/ducks/form';
+import base64 from 'base-64';
 
   
 
@@ -70,7 +71,8 @@ class StepList extends Component {
     const geoloc = await AsyncStorage.getItem('@Geolocalizacao');
     const date = await AsyncStorage.getItem('@Date');
     const foto = await AsyncStorage.getItem('@Foto');
-  
+
+
     axios({     
       method: 'post',
       url: 'http://35.231.239.168/api/pericia/formulario/envio',
@@ -81,7 +83,7 @@ class StepList extends Component {
         data_final: '2019-01-18',
         info_veiculo: dadosDenatran,
         local_pericia: geoloc,
-        foto: stringFoto,
+        foto: '',
 
       }
  

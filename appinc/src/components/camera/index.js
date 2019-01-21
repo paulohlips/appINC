@@ -9,6 +9,9 @@ import styles from './styles';
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+import base64 from 'base-64';
+
+
 var ImagePicker = NativeModules.ImageCropPicker;
 
 
@@ -40,12 +43,13 @@ class Camera extends React.Component {
         image: {uri: image.path, width: image.width, height: image.height},
         images: null
       });
-      console.tron.log('received image', image.data);
+
+      AsyncStorage.setItem('@Foto', image.data);
      
     }).catch();
+
+   
   }
-
-
 
   pickSingleBase64(cropit) {
     ImagePicker.openPicker({
