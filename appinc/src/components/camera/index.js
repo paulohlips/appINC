@@ -4,13 +4,14 @@ import {
   Image, TouchableOpacity, NativeModules, Dimensions, TextInput, AsyncStorage
 } from 'react-native';
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Creators as FormActions } from '../../store/ducks/form';
+
 import Video from 'react-native-video';
 import styles from './styles';
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-
-import base64 from 'base-64';
-
 
 var ImagePicker = NativeModules.ImageCropPicker;
 
@@ -19,7 +20,9 @@ class Camera extends React.Component {
 
   state = {
     avatarSource: null,
-    videoSource: null
+    videoSource: null,
+    imageData: null,
+    imagePath: null,
   };
 
   constructor() {
@@ -30,33 +33,34 @@ class Camera extends React.Component {
     };
   }
 
-  pickSingleWithCamera(cropping) {
+  async pickSingleWithCamera(cropping) {
     ImagePicker.openCamera({
       cropping: cropping,
       width: 500,
       height: 500,
-      includeExif: false,
+      includeExif: true,
       includeBase64: true,
-    }).then(image => {
+    }).then(image => { 
    
       this.setState({
-        image: {uri: image.path, width: image.width, height: image.height},
-        images: null
+        image: {uri: image.path, width: image.width, height: image.height,},
+        images: null,
       });
 
-      AsyncStorage.setItem('@Foto', image.data);
-     
-    }).catch();
-
-   
+      console.tron.log(['received image', image]);
+      this.setState({ imageData: image.data, imagePath: image.path });
+      AsyncStorage.setItem('@Foto', image.data );      
+    }).catch(e => alert(e));
   }
+
+
 
   pickSingleBase64(cropit) {
     ImagePicker.openPicker({
       width: 300,
       height: 300,
       cropping: cropit,
-      includeBase64: true,
+      includeBase64: false,
       includeExif: true,
     }).then(image => {
       console.log('received base64 image');
@@ -64,7 +68,7 @@ class Camera extends React.Component {
         image: {uri: `data:${image.mime};base64,`+ image.data, width: image.width, height: image.height},
         images: null
       });
-    }).catch();
+    }).catch(e => alert(e));
   }
 
   cleanupImages() {
@@ -183,32 +187,42 @@ class Camera extends React.Component {
     return this.renderImage(image);
   }
 
+  saveFormInput = data => {
+    const { imageData, imagePath } = this.state;
+    const { form, getSaveStateForm, startControlArray } = this.props;
+
+    console.tron.log(form.step);
+    if ( imagePath ) {
+      for (var key in form.step) { 
+        if ( key === data.data_name) {
+          const form = {};
+          form[data.data_name] = { key: data.data_name, value: { uri: imagePath, type:'image/jpeg', name: `${data.data_name}.jpg` } };
+          console.tron.log(['formsavecampo', form]) 
+          getSaveStateForm(form);
+        }  
+      }
+    }
+    startControlArray();
+  }
+
+
   render() {
-    const { hint, label, data_name } = this.props.data;
+    const { data_name, label, hint, default_value, newState} = this.props.data;
+    const { saveStep } = this.props.form;
+
+    if (saveStep) {
+      this.saveFormInput({data_name, default_value});
+    }
+
     return (
       <View style={styles.container}>
 
-        <ScrollView>
-          {this.state.image ? this.renderAsset(this.state.image,alert("teste")) : null}
-          {this.state.images ? this.state.images.map(i => <View key={i.uri}>{this.renderAsset(i)}</View>) : null}
-        </ScrollView>
-
-        <TouchableOpacity onPress={() => this.pickSingleWithCamera(true)}>
+        <TouchableOpacity onPress={() => this.pickSingleWithCamera(false)}>
           <View style = {styles.avatarContainer}>
           { this.state.avatarSource === null ? <View style = {styles.avatarContainer2}><Icon name="add-a-photo" size={30} style={styles.icon} />
-          <View style = {styles.text_foto}>
-          <Text>Tirar uma foto</Text></View></View>:
+          <View style = {styles.text_foto}><Text>Tirar uma foto</Text></View></View>:
             <Image style={styles.avatar} source={this.state.avatarSource} />
           }
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => this.pickSingle(false)} style={styles.button}>
-          <View style = {styles.avatarContainer}>
-            { this.state.avatarSource === null ? <View style = {styles.avatarContainer2}><Icon name="add-a-photo" size={30} style={styles.icon} />
-            <View style = {styles.text_foto}><Text>Tirar uma foto</Text></View></View>:
-              <Image style={styles.avatar} source={this.state.avatarSource} />
-            }
           </View>
         </TouchableOpacity>
 
@@ -231,4 +245,11 @@ class Camera extends React.Component {
 
 }
 
-export default Camera;
+const mapStateToProps = state => ({
+  form: state.formState,
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(FormActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Camera);

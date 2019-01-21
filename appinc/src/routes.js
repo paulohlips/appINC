@@ -25,10 +25,11 @@ import StepPage from './pages/Step';
 import StepList from './pages/StepList';
 
 
+
 const Routes = StackNavigator(
   {
 
-    Login: { screen: Login},
+    Login: { screen: New},
     StepPage: { screen: StepPage },
     Logged: createDrawerNavigator(
       {
@@ -48,7 +49,7 @@ const Routes = StackNavigator(
     Geoloc: { screen: GeoLoc },
     Camera: { screen: CameraPage },
     Date: { screen: Date },
-   
+  
     BarCode: { screen: BarCode },
     Veiculo: { screen: Veiculo }
   },
