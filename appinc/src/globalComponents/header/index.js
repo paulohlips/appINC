@@ -16,7 +16,7 @@ import styles from './styles';
 // </View>
 
 const Header = (props) => {
-  const { showArrow, showMenu, showExit, goBack, openMenu, title } = props;
+  const { showArrow, showMenu, showExit, showInfo, goBack, openMenu, title } = props;
 
   return (
     <View style={styles.header}>
@@ -42,6 +42,15 @@ const Header = (props) => {
               {title}
             </Text>
           </View>
+        <View>
+          {
+            showInfo ? 
+              <TouchableOpacity>
+                <Icon name="ios-information-circle-outline" size={28} style={styles.iconMenu} />
+              </TouchableOpacity>
+            : <View style={styles.concerto}/>           
+          }
+        </View>
 
     </View>
   );

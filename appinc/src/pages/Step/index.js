@@ -26,7 +26,12 @@ class StepPage extends Component {
 
     return (
       <View style={styles.container}>
-      <Header   title={this.props.navigation.state.params.step.step_name} showArrow goBack={this.props.navigation.goBack}/ >
+      <Header 
+        title={this.props.navigation.state.params.step.step_name} 
+        showArrow 
+        showInfo
+        goBack={this.props.navigation.goBack} 
+      />
         <ScrollView>
         { step.components.map((item , i) =>
           <View style = {styles.coluna}>

@@ -102,12 +102,16 @@ class StepList extends Component {
 
     return (
       <View style={styles.container}>        
-        <Header title={form_name} showArrow goBack={this.props.navigation.goBack} />
+        <Header title={form_name} 
+          showArrow 
+          showInfo
+          goBack={this.props.navigation.goBack} 
+        />
         <ScrollView>
 
         <FlatList
-        data={steps}
-        renderItem={item => <StepBox steps={item} />}
+          data={steps}
+          renderItem={item => <StepBox steps={item} />}
         />
 
           <View style={styles.container}>

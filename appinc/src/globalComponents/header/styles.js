@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     padding: 14,
     paddingTop: 7,
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignItems: 'center',
     //borderColor: colors.regular,
     //borderBottomWidth: 0.4,
@@ -37,9 +37,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     alignSelf: 'center',
-    right: 10,
   },
 
+  concerto: {
+    color: "#344955",
+    width: 20,
+    height: 20,
+  }
 });
 
-export default styles;
+export default styles; 
