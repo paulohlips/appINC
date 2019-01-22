@@ -9,7 +9,6 @@ import Scanner from './scanner';
 //import Sketch from './sketch';
 
 import Veiculos from './veiculo';
-import Vestigios from './vestigios';
 
-export { InputText, AudioRec, Camera, MyDatePicker, GeoLocation, Veiculos, Scanner, Check, Vestigios };
+export { InputText, AudioRec, Camera, MyDatePicker, GeoLocation, Veiculos, Scanner, Check };
 

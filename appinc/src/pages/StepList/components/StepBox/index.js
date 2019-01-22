@@ -41,7 +41,7 @@ class StepBoxComponent extends Component {
     const { item } = steps;
     if (!createdForms) {
       this.createFormsSave();
-      console.tron.log('createFormSave');
+      //console.tron.log('createFormSave');
     }
 
     return (

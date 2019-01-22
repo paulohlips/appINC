@@ -22,7 +22,7 @@ class StepPage extends Component {
   render() {
     const { navigation } = this.props;
     const step = navigation.getParam('step');
-    console.tron.log(this.props);
+    //console.tron.log(this.props);
 
     return (
       <View style={styles.container}>

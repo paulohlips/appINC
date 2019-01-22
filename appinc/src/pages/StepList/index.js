@@ -47,7 +47,7 @@ class StepList extends Component {
 
   saveForm = () => {
     const { reference, saveForm } = this.props;
-    console.tron.log(['saveformstep', reference]);
+    //console.tron.log(['saveformstep', reference]);
     saveForm(reference);
   }
 
@@ -66,8 +66,8 @@ class StepList extends Component {
       //console.tron.log(['elemente forech', formulario.step[key]])
     }
      
-    console.tron.log(['elemente forech', data]); 
-    console.log(['elemente forech', data]);  
+    //console.tron.log(['elemente forech', data]); 
+    //console.log(['elemente forech', data]);  
 
     axios({
       method: 'post',
@@ -92,12 +92,12 @@ class StepList extends Component {
   }
 
   render() {
-    console.tron.log(this.props);
+    //console.tron.log(this.props);
     const { navigation } = this.props;
     //const { steps } = this.props;
     const { modalVisible, load, showAlert } = this.state;    
     const form = this.props.navigation.getParam('form', this.state.form);
-    console.tron.log('FORMEEE',form);
+    //console.tron.log('FORMEEE',form);
    
 
     const { steps, form_name } = this.state.form;

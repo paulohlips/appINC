@@ -39,7 +39,7 @@ class Camera extends React.Component {
         image: {uri: image.path, width: image.width, height: image.height},
         images: null
       });
-      console.tron.log('received image', image.data);
+      //console.tron.log('received image', image.data);
 
     }).catch();
   }
