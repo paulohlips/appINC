@@ -1,20 +1,12 @@
-
 import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableOpacity, AsyncStorage, Image, ScrollView, Picker} from 'react-native';
 import styles from './styles';
 import axios from 'axios';
 
-//import { connect } from 'react-redux';
-//import { bindActionCreators } from 'redux';
-//import { Creators as GeoActions } from '../../store/ducks/geolocation';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Creators as FormActions } from '../../store/ducks/form';
 
-const categories = [{ id: 0, text: 'hasan' },
-{ id: 1, text: 'erkan' },
-{ id: 2, text: 'veli' }];
-
-var options = [{ id: 0, text: 'hasan' },
-{ id: 1, text: 'erkan' },
-{ id: 2, text: 'veli' }];
 
 class Veiculos extends Component {
 
@@ -171,26 +163,45 @@ pegaAno = (value) => {
 }
 
 async getAno() {
-
-const dadosPuro = await AsyncStorage.getItem('@Ano');
-const dadosAno = JSON.parse(dadosPuro);
-this.setState({
-  dadosAno : dadosAno,
-});
-console.tron.log(["Ano", dadosAno]);
-
-
-const ano = this.state.dadosAno;
-await this.setState({ ano });
-this.setState({ renderPickerAno:true })
+  const dadosPuro = await AsyncStorage.getItem('@Ano');
+  const dadosAno = JSON.parse(dadosPuro);
+  this.setState({
+    dadosAno : dadosAno,
+  });
+  console.tron.log(["Ano", dadosAno]);
 
 
+  const ano = this.state.dadosAno;
+  await this.setState({ ano });
+  this.setState({ renderPickerAno:true })
 }
 
+saveFormVeiculo = data => {
+  const { dadosVeiculo, dadosFipe } = this.state;
+  const { form, getSaveStateForm, startControlArray } = this.props;
+
+  console.tron.log(['teste salvar info veiculo', dadosVeiculo, dadosFipe]);
+  if ( dadosVeiculo ) {
+    for (var key in form.step) {
+      if ( key === data.data_name) {
+        const form = {};
+        form[data.data_name] = { key: data.data_name, value: { ...dadosVeiculo, dadosFipe } };
+        console.tron.log(['formsavecampo', form])
+        getSaveStateForm(form);
+      }
+    }
+  }
+  startControlArray();
+}
 
   render() {
-    const { label, hint } = this.props.data;
+    const { data_name, label, hint, default_value, newState} = this.props.data;
+    const { saveStep } = this.props.form;
     const { dadosVeiculo, dadosFipe, dadosMarcas, marcas, modelos, renderPicker, renderPickerModelos, ano, anos, renderPickerAno } = this.state;
+    
+    if (saveStep) {
+      this.saveFormVeiculo({data_name, default_value});
+    }
     return (
       <View style={styles.container}>
 
@@ -405,4 +416,11 @@ this.setState({ renderPickerAno:true })
   }
 }
 
-export default Veiculos;
+const mapStateToProps = state => ({
+  form: state.formState,
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(FormActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Veiculos);

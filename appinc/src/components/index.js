@@ -6,10 +6,9 @@ import GeoLocation from './geolocation';
 import Check from './checkbox';
 
 import Scanner from './scanner';
-import Sketch from './sketch';
-import ButtonScanner from './scanner/buttomScanner';
-//import Load from './load'
+//import Sketch from './sketch';
+
 import Veiculos from './veiculo';
 
-export { InputText, AudioRec, Camera, MyDatePicker, GeoLocation, Veiculos, Scanner, Sketch, ButtonScanner, Check };
+export { InputText, AudioRec, Camera, MyDatePicker, GeoLocation, Veiculos, Scanner, Check };
 

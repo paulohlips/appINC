@@ -11,12 +11,11 @@ import styles from './styles';
 import StepBox from './components/StepBox';
 import { Load } from '../../components';
 import { Header } from '../../globalComponents';
+
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { bindActionCreators } from 'redux';
 import { Creators as FormAction} from '../../store/ducks/form';
-
-  
 
 class StepList extends Component {
   state ={
@@ -64,29 +63,38 @@ class StepList extends Component {
   }
 
 
-  async enviaDados() {
-    const dadosDenatran = await AsyncStorage.getItem('@InfoPlaca');
-    const dadosFipe = await AsyncStorage.getItem('@InfoFipe');
-    const geoloc = await AsyncStorage.getItem('@Geolocalizacao');
-    const date = await AsyncStorage.getItem('@Date');
-    const foto = await AsyncStorage.getItem('@Foto');
   
-    axios({     
+  enviaForm = async () => {
+    const { formulario } = this.props;
+    const data = new FormData();
+    data.append('form_name', this.state.form.form_name);
+
+    for (var key in formulario.step) {
+      data.append(formulario.step[key].key, formulario.step[key].value)
+      //console.tron.log(['elemente forech', formulario.step[key]])
+    }
+     
+    console.tron.log(['elemente forech', data]); 
+    console.log(['elemente forech', data]);  
+
+    axios({
       method: 'post',
       url: 'http://35.231.239.168/api/pericia/formulario/envio',
-      data: {
-        form_name: this.state.form.form_name,
-        data_inicio: '2019-01-18',
-        data_despacho:  date,
-        data_final: '2019-01-18',
-        info_veiculo: dadosDenatran,
-        local_pericia: geoloc,
-        foto: stringFoto,
-
-      }
- 
-    });
-    
+      data: data,
+      config: { 
+        headers: {
+          'Content-Type': 'multipart/form-data', 
+          'Accept': 'application/json'              
+        }}
+      })
+      .then(function (response) {
+          //handle success
+          console.log(response); 
+      }) 
+      .catch(function (response) {
+          //handle error
+          console.log(response);
+      });
   }
 
   render() {
@@ -115,7 +123,7 @@ class StepList extends Component {
         />
 
           <View style={styles.container}>
-            <TouchableOpacity style={styles.enviarbutton} onPress={() => this.enviaDados()}>
+            <TouchableOpacity style={styles.enviarbutton} onPress={() => this.enviaForm()}>
               <Text style={styles.buttonText}>
                 Enviar
               </Text>
@@ -145,6 +153,7 @@ class StepList extends Component {
 const mapStateToProps = state => ({
   form: state.newState.form,
   reference: state.newState.reference,
+  formulario: state.formState,
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators(FormAction, dispatch);

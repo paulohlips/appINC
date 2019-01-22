@@ -59,6 +59,9 @@
 		E86098B08EE24148AC5D434D /* libRNAudio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 179D87EE78984734AC0203CB /* libRNAudio.a */; };
 		2CEE62976545402BAF6D180E /* libLottieReactNative.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 28A81E625D694FFAB3B86461 /* libLottieReactNative.a */; };
 		4424870B0D244595BF198DC3 /* libimageCropPicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B46DA4DB17DF49B5AE792CFB /* libimageCropPicker.a */; };
+		D5E24277B2BB43518D271D4D /* libRNSketchCanvas.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5A827E1109947A68075C4BC /* libRNSketchCanvas.a */; };
+		FE408395BCE047CFA84402B1 /* libRNFetchBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FCFA482F814F2B99F2A08E /* libRNFetchBlob.a */; };
+		48985BA70D244D3BAEEE86AF /* libRCTVideo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A2B0CE88672E472D96F4214A /* libRCTVideo.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -392,6 +395,12 @@
 		28A81E625D694FFAB3B86461 /* libLottieReactNative.a */ = {isa = PBXFileReference; name = "libLottieReactNative.a"; path = "libLottieReactNative.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		9B2BA5406EFF4BF39354A2C8 /* imageCropPicker.xcodeproj */ = {isa = PBXFileReference; name = "imageCropPicker.xcodeproj"; path = "../node_modules/react-native-image-crop-picker/ios/imageCropPicker.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		B46DA4DB17DF49B5AE792CFB /* libimageCropPicker.a */ = {isa = PBXFileReference; name = "libimageCropPicker.a"; path = "libimageCropPicker.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		A460796512CF4C11AC91766A /* RNSketchCanvas.xcodeproj */ = {isa = PBXFileReference; name = "RNSketchCanvas.xcodeproj"; path = "../node_modules/@terrylinla/react-native-sketch-canvas/ios/RNSketchCanvas/RNSketchCanvas.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		F5A827E1109947A68075C4BC /* libRNSketchCanvas.a */ = {isa = PBXFileReference; name = "libRNSketchCanvas.a"; path = "libRNSketchCanvas.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		ED845F2FA5E4425F9D226912 /* RNFetchBlob.xcodeproj */ = {isa = PBXFileReference; name = "RNFetchBlob.xcodeproj"; path = "../node_modules/react-native-fetch-blob/ios/RNFetchBlob.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		08FCFA482F814F2B99F2A08E /* libRNFetchBlob.a */ = {isa = PBXFileReference; name = "libRNFetchBlob.a"; path = "libRNFetchBlob.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		08FABDAB3E564742A2D9A9D7 /* RCTVideo.xcodeproj */ = {isa = PBXFileReference; name = "RCTVideo.xcodeproj"; path = "../node_modules/react-native-video/ios/RCTVideo.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		A2B0CE88672E472D96F4214A /* libRCTVideo.a */ = {isa = PBXFileReference; name = "libRCTVideo.a"; path = "libRCTVideo.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -426,6 +435,9 @@
 				E86098B08EE24148AC5D434D /* libRNAudio.a in Frameworks */,
 				2CEE62976545402BAF6D180E /* libLottieReactNative.a in Frameworks */,
 				4424870B0D244595BF198DC3 /* libimageCropPicker.a in Frameworks */,
+				D5E24277B2BB43518D271D4D /* libRNSketchCanvas.a in Frameworks */,
+				FE408395BCE047CFA84402B1 /* libRNFetchBlob.a in Frameworks */,
+				48985BA70D244D3BAEEE86AF /* libRCTVideo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -619,6 +631,9 @@
 				B8D7866488A54B14938351C8 /* RNAudio.xcodeproj */,
 				F27BD237AB324079BBBBA4A1 /* LottieReactNative.xcodeproj */,
 				9B2BA5406EFF4BF39354A2C8 /* imageCropPicker.xcodeproj */,
+				A460796512CF4C11AC91766A /* RNSketchCanvas.xcodeproj */,
+				ED845F2FA5E4425F9D226912 /* RNFetchBlob.xcodeproj */,
+				08FABDAB3E564742A2D9A9D7 /* RCTVideo.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1291,6 +1306,9 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1300,6 +1318,9 @@
 					"$(SRCROOT)\..\node_modules\react-native-audio\ios",
 					"$(SRCROOT)\..\node_modules\lottie-react-native\src\ios\LottieReactNative",
 					"$(SRCROOT)\..\node_modules\react-native-image-crop-picker\ios/**",
+					"$(SRCROOT)\..\node_modules\@terrylinla\react-native-sketch-canvas\ios\RNSketchCanvas/**",
+					"$(SRCROOT)\..\node_modules\react-native-fetch-blob\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-video\ios/**",
 				);
 			};
 			name = Debug;
@@ -1327,6 +1348,9 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1336,6 +1360,9 @@
 					"$(SRCROOT)\..\node_modules\react-native-audio\ios",
 					"$(SRCROOT)\..\node_modules\lottie-react-native\src\ios\LottieReactNative",
 					"$(SRCROOT)\..\node_modules\react-native-image-crop-picker\ios/**",
+					"$(SRCROOT)\..\node_modules\@terrylinla\react-native-sketch-canvas\ios\RNSketchCanvas/**",
+					"$(SRCROOT)\..\node_modules\react-native-fetch-blob\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-video\ios/**",
 				);
 			};
 			name = Release;
@@ -1363,6 +1390,9 @@
 					"$(SRCROOT)\..\node_modules\react-native-audio\ios",
 					"$(SRCROOT)\..\node_modules\lottie-react-native\src\ios\LottieReactNative",
 					"$(SRCROOT)\..\node_modules\react-native-image-crop-picker\ios/**",
+					"$(SRCROOT)\..\node_modules\@terrylinla\react-native-sketch-canvas\ios\RNSketchCanvas/**",
+					"$(SRCROOT)\..\node_modules\react-native-fetch-blob\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-video\ios/**",
 				);
 			};
 			name = Debug;
@@ -1389,6 +1419,9 @@
 					"$(SRCROOT)\..\node_modules\react-native-audio\ios",
 					"$(SRCROOT)\..\node_modules\lottie-react-native\src\ios\LottieReactNative",
 					"$(SRCROOT)\..\node_modules\react-native-image-crop-picker\ios/**",
+					"$(SRCROOT)\..\node_modules\@terrylinla\react-native-sketch-canvas\ios\RNSketchCanvas/**",
+					"$(SRCROOT)\..\node_modules\react-native-fetch-blob\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-video\ios/**",
 				);
 			};
 			name = Release;
@@ -1425,6 +1458,9 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1434,6 +1470,9 @@
 					"$(SRCROOT)\..\node_modules\react-native-audio\ios",
 					"$(SRCROOT)\..\node_modules\lottie-react-native\src\ios\LottieReactNative",
 					"$(SRCROOT)\..\node_modules\react-native-image-crop-picker\ios/**",
+					"$(SRCROOT)\..\node_modules\@terrylinla\react-native-sketch-canvas\ios\RNSketchCanvas/**",
+					"$(SRCROOT)\..\node_modules\react-native-fetch-blob\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-video\ios/**",
 				);
 			};
 			name = Debug;
@@ -1470,6 +1509,9 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1479,6 +1521,9 @@
 					"$(SRCROOT)\..\node_modules\react-native-audio\ios",
 					"$(SRCROOT)\..\node_modules\lottie-react-native\src\ios\LottieReactNative",
 					"$(SRCROOT)\..\node_modules\react-native-image-crop-picker\ios/**",
+					"$(SRCROOT)\..\node_modules\@terrylinla\react-native-sketch-canvas\ios\RNSketchCanvas/**",
+					"$(SRCROOT)\..\node_modules\react-native-fetch-blob\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-video\ios/**",
 				);
 			};
 			name = Release;
@@ -1514,6 +1559,9 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1523,6 +1571,9 @@
 					"$(SRCROOT)\..\node_modules\react-native-audio\ios",
 					"$(SRCROOT)\..\node_modules\lottie-react-native\src\ios\LottieReactNative",
 					"$(SRCROOT)\..\node_modules\react-native-image-crop-picker\ios/**",
+					"$(SRCROOT)\..\node_modules\@terrylinla\react-native-sketch-canvas\ios\RNSketchCanvas/**",
+					"$(SRCROOT)\..\node_modules\react-native-fetch-blob\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-video\ios/**",
 				);
 			};
 			name = Debug;
@@ -1558,6 +1609,9 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1567,6 +1621,9 @@
 					"$(SRCROOT)\..\node_modules\react-native-audio\ios",
 					"$(SRCROOT)\..\node_modules\lottie-react-native\src\ios\LottieReactNative",
 					"$(SRCROOT)\..\node_modules\react-native-image-crop-picker\ios/**",
+					"$(SRCROOT)\..\node_modules\@terrylinla\react-native-sketch-canvas\ios\RNSketchCanvas/**",
+					"$(SRCROOT)\..\node_modules\react-native-fetch-blob\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-video\ios/**",
 				);
 			};
 			name = Release;
