@@ -1,8 +1,5 @@
 export const Types = {
-  GET_REQUEST: 'new/REQUEST',
-  GET_SUCSSES: 'new/SUCSSES',
-  GET_FAILURE: 'new/FAILURE',
-  GET_REFERENCE: 'nem/GET_REFERENCE',  
+ GET_STATE_FORM: 'new/GET_STATE_FORM',
 };
 
 const InitialState = {
@@ -11,28 +8,22 @@ const InitialState = {
   load: false,
   sucsses: false,
   form: 'sjahdjkashdkashd',
-  reference: null, 
+  formRef: null, 
 };
 
 
 export default function newState(state = InitialState, action) {
   switch (action.type) {
-    case Types.GET_REQUEST:
-      return { ...state, load: true };
-    case Types.GET_SUCSSES:
-      return { ...state, data: action.payload, load: false, sucsses: true };
-    case Types.GET_FAILURE:
-      return state;
-    case Types.GET_REFERENCE:
-      return { ...state, reference: action.payload.ref};    
+    case Types.GET_STATE_FORM:
+      return { ...state, formRef: action.payload.form}
     default:
       return state;
   }
 }
 
 export const Creators ={
-  getReference: ref => ({
-    type: Types.GET_REFERENCE,
-    payload: { ref },
+  getStateForm: form => ({
+    type: Types.GET_STATE_FORM,
+    payload: { form },
   }),  
 };

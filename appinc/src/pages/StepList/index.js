@@ -6,6 +6,7 @@ import {
   AsyncStorage,
   TouchableOpacity,
   Text, 
+  Alert
 } from 'react-native';
 import styles from './styles';
 import StepBox from './components/StepBox';
@@ -80,8 +81,8 @@ class StepList extends Component {
       })
       .then(function (response) {
           //handle success
-          console.tron.log(['NUMERO LAUDO',response]); 
-          alert(response);
+          Alert.alert('ID do laudo','O número do seu laudo é '+response.data.number);
+          
       }) 
       .catch(function (response) {
           //handle error

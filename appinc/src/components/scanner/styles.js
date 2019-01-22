@@ -29,6 +29,17 @@ const styles = StyleSheet.create({
      paddingLeft: 20,
      fontSize: 16,
   },
+  button: {
+    backgroundColor: "#B83E3E",
+    borderRadius: 50,
+    height: responsividade.ALTURAFORM,
+    width: responsividade.LARGURAFORM,
+    margin: 10,
+    paddingHorizontal: metrics.basePadding,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
 
   hint:{
 

@@ -4,11 +4,6 @@ import {
   Image, TouchableOpacity, NativeModules, Dimensions, TextInput, AsyncStorage
 } from 'react-native';
 
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { Creators as FormActions } from '../../store/ducks/form';
-
-//import Video from 'react-native-video';
 import styles from './styles';
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -20,9 +15,7 @@ class Camera extends React.Component {
 
   state = {
     avatarSource: null,
-    videoSource: null,
-    imageData: null,
-    imagePath: null,
+    videoSource: null
   };
 
   constructor() {
@@ -33,24 +26,22 @@ class Camera extends React.Component {
     };
   }
 
-  async pickSingleWithCamera(cropping) {
+  pickSingleWithCamera(cropping) {
     ImagePicker.openCamera({
       cropping: cropping,
       width: 500,
       height: 500,
-      includeExif: true,
+      includeExif: false,
       includeBase64: true,
-    }).then(image => { 
-   
-      this.setState({
-        image: {uri: image.path, width: image.width, height: image.height,},
-        images: null,
-      });
+    }).then(image => {
 
-      console.tron.log(['received image', image]);
-      this.setState({ imageData: image.data, imagePath: image.path });
-      AsyncStorage.setItem('@Foto', image.data );      
-    }).catch(e => alert(e));
+      this.setState({
+        image: {uri: image.path, width: image.width, height: image.height},
+        images: null
+      });
+      console.tron.log('received image', image.data);
+
+    }).catch();
   }
 
 
@@ -60,7 +51,7 @@ class Camera extends React.Component {
       width: 300,
       height: 300,
       cropping: cropit,
-      includeBase64: false,
+      includeBase64: true,
       includeExif: true,
     }).then(image => {
       console.log('received base64 image');
@@ -68,14 +59,14 @@ class Camera extends React.Component {
         image: {uri: `data:${image.mime};base64,`+ image.data, width: image.width, height: image.height},
         images: null
       });
-    }).catch(e => alert(e));
+    }).catch();
   }
 
   cleanupImages() {
     ImagePicker.clean().then(() => {
       console.log('removed tmp images from tmp directory');
     }).catch(e => {
-      alert(e);
+      //alert(e);
     });
   }
 
@@ -86,13 +77,13 @@ class Camera extends React.Component {
     ImagePicker.cleanSingle(image ? image.uri : null).then(() => {
       console.log(`removed tmp image ${image.uri} from tmp directory`);
     }).catch(e => {
-      alert(e);
+      //alert(e);
     })
   }
 
   cropLast() {
     if (!this.state.image) {
-      return Alert.alert('No image', 'Before open cropping only, please select image');
+      //return Alert.alert('Sem imagem', 'Por favor , selecione uma imagem');
     }
 
     ImagePicker.openCropper({
@@ -107,7 +98,7 @@ class Camera extends React.Component {
       });
     }).catch(e => {
       console.log(e);
-      Alert.alert(e.message ? e.message : e);
+     // Alert.alert(e.message ? e.message : e);
     });
   }
 
@@ -130,7 +121,7 @@ class Camera extends React.Component {
       });
     }).catch(e => {
       console.log(e);
-      Alert.alert(e.message ? e.message : e);
+      //Alert.alert(e.message ? e.message : e);
     });
   }
 
@@ -148,7 +139,7 @@ class Camera extends React.Component {
           return {uri: i.path, width: i.width, height: i.height, mime: i.mime};
         })
       });
-    }).catch(e => alert(e));
+    });//.catch(e => alert(e));
   }
 
   scaledHeight(oldW, oldH, newW) {
@@ -187,42 +178,44 @@ class Camera extends React.Component {
     return this.renderImage(image);
   }
 
-  saveFormInput = data => {
-    const { imageData, imagePath } = this.state;
-    const { form, getSaveStateForm, startControlArray } = this.props;
-
-    console.tron.log(form.step);
-    if ( imagePath ) {
-      for (var key in form.step) { 
-        if ( key === data.data_name) {
-          const form = {};
-          form[data.data_name] = { key: data.data_name, value: { uri: imagePath, type:'image/jpeg', name: `${data.data_name}.jpg` } };
-          console.tron.log(['formsavecampo', form]) 
-          getSaveStateForm(form);
-        }  
-      }
-    }
-    startControlArray();
-  }
-
-
   render() {
-    const { data_name, label, hint, default_value, newState} = this.props.data;
-    const { saveStep } = this.props.form;
-
-    if (saveStep) {
-      this.saveFormInput({data_name, default_value});
-    }
-
+    const { hint, label, data_name } = this.props.data;
     return (
       <View style={styles.container}>
 
-        <TouchableOpacity onPress={() => this.pickSingleWithCamera(false)}>
+        <ScrollView>
+          {this.state.image ? this.renderAsset(this.state.image) : null}
+          {this.state.images ? this.state.images.map(i => <View key={i.uri}>{this.renderAsset(i)}</View>) : null}
+        </ScrollView>
+
+        <TouchableOpacity onPress={() => this.pickSingleWithCamera(true)}>
           <View style = {styles.avatarContainer}>
-          { this.state.avatarSource === null ? <View style = {styles.avatarContainer2}><Icon name="add-a-photo" size={30} style={styles.icon} />
-          <View style = {styles.text_foto}><Text>Tirar uma foto</Text></View></View>:
+          <View style = {styles.avatarContainer2}><Icon name="add-a-photo" size={30} style={styles.icon} />
+          <View style = {styles.text_foto}>
+          <Text style = {styles.text}>Tirar uma foto</Text>
+          </View>
+          </View>
+          { this.state.avatarSource === null ?
+
+            <Text>oi</Text>
+
+          :
             <Image style={styles.avatar} source={this.state.avatarSource} />
           }
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => this.pickSingle(false)} style={styles.button}>
+          <View style = {styles.avatarContainer}>
+          <View style = {styles.avatarContainer2}><Icon name="photo-library" size={30} style={styles.icon} />
+          <View style = {styles.text_foto}>
+          <Text style = {styles.text}>Selecionar da galeria</Text>
+          </View>
+          </View>
+            { this.state.avatarSource === null ? <View style = {styles.avatarContainer2}><Icon name="add-a-photo" size={30} style={styles.icon} />
+            <View style = {styles.text_foto}><Text>Lesk</Text></View></View>:
+              <Image style={styles.avatar} source={this.state.avatarSource} />
+            }
           </View>
         </TouchableOpacity>
 
@@ -232,7 +225,7 @@ class Camera extends React.Component {
             autoCapitalize="none"
             autoCorrect={false}
             multiline
-            placeholder={hint}
+            placeholder={"Suas notas..."}
             maxLength={100}
             underlineColorAndroid="rgba(0,0,0,0)"
             onChangeText={inputSave => this.setState({ inputSave })}
@@ -245,11 +238,4 @@ class Camera extends React.Component {
 
 }
 
-const mapStateToProps = state => ({
-  form: state.formState,
-});
-
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(FormActions, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(Camera);
+export default Camera;
