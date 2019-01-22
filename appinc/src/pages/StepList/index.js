@@ -61,8 +61,6 @@ class StepList extends Component {
   resetAsync = () => {
     AsyncStorage.clear();
   }
-
-
   
   enviaForm = async () => {
     const { formulario } = this.props;
@@ -103,16 +101,18 @@ class StepList extends Component {
     //const { steps } = this.props;
     const { modalVisible, load } = this.state;    
     const form = this.props.navigation.getParam('form', this.state.form);
-    console.tron.log('FORMEEE',form);
+    console.tron.log('forme do ayrotn', form);
    
 
     const { steps, form_name } = this.state.form;
 
     return (
       <View style={styles.container}>        
-        <Header title={form_name} 
+        <Header 
+          title={form_name} 
           showArrow 
           showInfo
+          info={form.info_form}
           goBack={this.props.navigation.goBack} 
         />
         <ScrollView>
