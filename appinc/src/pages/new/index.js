@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Picker, TouchableOpacity, ScrollView, AsyncStorage, TextInput, Animated } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Header } from '../../globalComponents';
+import { Alert } from '../../globalComponents';
 import axios from 'axios';
 import styles from './styles';
 
@@ -35,6 +36,7 @@ class New extends Component {
     baseUrl: null,
     resposta: null,
     escolha: null,
+    showAlert: false,
   }
 
   async componentWillMount() {
@@ -206,7 +208,8 @@ class New extends Component {
 
   onPressButton = () => {
     const { navigation, getReference } = this.props;
-    const { inputSave } = this.state;
+    const { inputSave, showAlert } = this.state;
+    this.setState({ showAlert: true});
     if(inputSave) {
       getReference(this.state.inputSave);
       navigation.navigate('StepList' , { inputSave: this.state.inputSave });

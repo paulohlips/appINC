@@ -11,12 +11,11 @@ import styles from './styles';
 import StepBox from './components/StepBox';
 import { Load } from '../../components';
 import { Header } from '../../globalComponents';
+
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { bindActionCreators } from 'redux';
 import { Creators as FormAction} from '../../store/ducks/form';
-
-  
 
 class StepList extends Component {
   state ={
@@ -64,31 +63,7 @@ class StepList extends Component {
   }
 
 
-  async enviaDados() {
-    const dadosDenatran = await AsyncStorage.getItem('@InfoPlaca');
-    const dadosFipe = await AsyncStorage.getItem('@InfoFipe');
-    const geoloc = await AsyncStorage.getItem('@Geolocalizacao');
-    const date = await AsyncStorage.getItem('@Date');
-    const foto = await AsyncStorage.getItem('@Foto');
-
-    console.tron.log(['Geoloc', geoloc]);
-    console.tron.log(['DadosFipe', dadosFipe]);
-
-    axios({     
-      method: 'post',
-      url: 'http://35.231.239.168/api/pericia/formulario/envio',
-      data: {
-        form_name: this.state.form.form_name,
-        data_inicio: '2019-01-18',
-        data_despacho:  date,
-        data_final: '2019-01-18',
-        info_veiculo: dadosDenatran,
-        local_pericia: geoloc,
-        foto: foto,
-      } 
-    });    
-  }
-
+  
   enviaForm = async () => {
     const { formulario } = this.props;
     const data = new FormData();
