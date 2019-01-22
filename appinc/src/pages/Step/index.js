@@ -22,7 +22,7 @@ class StepPage extends Component {
   render() {
     const { navigation } = this.props;
     const step = navigation.getParam('step');
-    console.tron.log(this.props);
+    //console.tron.log(this.props);
 
     return (
       <View style={styles.container}>
@@ -30,6 +30,7 @@ class StepPage extends Component {
         title={this.props.navigation.state.params.step.step_name} 
         showArrow 
         showInfo
+        info={this.props.navigation.state.params.step.info_step}
         goBack={this.props.navigation.goBack} 
       />
         <ScrollView>

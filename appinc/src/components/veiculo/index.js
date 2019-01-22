@@ -38,7 +38,7 @@ class Veiculos extends Component {
      AsyncStorage.setItem('@Marcas', JSON.stringify(resp.data));
      this.getMarcas();
    }).catch(err => {
-     console.tron.log(err);
+     //console.tron.log(err);
    });
 
 
@@ -55,7 +55,7 @@ class Veiculos extends Component {
         AsyncStorage.setItem('@InfoPlaca', JSON.stringify(resp.data));
         this.getDadosPlaca();
       }).catch(err => {
-        console.tron.log(err);
+        //console.tron.log(err);
       });
   }
 
@@ -69,7 +69,7 @@ class Veiculos extends Component {
 
 
   consultaFipe = () => {
-    console.tron.log(['MARCA PICKER', this.state.anos])
+    //console.tron.log(['MARCA PICKER', this.state.anos])
 
     this.setState({
       urlFipe: 'http://fipeapi.appspot.com/api/1/carros/veiculo/'+this.state.marca+'/'+this.state.modelo+'/'+this.state.anos+'.json',
@@ -79,7 +79,7 @@ class Veiculos extends Component {
         AsyncStorage.setItem('@InfoFipe', JSON.stringify(resp.data));
         this.getDadosFipe();
       }).catch(err => {
-        console.tron.log(err);
+        //console.tron.log(err);
       });
   }
 
@@ -97,7 +97,7 @@ class Veiculos extends Component {
         AsyncStorage.setItem('@Marcas', JSON.stringify(resp.data));
         this.getMarcas();
       }).catch(err => {
-        console.tron.log(err);
+        //console.tron.log(err);
       });
   }
 
@@ -128,7 +128,7 @@ class Veiculos extends Component {
       AsyncStorage.setItem('@Modelos', JSON.stringify(resp.data));
       this.getModelos();
     }).catch(err => {
-      console.tron.log(err);
+      //console.tron.log(err);
     });
 }
 
@@ -158,7 +158,7 @@ pegaAno = (value) => {
     AsyncStorage.setItem('@Ano', JSON.stringify(resp.data));
     this.getAno();
   }).catch(err => {
-    console.tron.log(err);
+    //console.tron.log(err);
   });
 }
 
@@ -168,7 +168,7 @@ async getAno() {
   this.setState({
     dadosAno : dadosAno,
   });
-  console.tron.log(["Ano", dadosAno]);
+  //console.tron.log(["Ano", dadosAno]);
 
 
   const ano = this.state.dadosAno;
@@ -180,13 +180,13 @@ saveFormVeiculo = data => {
   const { dadosVeiculo, dadosFipe } = this.state;
   const { form, getSaveStateForm, startControlArray } = this.props;
 
-  console.tron.log(['teste salvar info veiculo', dadosVeiculo, dadosFipe]);
+  //console.tron.log(['teste salvar info veiculo', dadosVeiculo, dadosFipe]);
   if ( dadosVeiculo ) {
     for (var key in form.step) {
       if ( key === data.data_name) {
         const form = {};
         form[data.data_name] = { key: data.data_name, value: { ...dadosVeiculo, dadosFipe } };
-        console.tron.log(['formsavecampo', form])
+        //console.tron.log(['formsavecampo', form])
         getSaveStateForm(form);
       }
     }

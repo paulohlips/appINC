@@ -26,7 +26,7 @@ class MyDatePicker extends Component {
         if ( key === data.data_name) {
           const form = {};
           form[data.data_name] = { key: data.data_name, value: dataAtual};
-          console.tron.log(['formsavecampo', form])
+          //console.tron.log(['formsavecampo', form])
           getSaveStateForm(form);
         }
       }
@@ -36,7 +36,7 @@ class MyDatePicker extends Component {
         if ( key === data.data_name) {
           const form = {};
           form[data.data_name] = { key: data.data_name, value: date};
-          console.tron.log(['formsavecampo', form])
+          //console.tron.log(['formsavecampo', form])
           getSaveStateForm(form);
         }
       }
@@ -48,7 +48,7 @@ class MyDatePicker extends Component {
   render() {
     const { data_name, label, hint, default_value, newState} = this.props.data;
     const { saveStep } = this.props.form;
-    console.tron.log(['redux date', this.props]); 
+    //console.tron.log(['redux date', this.props]); 
     
     if (saveStep) {
       this.saveFormInput({data_name, default_value});

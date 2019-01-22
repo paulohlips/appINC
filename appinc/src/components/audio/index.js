@@ -74,7 +74,7 @@ class AudioRec extends Component {
     }
 
     componentDidMount() {
-      console.tron.log(this.state.audioPath)
+      //console.tron.log(this.state.audioPath)
       this._checkPermission().then((hasPermission) => {
         this.setState({ hasPermission });
 
@@ -265,7 +265,7 @@ class AudioRec extends Component {
 
     _finishRecording(didSucceed, filePath, fileSize) {
       this.setState({ finished: didSucceed });
-      console.tron.log(`Finished recording of duration ${this.state.currentTime} seconds at path: ${filePath} and size of ${fileSize || 0} bytes`);
+      //console.tron.log(`Finished recording of duration ${this.state.currentTime} seconds at path: ${filePath} and size of ${fileSize || 0} bytes`);
     }
 
 
