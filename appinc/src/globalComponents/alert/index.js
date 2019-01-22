@@ -2,32 +2,12 @@ import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
  
 import AwesomeAlert from 'react-native-awesome-alerts';
- 
-export default class App extends React.Component {
- 
-  constructor(props) {
-    super(props);
-    this.state = { showAlert: false };
-  };
- 
-  showAlert = () => {
-    this.setState({
-      showAlert: true
-    });
-  };
- 
-  hideAlert = () => {
-    this.setState({
-      showAlert: false
-    });
-  };
- 
-  render() {
-    const {showAlert} = this.state;
- 
+
+const Alert = (props) => {
+  const { showAlert } = props;
+
     return (
       <View style={styles.container}>
- 
         <Text>I'm AwesomeAlert</Text>
         <TouchableOpacity onPress={() => {
           this.showAlert();
@@ -36,6 +16,8 @@ export default class App extends React.Component {
             <Text style={styles.text}>Try me!</Text>
           </View>
         </TouchableOpacity>
+        {
+        showAlert && (
  
         <AwesomeAlert
           show={showAlert}
@@ -56,10 +38,10 @@ export default class App extends React.Component {
             this.hideAlert();
           }}
         />
+        )}
       </View>
     );
   };
-};
  
 const styles = StyleSheet.create({
   container: {
@@ -80,3 +62,4 @@ const styles = StyleSheet.create({
     fontSize: 15
   }
 });
+

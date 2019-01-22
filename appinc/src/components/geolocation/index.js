@@ -63,13 +63,13 @@ class GeoLocation extends Component {
     const { position } = this.state;
     const { form, getSaveStateForm, startControlArray } = this.props;
 
-    console.tron.log(form.step);
+    //console.tron.log(form.step);
     if ( position ) {
       for (var key in form.step) {
         if ( key === data.data_name) {
           const form = {};
           form[data.data_name] = { key: data.data_name, value: position};
-          console.tron.log(['formsavecampo', form])
+          //console.tron.log(['formsavecampo', form])
           getSaveStateForm(form);
         }
       }
@@ -80,7 +80,7 @@ class GeoLocation extends Component {
   render() {
     const { data_name, label, hint, default_value, newState} = this.props.data;
     const { saveStep, step } = this.props.form;
-    console.tron.log(['props', this.props]);
+    //console.tron.log(['props', this.props]);
     // this.props.startControlArray();
 
     if (saveStep) {

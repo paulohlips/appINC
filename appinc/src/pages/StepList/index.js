@@ -6,23 +6,25 @@ import {
   AsyncStorage,
   TouchableOpacity,
   Text, 
+  Alert
 } from 'react-native';
 import styles from './styles';
 import StepBox from './components/StepBox';
 import { Load } from '../../components';
 import { Header } from '../../globalComponents';
-
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { bindActionCreators } from 'redux';
 import { Creators as FormAction} from '../../store/ducks/form';
+import AwesomeAlert from 'react-native-awesome-alerts';
 
 class StepList extends Component {
   state ={
     modalVisible: false,
     load: false,
     form: '',
-    teste: 10
+    teste: 10,
+    showAlert: false
   }
 
   async componentWillMount() {
@@ -45,17 +47,8 @@ class StepList extends Component {
 
   saveForm = () => {
     const { reference, saveForm } = this.props;
-    console.tron.log(['saveformstep', reference]);
+    //console.tron.log(['saveformstep', reference]);
     saveForm(reference);
-  }
-
-  sendForm = async () => {
-    try {
-      const response = await AsyncStorage.getItem('arrayRef');
-      console.tron.log(['sendForm', response]);
-    } catch (error) {
-      console.tron.log(['sendForm', 'error']);
-    }
   }
 
   resetAsync = () => {
@@ -63,6 +56,7 @@ class StepList extends Component {
   }
   
   enviaForm = async () => {
+    //this.setState({ showAlert: true });
     const { formulario } = this.props;
     const data = new FormData();
     data.append('form_name', this.state.form.form_name);
@@ -72,8 +66,8 @@ class StepList extends Component {
       //console.tron.log(['elemente forech', formulario.step[key]])
     }
      
-    console.tron.log(['elemente forech', data]); 
-    console.log(['elemente forech', data]);  
+    //console.tron.log(['elemente forech', data]); 
+    //console.log(['elemente forech', data]);  
 
     axios({
       method: 'post',
@@ -87,23 +81,23 @@ class StepList extends Component {
       })
       .then(function (response) {
           //handle success
-          console.log(response); 
+          Alert.alert('ID do laudo','O número do seu laudo é '+response.data.number);
+          
       }) 
       .catch(function (response) {
           //handle error
           console.log(response);
+          alert(response);
       });
   }
 
   render() {
-    console.tron.log(this.props);
+    //console.tron.log(this.props);
     const { navigation } = this.props;
     //const { steps } = this.props;
-    const { modalVisible, load } = this.state;    
+    const { modalVisible, load, showAlert } = this.state;    
     const form = this.props.navigation.getParam('form', this.state.form);
-    console.tron.log('forme do ayrotn', form);
-   
-
+    //console.tron.log('FORMEEE',form);
     const { steps, form_name } = this.state.form;
 
     return (
@@ -115,6 +109,7 @@ class StepList extends Component {
           info={form.info_form}
           goBack={this.props.navigation.goBack} 
         />
+
         <ScrollView>
 
         <FlatList
