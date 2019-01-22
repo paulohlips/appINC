@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, Image, ScrollView, AsyncStorage } from 'react-native';
 import styles from './styles';
 
-//import { connect } from 'react-redux';
-//import { bindActionCreators } from 'redux';
-//import { Creators as GeoActions } from '../../store/ducks/geolocation';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Creators as FormActions } from '../../store/ducks/form';
 
 
 class GeoLocation extends Component {
@@ -46,6 +46,7 @@ class GeoLocation extends Component {
         AsyncStorage.setItem('@Geolocalizacao', (JSON.stringify( position)));
 
         this.setState({
+          position: position,
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
           acuracia: position.coords.accuracy,
@@ -53,21 +54,38 @@ class GeoLocation extends Component {
           error: null,
         });
       },
-      (error) => this.setState({ error: error.message }),
+      (error) => this.setState({ error: error.message, position: 'GPS indísponivel' }),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
-    );
-
-    
+    );    
    };
 
-   submitGeolocation = () => {
+   saveFormGeoloc = data => {
+    const { position } = this.state;
+    const { form, getSaveStateForm, startControlArray } = this.props;
 
-
-   }
-
+    console.tron.log(form.step);
+    if ( position ) {
+      for (var key in form.step) {
+        if ( key === data.data_name) {
+          const form = {};
+          form[data.data_name] = { key: data.data_name, value: position};
+          console.tron.log(['formsavecampo', form])
+          getSaveStateForm(form);
+        }
+      }
+    }
+    startControlArray();
+  }
  
   render() {
-    const { label } = this.props.data;
+    const { data_name, label, hint, default_value, newState} = this.props.data;
+    const { saveStep, step } = this.props.form;
+    console.tron.log(['props', this.props]);
+    // this.props.startControlArray();
+
+    if (saveStep) {
+      this.saveFormGeoloc({data_name, default_value});
+    }
     return (
       <View style={styles.container}>
       <View>
@@ -114,10 +132,10 @@ class GeoLocation extends Component {
 }
 
 const mapStateToProps = state => ({
-  geoloc: state.geolocation,
+  form: state.formState,
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators(GeoActions, dispatch);
+  bindActionCreators(FormActions, dispatch);
 
-export default GeoLocation;
+export default connect(mapStateToProps, mapDispatchToProps)(GeoLocation);

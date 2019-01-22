@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import {View, Alert } from 'react-native';
+import {View, Alert, Text } from 'react-native';
 import BarcodeScanner from 'react-native-barcode-scanner-google';
+import styles from './styles';
  
  
 class Scanner extends Component {
 
   state = {
     vetor: [], 
+    data: '',
   }
 
   onPress = () => {
@@ -15,18 +17,19 @@ class Scanner extends Component {
 
   render() {
     return (
-      <View style={{flex: 1}}>
+      <View style={{justifyContent: 'center', alignItem: 'center'}}>
           <BarcodeScanner
-              style={{flex: 1}}
+              style={{width:330, height: 250, rigth:50}}
               onBarcodeRead={({data}) => {
                 const { vetor } = this.state;
                 Alert.alert(`Código'${data}' lido com sucesso.`);
-                this.setState({ vetor: [...vetor, data] }); //Guarda o valor de todos os códigos lidos.
+                this.setState({ data }); //Guarda o valor de todos os códigos lidos.
                 console.log(vetor);
               }}
           />
-
-      </View>
+            <Text style={styles.input}> Código:{this.state.data} </Text>
+      </View>  
+   
     );
   }
 }

@@ -1,12 +1,21 @@
 import React from 'react';
 import { View, ScrollView } from 'react-native';
-import { InputText, AudioRec, Camera, MyDatePicker, GeoLocation, Veiculos, Check } from '../../../../components';
+import { InputText, AudioRec, Camera, MyDatePicker, GeoLocation, Veiculos, Check, Scanner} from '../../../../components';
 import styles from './styles';
 
 
 const ComponentList = (props) => (
     <View style={styles.container}>
       <ScrollView>
+
+        {
+          props.data.component_type === 'scanner' && (
+            <View style={styles.component}>
+              <Scanner data={props.data} />
+            </View>
+          )
+        }
+
         {
           props.data.component_type === 'camera' && (
             <View style={styles.component}>
