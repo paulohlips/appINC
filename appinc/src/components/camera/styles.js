@@ -50,6 +50,12 @@ const styles = StyleSheet.create({
 
     },
 
+    text: {
+      color: colors.dark,
+      fontSize: 18,
+      fontWeight: '200',
+    },
+
 
     //input text
     containerText: {
@@ -75,6 +81,11 @@ const styles = StyleSheet.create({
       borderRadius: 4,
       paddingLeft: 20,
       fontSize: 16,
+    },
+
+    avatar:{
+      width:responsividade.LARGURAFOTO,
+      
     }
   });
 

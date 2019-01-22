@@ -34,10 +34,10 @@ class Hist extends Component {
   requestFroms = () => {
     axios.get('http://35.231.239.168/api/pericia/formularios/1')
       .then((resp) => {
-        console.tron.log(['Requisição', resp.data]);
+        //console.tron.log(['Requisição', resp.data]);
         AsyncStorage.setItem('@Form', JSON.stringify(resp.data));
       }).catch(err => {
-        console.tron.log(err);
+        //console.tron.log(err);
       });
   }
 
@@ -46,7 +46,7 @@ class Hist extends Component {
     .then((resp) => {
       AsyncStorage.setItem('@Querry', JSON.stringify(resp.data));
     }).catch(err => {
-      console.tron.log(err);
+      //console.tron.log(err);
     });
   }
 
@@ -57,7 +57,7 @@ class Hist extends Component {
   componentWillMount() {
     this.requestFroms();
     this.requestQuerry();
-    console.tron.log(this.props);
+    //console.tron.log(this.props);
   }
 
   componentDidMount() {
@@ -69,7 +69,7 @@ class Hist extends Component {
 
   render() {
     const { navigation } = this.props;
-    console.tron.log(navigation);
+    //console.tron.log(navigation);
 
     return (
       <View style={styles.container}>

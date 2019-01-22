@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { View, Text, Picker, TouchableOpacity, ScrollView, AsyncStorage, TextInput, Animated } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Header } from '../../globalComponents';
-import { Alert } from '../../globalComponents';
 import axios from 'axios';
 import styles from './styles';
+import AwesomeAlert from 'react-native-awesome-alerts';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -43,11 +43,11 @@ class New extends Component {
     const valueForm = await AsyncStorage.getItem('@Form');
     const formLocal = JSON.parse(valueForm);
     this.setState({ form: formLocal});
-    console.tron.log(["Form:",this.state.form]);
+    //console.tron.log(["Form:",this.state.form]);
     const valueQuerry = await AsyncStorage.getItem('@Querry');
     const formQuerryLocal = JSON.parse(valueQuerry);
     this.setState({ formQuerry: formQuerryLocal});
-    console.tron.log(["Query",this.state.formQuerry]);
+    //console.tron.log(["Query",this.state.formQuerry]);
     this.incrementarFuncao();
   }
 
@@ -57,7 +57,7 @@ class New extends Component {
     const numeroFinal = numeroBase + 1;
     this.setState({ incrementar : numeroFinal});
     this.setState({ contador: [...contador,incrementar]})
-    console.tron.log(["contador", contador]);
+    //console.tron.log(["contador", contador]);
 
 
   }
@@ -84,7 +84,7 @@ class New extends Component {
   }
 
   onAreaPickerChange = () => {
-    console.tron.log(["onAreaPicker",this.state.formQuerry]);
+    //console.tron.log(["onAreaPicker",this.state.formQuerry]);
     if(this.state.formQuerry[0].area_name == this.state.tipo)
     {
       //Renderiza o picker em relação a primeira selacao do Picker
@@ -100,7 +100,7 @@ class New extends Component {
   classePickerOne = async (value) => {
     const classe = this.state.formQuerry[0].classes;
     await this.setState({ classe });
-    const testeclasse = classe.map(item => console.tron.log(item.classe_name));
+    //const testeclasse = classe.map(item => console.tron.log(item.classe_name));
     this.setState({ subtipo: value},
       () => {
       }
@@ -110,13 +110,13 @@ class New extends Component {
   classePickerSecond = async (value) => {
     const classe = this.state.formQuerry[1].classes;
     await this.setState({ classe })
-    const teste = classe.map(item => console.tron.log(item.classe_name));
+    //const teste = classe.map(item => console.tron.log(item.classe_name));
   }
 
   subClassePicker = (value) => {
     this.setState({ subtipo: value},
       () => {
-        console.tron.log(["Funfou",this.state.subtipo])
+        //console.tron.log(["Funfou",this.state.subtipo])
         this.onSubClassePickerChange();
       }
     );
@@ -132,7 +132,7 @@ class New extends Component {
   }
 
   onSubClassePickerChange = () => {
-    console.tron.log(["onSubClassePicker",this.state.formQuerry[0].classes[1].classe_name]);
+    //console.tron.log(["onSubClassePicker",this.state.formQuerry[0].classes[1].classe_name]);
     if(this.state.formQuerry[0].classes[0].classe_name == this.state.subtipo)
     {
       //Renderiza o picker em relação a primeira selacao do Picker
@@ -159,7 +159,7 @@ class New extends Component {
     const subClasse = this.state.formQuerry[0].classes[0].sub_classe;
     await this.setState({ subClasse },
     () => {
-      console.tron.log(["SubClasse",this.state.subClasse]);
+      //console.tron.log(["SubClasse",this.state.subClasse]);
     });
     const testeSubClasse = this.state.subClasse.map(item => console.tron.log(item.subclasse_name));
   }
@@ -168,7 +168,7 @@ class New extends Component {
     const subClasse = this.state.formQuerry[0].classes[1].sub_classe;
     await this.setState({ subClasse },
     () => {
-      console.tron.log(["SubClasse",this.state.subClasse]);
+      //console.tron.log(["SubClasse",this.state.subClasse]);
     });
     const testeSubClasse = this.state.subClasse.map(item => console.tron.log(item.subclasse_name));
   }
@@ -178,7 +178,7 @@ class New extends Component {
     const subClasse = this.state.formQuerry[1].classes[0].sub_classe;
     await this.setState({ subClasse },
     () => {
-      console.tron.log(["SubClasse",this.state.subClasse]);
+      //console.tron.log(["SubClasse",this.state.subClasse]);
     });
     const testeSubClasse = this.state.subClasse.map(item => console.tron.log(item.subclasse_name));
   }
@@ -188,7 +188,7 @@ class New extends Component {
     const subClasse = this.state.formQuerry[1].classes[1].sub_classe;
     await this.setState({ subClasse },
     () => {
-      console.tron.log(["SubClasse",this.state.subClasse]);
+      //console.tron.log(["SubClasse",this.state.subClasse]);
     });
     const testeSubClasse = this.state.subClasse.map(item => console.tron.log(item.subclasse_name));
   }
@@ -208,8 +208,8 @@ class New extends Component {
 
   onPressButton = () => {
     const { navigation, getReference } = this.props;
-    const { inputSave, showAlert } = this.state;
-    this.setState({ showAlert: true});
+    const { inputSave } = this.state;
+    this.setState({ showAlert: true });
     if(inputSave) {
       getReference(this.state.inputSave);
       navigation.navigate('StepList' , { inputSave: this.state.inputSave });
@@ -219,14 +219,14 @@ class New extends Component {
     }
   }
 
-  reqUrl = (value) => {
+  reqUrl = (value) => {   
     axios.get('http://35.231.239.168/api/pericia/formularios/'+value)
       .then((resp) => {
-        console.tron.log(['Requisição New', resp.data]);
+        //console.tron.log(['Requisição New', resp.data]);
         AsyncStorage.setItem('@Formulario', JSON.stringify(resp.data));
         this.setUrl();
       }).catch(err => {
-        console.tron.log(err);
+        //console.tron.log(err);
       });
   }
 
@@ -245,23 +245,24 @@ class New extends Component {
             duration: 2000,              // Make it take a while
           }
         ).start();
-    console.tron.log(['Opa', this.state.resposta])
+    //console.tron.log(['Opa', this.state.resposta])
   }
 
   render() {
-    const { tipo, subtipo, ssubtipo, formQuerry, classe, subClasse, incrementar, contador, showRef ,fadeAnim_ref, fadeAnim , fadeAnim_l , fadeAnim_s, baseUrl } = this.state;
+    const { tipo, subtipo, ssubtipo, formQuerry, classe, subClasse, incrementar, contador, showRef ,fadeAnim_ref, fadeAnim , fadeAnim_l , fadeAnim_s, baseUrl, showAlert } = this.state;
     const { navigation } = this.props;
 
     return (
+
+      
       <View style={styles.container}>
+
         <Header
           title='Nova Pericia'
           showMenu
           openMenu={navigation.toggleDrawer}
         />
         <ScrollView>
-
-
 
         <View style={styles.forms1}>
           <View style={styles.title}>
@@ -309,6 +310,32 @@ class New extends Component {
                   </Animated.View>
           )
         }
+
+        {
+          showAlert && (
+ 
+        <AwesomeAlert
+          show={showAlert}
+          showProgress={false}
+          title="Começar perícia?"
+          message="I have a message for you!"
+          closeOnTouchOutside={true}
+          closeOnHardwareBackPress={false}
+          showCancelButton={true}
+          showConfirmButton={true}
+          cancelText="No, cancel"
+          confirmText="Yes, delete it"
+          confirmButtonColor="#DD6B55"
+          onCancelPressed={() => {
+            this.hideAlert();
+          }}
+          onConfirmPressed={() => {
+            this.onPressButton();
+          }}
+        />
+          )
+        }
+
             <TouchableOpacity style={styles.button} onPress={() => this.onPressButton()}>
               <Text style={styles.buttonText}>
                 Continuar
