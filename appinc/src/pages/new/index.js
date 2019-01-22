@@ -161,7 +161,7 @@ class New extends Component {
     () => {
       //console.tron.log(["SubClasse",this.state.subClasse]);
     });
-    const testeSubClasse = this.state.subClasse.map(item => console.tron.log(item.subclasse_name));
+    //const testeSubClasse = this.state.subClasse.map(item => console.tron.log(item.subclasse_name));
   }
 
   subClassePickerSecond = async (value) => {
@@ -170,7 +170,7 @@ class New extends Component {
     () => {
       //console.tron.log(["SubClasse",this.state.subClasse]);
     });
-    const testeSubClasse = this.state.subClasse.map(item => console.tron.log(item.subclasse_name));
+    //const testeSubClasse = this.state.subClasse.map(item => console.tron.log(item.subclasse_name));
   }
 
 
@@ -180,7 +180,7 @@ class New extends Component {
     () => {
       //console.tron.log(["SubClasse",this.state.subClasse]);
     });
-    const testeSubClasse = this.state.subClasse.map(item => console.tron.log(item.subclasse_name));
+    //const testeSubClasse = this.state.subClasse.map(item => console.tron.log(item.subclasse_name));
   }
 
 
@@ -190,7 +190,7 @@ class New extends Component {
     () => {
       //console.tron.log(["SubClasse",this.state.subClasse]);
     });
-    const testeSubClasse = this.state.subClasse.map(item => console.tron.log(item.subclasse_name));
+    //const testeSubClasse = this.state.subClasse.map(item => console.tron.log(item.subclasse_name));
   }
 
   lastPicker = () => {
@@ -280,6 +280,7 @@ class New extends Component {
                 <Picker.Item label='Selecione a perícia' />
                 <Picker.Item label='Veículos' value='4' />
                 <Picker.Item label='Arrombamento de caixa' value='6' />
+                <Picker.Item label='Incêndio' value='7' />
                 <Picker.Item label='Exemplo' value='1' />
               </Picker>
 
