@@ -4,16 +4,6 @@ import { withNavigation } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
 
-// linha 45
-// <View style={styles.concerto}>
-//   {
-//     showExit && (
-//       <TouchableOpacity>
-//         <Icon name="md-exit" size={28} style={styles.iconExit} />
-//       </TouchableOpacity>
-//     )
-//   }
-// </View>
 
 const Header = (props) => {
   const { showArrow, showMenu, showExit, showInfo, goBack, openMenu, title } = props;

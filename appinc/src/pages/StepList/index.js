@@ -11,18 +11,19 @@ import styles from './styles';
 import StepBox from './components/StepBox';
 import { Load } from '../../components';
 import { Header } from '../../globalComponents';
-
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { bindActionCreators } from 'redux';
 import { Creators as FormAction} from '../../store/ducks/form';
+import AwesomeAlert from 'react-native-awesome-alerts';
 
 class StepList extends Component {
   state ={
     modalVisible: false,
     load: false,
     form: '',
-    teste: 10
+    teste: 10,
+    showAlert: false
   }
 
   async componentWillMount() {
@@ -49,22 +50,12 @@ class StepList extends Component {
     saveForm(reference);
   }
 
-  sendForm = async () => {
-    try {
-      const response = await AsyncStorage.getItem('arrayRef');
-      console.tron.log(['sendForm', response]);
-    } catch (error) {
-      console.tron.log(['sendForm', 'error']);
-    }
-  }
-
   resetAsync = () => {
     AsyncStorage.clear();
   }
 
-
-  
   enviaForm = async () => {
+    //this.setState({ showAlert: true });
     const { formulario } = this.props;
     const data = new FormData();
     data.append('form_name', this.state.form.form_name);
@@ -89,11 +80,13 @@ class StepList extends Component {
       })
       .then(function (response) {
           //handle success
-          console.log(response); 
+          console.tron.log(['NUMERO LAUDO',response]); 
+          alert(response);
       }) 
       .catch(function (response) {
           //handle error
           console.log(response);
+          alert(response);
       });
   }
 
@@ -101,7 +94,7 @@ class StepList extends Component {
     console.tron.log(this.props);
     const { navigation } = this.props;
     //const { steps } = this.props;
-    const { modalVisible, load } = this.state;    
+    const { modalVisible, load, showAlert } = this.state;    
     const form = this.props.navigation.getParam('form', this.state.form);
     console.tron.log('FORMEEE',form);
    
@@ -115,6 +108,7 @@ class StepList extends Component {
           showInfo
           goBack={this.props.navigation.goBack} 
         />
+
         <ScrollView>
 
         <FlatList

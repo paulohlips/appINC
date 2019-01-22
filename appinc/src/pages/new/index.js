@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { View, Text, Picker, TouchableOpacity, ScrollView, AsyncStorage, TextInput, Animated } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Header } from '../../globalComponents';
-import { Alert } from '../../globalComponents';
 import axios from 'axios';
 import styles from './styles';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Creators as NewActions } from '../../store/ducks/new';
+import AwesomeAlert from 'react-native-awesome-alerts';
 
 
 class New extends Component {
@@ -208,8 +208,8 @@ class New extends Component {
 
   onPressButton = () => {
     const { navigation, getReference } = this.props;
-    const { inputSave, showAlert } = this.state;
-    this.setState({ showAlert: true});
+    const { inputSave } = this.state;
+    this.setState({ showAlert: true });
     if(inputSave) {
       getReference(this.state.inputSave);
       navigation.navigate('StepList' , { inputSave: this.state.inputSave });
@@ -249,19 +249,20 @@ class New extends Component {
   }
 
   render() {
-    const { tipo, subtipo, ssubtipo, formQuerry, classe, subClasse, incrementar, contador, showRef ,fadeAnim_ref, fadeAnim , fadeAnim_l , fadeAnim_s, baseUrl } = this.state;
+    const { tipo, subtipo, ssubtipo, formQuerry, classe, subClasse, incrementar, contador, showRef ,fadeAnim_ref, fadeAnim , fadeAnim_l , fadeAnim_s, baseUrl, showAlert } = this.state;
     const { navigation } = this.props;
 
     return (
+
+      
       <View style={styles.container}>
+
         <Header
           title='Nova Pericia'
           showMenu
           openMenu={navigation.toggleDrawer}
         />
         <ScrollView>
-
-
 
         <View style={styles.forms1}>
           <View style={styles.title}>
@@ -309,6 +310,32 @@ class New extends Component {
                   </Animated.View>
           )
         }
+
+        {
+          showAlert && (
+ 
+        <AwesomeAlert
+          show={showAlert}
+          showProgress={false}
+          title="Começar perícia?"
+          message="I have a message for you!"
+          closeOnTouchOutside={true}
+          closeOnHardwareBackPress={false}
+          showCancelButton={true}
+          showConfirmButton={true}
+          cancelText="No, cancel"
+          confirmText="Yes, delete it"
+          confirmButtonColor="#DD6B55"
+          onCancelPressed={() => {
+            this.hideAlert();
+          }}
+          onConfirmPressed={() => {
+            this.onPressButton();
+          }}
+        />
+          )
+        }
+
             <TouchableOpacity style={styles.button} onPress={() => this.onPressButton()}>
               <Text style={styles.buttonText}>
                 Continuar
