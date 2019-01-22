@@ -84,7 +84,7 @@ class MyDatePicker extends Component {
               },
             }}
             onDateChange={(date) => { this.setState({ date }); this.getDate(); }}
-            onDateChange={(date)=>AsyncStorage.setItem('@Date', date)}
+           
           />
 
           <View style={styles.datecontainer}>
