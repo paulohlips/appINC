@@ -11,7 +11,7 @@ import { Creators as FormActions } from '../../store/ducks/form';
 class GeoLocation extends Component {
 
    state = {
-      dataGeo: '',
+     dataGeo: '',
      position: null,
      latitude: null,
      longitude: null,
@@ -25,8 +25,7 @@ class GeoLocation extends Component {
 
     for (var key in form.step) {
       if ( key === data.data_name) {        
-        if(form.step[key].filled === true) {
-          this.setState({ inputSave: form.step[key].value });
+        if(form.step[key].filled === true) {          
           if(form.step[key].position !== null) {
             this.setState({
               position: form.step[key].value,
@@ -36,7 +35,9 @@ class GeoLocation extends Component {
               altitude: form.step[key].value.coords.altitude,
               error: null,
             });
-          }         
+          } else {
+            this.setState({ error: true });
+          }        
         }
       }
     }
