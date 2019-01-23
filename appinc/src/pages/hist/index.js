@@ -10,6 +10,7 @@ import { Header } from '../../globalComponents';
 
 import { NavigationActions, withNavigation } from 'react-navigation';
 
+ 
 const dias = 23;
 class Hist extends Component {
   
@@ -105,13 +106,29 @@ class Hist extends Component {
        <View style={styles.container}>
 
  
+     <View style ={styles.box}>
+
      
-          <Text
-            style={styles. textLink}
-            onPress={() => {Linking.openURL('http://35.231.239.168/pericia/links.php?id_pericia='+this.state.IDLaudo)}}
-          >Acessar Laudo nº    
-            {' '+this.state.IDLaudo}
-          </Text>
+     <TouchableOpacity onPress={() => {Linking.openURL('http://35.231.239.168/pericia/links.php?id_pericia='+this.state.IDLaudo)}}>
+          <View style={styles.card_titulo}>
+          <Text style={styles.titulo}>Referência</Text>
+           
+          </View>
+          <View style={styles.card_descricao}>
+          <Text style={styles.num}>Acessar Laudo nº    
+            {' '+this.state.IDLaudo}</Text>
+          </View>
+
+          
+
+        </TouchableOpacity>
+
+          
+
+
+     </View>
+
+          
     
 
       </View>

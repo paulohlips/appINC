@@ -233,7 +233,7 @@ class Camera extends React.Component {
           </View>
           </View>
           { this.state.avatarSource === null ?
-            <Text>oi</Text>
+           
           :
             <Image style={styles.avatar} source={this.state.avatarSource} />
           }
