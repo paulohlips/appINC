@@ -4,12 +4,18 @@ import { withNavigation } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
 import Info from '../info';
+import Alert from '../alert';
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Creators as FormActions } from '../../store/ducks/form';
 
-class Header extends Component {
+class HeaderRedux extends Component {
   state ={
     modalVisible: false,
     showModalInfo: false,
+    showAlert: false,
+    alertVisible: false,
   }
 
   openInfo = () => {
@@ -20,9 +26,28 @@ class Header extends Component {
     this.setState({ modalVisible: false, showModalInfo: false });
   }
 
+  openAlert = () => {
+    this.setState({ showAlert: true, alertVisible: true })
+  }
+
+  closeAlert = () => {
+    this.setState({ showAlert: false, alertVisible: false })
+  }
+
   render() {  
-    const { showArrow, showMenu, showInfo, goBack, openMenu, title, info } = this.props;
-    const { showModalInfo } = this.state;    
+    const { 
+      showArrow, 
+      showMenu, 
+      showInfo, 
+      goBack, 
+      openMenu, 
+      title, 
+      info, 
+      startUpdateProgress,
+      showProgress,
+      saveStepState,
+    } = this.props;
+    const { showModalInfo, showAlert } = this.state;    
 
     return (
       <View style={styles.header}>
@@ -38,7 +63,14 @@ class Header extends Component {
             }
             {
               showArrow && (
-                <TouchableOpacity onPress={() => goBack()} >
+                <TouchableOpacity onPress={() => {                    
+                    if(showProgress){
+                      startUpdateProgress();
+                      saveStepState();
+                    }
+                    goBack();                                  
+                  }} 
+                >
                   <Icon name="md-arrow-back" size={28} style={styles.iconMenu} />
                 </TouchableOpacity>
               )
@@ -65,10 +97,27 @@ class Header extends Component {
                 />
               )
             }
+            {
+              showAlert && (
+                <Alert
+                  alertVisible
+                  goBack={goBack}
+                  closeModalAlert={this.closeAlert}
+                />
+              )
+            }
           </View>
       </View>
     );
   }
 }
 
+const mapStateToProps = state => ({
+  form: state.formState,
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(FormActions, dispatch);
+
+const Header = connect(mapStateToProps, mapDispatchToProps)(HeaderRedux)
 export default withNavigation(Header);
