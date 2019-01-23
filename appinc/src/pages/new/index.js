@@ -221,6 +221,7 @@ class New extends Component {
   reqUrl = (value) => {   
     axios.get('http://35.231.239.168/api/pericia/formularios/'+value)
       .then((resp) => {
+        this.setState({ baseUrl: value})
         //console.tron.log(['Requisição New', resp.data]);
         AsyncStorage.setItem('@Formulario', JSON.stringify(resp.data));
         this.setUrl();
