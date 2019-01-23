@@ -227,16 +227,11 @@ class Camera extends React.Component {
 
         <TouchableOpacity onPress={() => this.pickSingleWithCamera(true)}>
           <View style = {styles.avatarContainer}>
-          <View style = {styles.avatarContainer2}><Icon name="add-a-photo" size={30} style={styles.icon} />
-          <View style = {styles.text_foto}>
-          <Text style = {styles.text}>Tirar uma foto</Text>
-          </View>
-          </View>
-          { this.state.avatarSource === null ?
-           
-          :
-            <Image style={styles.avatar} source={this.state.avatarSource} />
-          }
+            <View style = {styles.avatarContainer2}><Icon name="add-a-photo" size={30} style={styles.icon} />
+              <View style = {styles.text_foto}>
+                <Text style = {styles.text}>Tirar uma foto</Text>
+              </View>
+            </View>          
           </View>
         </TouchableOpacity>
 
