@@ -27,25 +27,32 @@ class Veiculos extends Component {
      listaMarcas: 'paulo',
      renderPicker: false,
      ano: '',
-
-
-
    }
 
   async componentWillMount() {
+    const { form, data } = this.props;
+
+    for (var key in form.step) {
+      if ( key === data.data_name) {        
+        if(form.step[key].filled === true) {
+          this.setState({ dadosVeiculo: form.step[key].value, viewDenatran: true });
+          console.tron.log(['dados veiculo state', this.state.dadosVeiculo])
+        }
+      }
+    }
+
    axios.get('http://fipeapi.appspot.com/api/1/carros/marcas.json')
    .then((resp) => {
      AsyncStorage.setItem('@Marcas', JSON.stringify(resp.data));
      this.getMarcas();
    }).catch(err => {
      //console.tron.log(err);
-   });
+   });   
 
-
-
+    
  }
 
- consultaPlaca = () => {
+ consultaPlaca = async() => {
     this.setState({
       viewDenatran: true,
     }),
@@ -53,16 +60,16 @@ class Veiculos extends Component {
       axios.get('http://35.231.239.168/api/pericia/denatran/' +this.state.placa)
       .then((resp) => {
         AsyncStorage.setItem('@InfoPlaca', JSON.stringify(resp.data));
-        this.getDadosPlaca();
+        this.getDadosPlaca(resp.data);
       }).catch(err => {
         //console.tron.log(err);
       });
   }
 
-  async getDadosPlaca() {
-    const dadosPuro = await AsyncStorage.getItem('@InfoPlaca');
-    const dadosVeiculo = JSON.parse(dadosPuro);
-    this.setState({ dadosVeiculo: dadosVeiculo});
+  async getDadosPlaca(data) {
+    //const dadosPuro = await AsyncStorage.getItem('@InfoPlaca');
+    //const dadosVeiculo = JSON.parse(dadosPuro);
+    this.setState({ dadosVeiculo: data});
 
   }
 
@@ -185,7 +192,7 @@ saveFormVeiculo = data => {
     for (var key in form.step) {
       if ( key === data.data_name) {
         const form = {};
-        form[data.data_name] = { key: data.data_name, value: { ...dadosVeiculo, dadosFipe } };
+        form[data.data_name] = { key: data.data_name, value: { ...dadosVeiculo, dadosFipe } , filled: true };
         //console.tron.log(['formsavecampo', form])
         getSaveStateForm(form);
       }
@@ -204,80 +211,64 @@ saveFormVeiculo = data => {
     }
     return (
       <View style={styles.container}>
-
-
-
-          <View style = {styles.main}>
-
+        <View style = {styles.main}>
           <View style = {styles.hint_title}>
-          <View style={styles.miniball}>
-            <Text style={styles.numberType}>1</Text>
+            <View style={styles.miniball}>
+              <Text style={styles.numberType}>1</Text>
+            </View>
+            <View style = {styles.hintview}>
+              <Text style = {styles.hint}>Preencha os campos abaixo para consultar a tabela FIPE</Text>
+            </View>
           </View>
-          <View style = {styles.hintview}>
-            <Text style = {styles.hint}>Preencha os campos abaixo para consultar a tabela FIPE</Text>
-          </View>
-          </View>
-
             {
-
               renderPicker && (
                 <View style={styles.Picker}>
-                <Picker
-                    style={styles.estiloPicker}
-                    onValueChange={(marca => this.setState({ marca }), this.pegaModelos)}
-                    selectedValue={this.state.marca}
-                    collapsable = {true}
-                    >
-
-                      <Picker.Item label='Fabricante'/>
-                      {
-                        marcas.map(item => <Picker.Item label={item.name} value={item.id}></Picker.Item>)
-                      }
-
-                </Picker>
-              </View>
+                  <Picker
+                      style={styles.estiloPicker}
+                      onValueChange={(marca => this.setState({ marca }), this.pegaModelos)}
+                      selectedValue={this.state.marca}
+                      collapsable = {true}
+                      >
+                        <Picker.Item label='Fabricante'/>
+                        {
+                          marcas.map(item => <Picker.Item label={item.name} value={item.id}></Picker.Item>)
+                        }
+                  </Picker>
+                </View>
               )
-             }
-
-
+            }
             {
               renderPickerModelos && (
                 <View style={styles.Picker}>
-                <Picker
+                  <Picker
                     style={styles.estiloPicker}
                     selectedValue={this.state.modelo}
                     onValueChange={(modelo => this.setState({ modelo }), this.pegaAno )}
-                    >
-
-                      <Picker.Item label='Modelo'/>
+                  >
+                    <Picker.Item label='Modelo'/>
                       {
                         modelos.map(item => <Picker.Item label={item.name} value={item.id}></Picker.Item>)
                       }
-
-                </Picker>
-              </View>
+                  </Picker>
+                </View>
               )
-             }
-
-{
+            }
+            {
               renderPickerAno && (
                 <View style={styles.Picker}>
-                <Picker
-                    style={styles.estiloPicker}
-                    selectedValue={this.state.anos}
-                    onValueChange={(anos => this.setState({ anos }) )}
-                    >
-
-                      <Picker.Item label='Ano'/>
-                      {
-                        ano.map(item => <Picker.Item label={item.id} value={item.id}></Picker.Item>)
-                      }
-
-                </Picker>
-              </View>
-
+                  <Picker
+                      style={styles.estiloPicker}
+                      selectedValue={this.state.anos}
+                      onValueChange={(anos => this.setState({ anos }) )}
+                      >
+                        <Picker.Item label='Ano'/>
+                        {
+                          ano.map(item => <Picker.Item label={item.id} value={item.id}></Picker.Item>)
+                        }
+                  </Picker>
+                </View>
               )
-             }
+            }
           </View>
 
           <View>
@@ -294,56 +285,46 @@ saveFormVeiculo = data => {
             {
               this.state.viewFipe && (
                 <View style={styles.info}>
-
-                <View style={styles.input_o}>
-                      <Text style={styles.info_text}>Data deferência: {dadosFipe.referencia}</Text>
-                    </View>
-                    <View style={styles.input_o}>
-                      <Text style={styles.info_text}>Código Fipe: {dadosFipe.fipe_codigo}</Text>
-                    </View>
-                    <View style={styles.input_o}>
-                      <Text style={styles.info_text}>Modelo: {dadosFipe.name} </Text>
-                    </View>
-                    <View style={styles.input_o}>
-                      <Text style={styles.info_text}>Combustível: {dadosFipe.combustivel} </Text>
-                    </View>
-                    <View style={styles.input_o}>
-                      <Text style={styles.info_text}>Fabricante: {dadosFipe.marca}</Text>
-                    </View>
-                    <View style={styles.input_o}>
-                      <Text style={styles.info_text}>Ano Modelo: {dadosFipe.ano_modelo}</Text>
-                    </View>
-                    <View style={styles.input_o}>
-                      <Text style={styles.info_text}>Preço: {dadosFipe.preco} </Text>
-                    </View>
-
-
+                  <View style={styles.input_o}>
+                    <Text style={styles.info_text}>Data deferência: {dadosFipe.referencia}</Text>
                   </View>
+                  <View style={styles.input_o}>
+                    <Text style={styles.info_text}>Código Fipe: {dadosFipe.fipe_codigo}</Text>
+                  </View>
+                  <View style={styles.input_o}>
+                    <Text style={styles.info_text}>Modelo: {dadosFipe.name} </Text>
+                  </View>
+                  <View style={styles.input_o}>
+                    <Text style={styles.info_text}>Combustível: {dadosFipe.combustivel} </Text>
+                  </View>
+                  <View style={styles.input_o}>
+                    <Text style={styles.info_text}>Fabricante: {dadosFipe.marca}</Text>
+                  </View>
+                  <View style={styles.input_o}>
+                    <Text style={styles.info_text}>Ano Modelo: {dadosFipe.ano_modelo}</Text>
+                  </View>
+                  <View style={styles.input_o}>
+                    <Text style={styles.info_text}>Preço: {dadosFipe.preco} </Text>
+                  </View>
+                </View>
               )
             }
-
           </View>
-
-
           <View styles={styles.main}>
-          <TouchableOpacity onPress={this.consultaFipe} style={styles.button}>
-          <Text style={styles.button_text}>Consultar Tabela FIPE</Text>
-          </TouchableOpacity>
+            <TouchableOpacity onPress={this.consultaFipe} style={styles.button}>
+              <Text style={styles.button_text}>Consultar Tabela FIPE</Text>
+            </TouchableOpacity>
           </View>
-
           <View style = {styles.hint_title}>
-          <View style={styles.miniball}>
-            <Text style={styles.numberType}>2</Text>
+            <View style={styles.miniball}>
+              <Text style={styles.numberType}>2</Text>
+            </View>
+            <View style = {styles.hintview}>
+              <Text style = {styles.hint}>Informe a placa para recuperar dados do DENATRAN</Text>
+            </View>
           </View>
-          <View style = {styles.hintview}>
-            <Text style = {styles.hint}>Informe a placa para recuperar dados do DENATRAN</Text>
-          </View>
-          </View>
-
-
           <View style={styles.cabecalho} >
               <View style ={styles.texto_geo}>
-
                 <TextInput
                   style={styles.input}
                   autoCapitalize="none"
@@ -356,9 +337,6 @@ saveFormVeiculo = data => {
               />
               </View>
           </View>
-
-
-
         <View styles={styles.main}>
           <TouchableOpacity onPress={this.consultaPlaca} style={styles.button}>
             <Text style={styles.button_text}>Consultar "DENATRAN"</Text>
@@ -374,44 +352,40 @@ saveFormVeiculo = data => {
         {
           this.state.viewDenatran && (
             <View style={styles.info}>
-                <View style={styles.input_o}>
-                  <Text style={styles.info_text}>Placa: {dadosVeiculo.placa}</Text>
-                </View>
-                <View style={styles.input_o}>
-                  <Text style={styles.info_text}>Fabricante: {dadosVeiculo.marca}</Text>
-                </View>
-                <View style={styles.input_o}>
-                  <Text style={styles.info_text}>Modelo: {dadosVeiculo.modelo} </Text>
-                </View>
-                <View style={styles.input_o}>
-                  <Text style={styles.info_text}>Procedência: {dadosVeiculo.procedencia} </Text>
-                </View>
-                <View style={styles.input_o}>
-                  <Text style={styles.info_text}>Ano Fabricação: {dadosVeiculo.ano_fab}</Text>
-                </View>
-                <View style={styles.input_o}>
-                  <Text style={styles.info_text}>Ano Modelo: {dadosVeiculo.ano_mod}</Text>
-                </View>
-                <View style={styles.input_o}>
-                  <Text style={styles.info_text}>Combustível: {dadosVeiculo.combustivel} </Text>
-                </View>
-                <View style={styles.input_o}>
-                  <Text style={styles.info_text}>Chassi: {dadosVeiculo.chassi} </Text>
-                </View>
-                <View style={styles.input_o}>
-                  <Text style={styles.info_text}>Número Motor: {dadosVeiculo.numero_motor} </Text>
-                </View>
-                <View style={styles.input_o}>
-                  <Text style={styles.info_text}>Etiquetas: {dadosVeiculo.etiquetas} </Text>
-                </View>
+              <View style={styles.input_o}>
+                <Text style={styles.info_text}>Placa: {dadosVeiculo.placa}</Text>
               </View>
+              <View style={styles.input_o}>
+                <Text style={styles.info_text}>Fabricante: {dadosVeiculo.marca}</Text>
+              </View>
+              <View style={styles.input_o}>
+                <Text style={styles.info_text}>Modelo: {dadosVeiculo.modelo} </Text>
+              </View>
+              <View style={styles.input_o}>
+                <Text style={styles.info_text}>Procedência: {dadosVeiculo.procedencia} </Text>
+              </View>
+              <View style={styles.input_o}>
+                <Text style={styles.info_text}>Ano Fabricação: {dadosVeiculo.ano_fab}</Text>
+              </View>
+              <View style={styles.input_o}>
+                <Text style={styles.info_text}>Ano Modelo: {dadosVeiculo.ano_mod}</Text>
+              </View>
+              <View style={styles.input_o}>
+                <Text style={styles.info_text}>Combustível: {dadosVeiculo.combustivel} </Text>
+              </View>
+              <View style={styles.input_o}>
+                <Text style={styles.info_text}>Chassi: {dadosVeiculo.chassi} </Text>
+              </View>
+              <View style={styles.input_o}>
+                <Text style={styles.info_text}>Número Motor: {dadosVeiculo.numero_motor} </Text>
+              </View>
+              <View style={styles.input_o}>
+                <Text style={styles.info_text}>Etiquetas: {dadosVeiculo.etiquetas} </Text>
+              </View>
+            </View>
           )
         }
-
       </View>
-
-
-
     );
   }
 }
