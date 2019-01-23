@@ -161,7 +161,7 @@ class New extends Component {
     () => {
       //console.tron.log(["SubClasse",this.state.subClasse]);
     });
-    const testeSubClasse = this.state.subClasse.map(item => console.tron.log(item.subclasse_name));
+    //const testeSubClasse = this.state.subClasse.map(item => console.tron.log(item.subclasse_name));
   }
 
   subClassePickerSecond = async (value) => {
@@ -170,7 +170,7 @@ class New extends Component {
     () => {
       //console.tron.log(["SubClasse",this.state.subClasse]);
     });
-    const testeSubClasse = this.state.subClasse.map(item => console.tron.log(item.subclasse_name));
+    //const testeSubClasse = this.state.subClasse.map(item => console.tron.log(item.subclasse_name));
   }
 
 
@@ -180,7 +180,7 @@ class New extends Component {
     () => {
       //console.tron.log(["SubClasse",this.state.subClasse]);
     });
-    const testeSubClasse = this.state.subClasse.map(item => console.tron.log(item.subclasse_name));
+    //const testeSubClasse = this.state.subClasse.map(item => console.tron.log(item.subclasse_name));
   }
 
 
@@ -190,7 +190,7 @@ class New extends Component {
     () => {
       //console.tron.log(["SubClasse",this.state.subClasse]);
     });
-    const testeSubClasse = this.state.subClasse.map(item => console.tron.log(item.subclasse_name));
+    //const testeSubClasse = this.state.subClasse.map(item => console.tron.log(item.subclasse_name));
   }
 
   lastPicker = () => {

@@ -10,20 +10,32 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 var ImagePicker = NativeModules.ImageCropPicker;
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Creators as FormActions } from '../../store/ducks/form';
 
 class Camera extends React.Component {
 
   state = {
     avatarSource: null,
-    videoSource: null
+    videoSource: null,
+    imagePath: null,
+    image: null,
+    images: null,
   };
 
-  constructor() {
-    super();
-    this.state = {
-      image: null,
-      images: null
-    };
+
+  componentWillMount() {    
+    const { form, data } = this.props;
+
+    for (var key in form.step) { 
+      if ( key === data.data_name) {
+        if(form.step[key].filled === true) {
+          this.setState({ image: form.step[key].data });
+        }
+      }  
+    }
+
   }
 
   pickSingleWithCamera(cropping) {
@@ -37,9 +49,10 @@ class Camera extends React.Component {
 
       this.setState({
         image: {uri: image.path, width: image.width, height: image.height},
-        images: null
+        images: null,
+        imagePath: image.path
       });
-      //console.tron.log('received image', image.data);
+    //console.tron.log('received image', image.path);
 
     }).catch();
   }
@@ -178,8 +191,32 @@ class Camera extends React.Component {
     return this.renderImage(image);
   }
 
+  saveFormInput = data => {
+    const { imageData, imagePath, image } = this.state;
+    const { form, getSaveStateForm, startControlArray } = this.props;
+
+     //console.tron.log([' nao entrei no if', imagePath]);
+    if ( imagePath ) {
+      //console.tron.log('entrei no if');
+      for (var key in form.step) { 
+        if ( key === data.data_name) {
+          const form = {};
+          form[data.data_name] = { key: data.data_name, value: { uri: imagePath, type:'image/jpeg', name: `${data.data_name}.jpg` }, data: image, filled: true };
+          //console.tron.log(['formsavecampo', form]) 
+          getSaveStateForm(form);
+        }  
+      }
+    }
+    startControlArray();
+  }
+
   render() {
-    const { hint, label, data_name } = this.props.data;
+    const { data_name, label, hint, default_value, newState} = this.props.data;
+    const { saveStep } = this.props.form;
+
+    if (saveStep) {
+      this.saveFormInput({data_name, default_value});
+    }
     return (
       <View style={styles.container}>
 
@@ -196,9 +233,7 @@ class Camera extends React.Component {
           </View>
           </View>
           { this.state.avatarSource === null ?
-
             <Text>oi</Text>
-
           :
             <Image style={styles.avatar} source={this.state.avatarSource} />
           }
@@ -207,15 +242,11 @@ class Camera extends React.Component {
 
         <TouchableOpacity onPress={() => this.pickSingle(false)} style={styles.button}>
           <View style = {styles.avatarContainer}>
-          <View style = {styles.avatarContainer2}><Icon name="photo-library" size={30} style={styles.icon} />
-          <View style = {styles.text_foto}>
-          <Text style = {styles.text}>Selecionar da galeria</Text>
-          </View>
-          </View>
-            { this.state.avatarSource === null ? <View style = {styles.avatarContainer2}><Icon name="add-a-photo" size={30} style={styles.icon} />
-            <View style = {styles.text_foto}><Text>Lesk</Text></View></View>:
-              <Image style={styles.avatar} source={this.state.avatarSource} />
-            }
+            <View style = {styles.avatarContainer2}><Icon name="photo-library" size={30} style={styles.icon} />
+              <View style = {styles.text_foto}>
+                <Text style = {styles.text}>Selecionar da galeria</Text>
+              </View>
+            </View>
           </View>
         </TouchableOpacity>
 
@@ -237,5 +268,11 @@ class Camera extends React.Component {
   }
 
 }
+const mapStateToProps = state => ({
+  form: state.formState,
+});
 
-export default Camera;
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(FormActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Camera);

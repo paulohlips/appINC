@@ -66,7 +66,7 @@ class StepList extends Component {
       //console.tron.log(['elemente forech', formulario.step[key]])
     }
      
-    //console.tron.log(['elemente forech', data]); 
+    console.tron.log(['elemente forech', data]); 
     //console.log(['elemente forech', data]);  
 
     axios({
@@ -82,7 +82,7 @@ class StepList extends Component {
       .then(function (response) {
           AsyncStorage.setItem('@IDlaudo', response.data.number);
           Alert.alert('ID do laudo','O número do seu laudo é '+response.data.number);
-          
+          console.tron.log(['elemente forech', response]); 
       }) 
       .catch(function (response) {
           //handle error

@@ -15,7 +15,15 @@ class InputText extends Component {
   }
 
   componentDidMount() {
-    this.setState({ inputSave: this.props.default_value });
+    const { form, data } = this.props;
+
+    for (var key in form.step) {
+      if ( key === data.data_name) {        
+        if(form.step[key].filled === true) {
+          this.setState({ inputSave: form.step[key].value });
+        }
+      }
+    }
   }
 
   saveFormInput = data => {
@@ -27,7 +35,7 @@ class InputText extends Component {
       for (var key in form.step) {
         if ( key === data.data_name) {
           const form = {};
-          form[data.data_name] = { key: data.data_name, value: inputSave};
+          form[data.data_name] = { key: data.data_name, value: inputSave, filled: true };
          // console.tron.log(['formsavecampo', form])
           getSaveStateForm(form);
         }
@@ -56,6 +64,7 @@ class InputText extends Component {
           maxLength={255}
           underlineColorAndroid="rgba(0,0,0,0)"
           onChangeText={inputSave => this.setState({ inputSave})}
+          value={this.state.inputSave}
         />
 
       </View>

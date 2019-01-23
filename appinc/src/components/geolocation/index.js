@@ -11,12 +11,37 @@ import { Creators as FormActions } from '../../store/ducks/form';
 class GeoLocation extends Component {
 
    state = {
+     dataGeo: '',
+     position: null,
      latitude: null,
      longitude: null,
      acuracia: null,
      error: null,
-     teste: 'hahahha'
+     view: null,
    }
+
+   componentDidMount() {
+    const { form, data } = this.props;
+
+    for (var key in form.step) {
+      if ( key === data.data_name) {        
+        if(form.step[key].filled === true) {          
+          if(form.step[key].position !== null) {
+            this.setState({
+              position: form.step[key].value,
+              latitude: form.step[key].value.coords.latitude,
+              longitude: form.step[key].value.coords.longitude,
+              acuracia: form.step[key].value.coords.accuracy,
+              altitude: form.step[key].value.coords.altitude,
+              error: null,
+            });
+          } else {
+            this.setState({ error: true });
+          }        
+        }
+      }
+    }
+  }
 
    refresh = () => {
      this.setState({
@@ -46,6 +71,7 @@ class GeoLocation extends Component {
         AsyncStorage.setItem('@Geolocalizacao', (JSON.stringify( position)));
 
         this.setState({
+          dataGeo: position,
           position: position,
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
@@ -54,21 +80,25 @@ class GeoLocation extends Component {
           error: null,
         });
       },
-      (error) => this.setState({ error: error.message, position: 'GPS indísponivel' }),
+      (error) => this.setState({ 
+        error: error.message, 
+        dataGeo: 'GPS indísponivel',
+        view: null,           
+      }),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
     );    
    };
 
    saveFormGeoloc = data => {
-    const { position } = this.state;
+    const { position, dataGeo } = this.state;
     const { form, getSaveStateForm, startControlArray } = this.props;
 
     //console.tron.log(form.step);
-    if ( position ) {
+    if ( position || dataGeo ) {
       for (var key in form.step) {
         if ( key === data.data_name) {
           const form = {};
-          form[data.data_name] = { key: data.data_name, value: position};
+          form[data.data_name] = { key: data.data_name, value: dataGeo, filled: true, position };
           //console.tron.log(['formsavecampo', form])
           getSaveStateForm(form);
         }
