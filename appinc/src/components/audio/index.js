@@ -16,9 +16,9 @@ import Sound from 'react-native-sound';
 import { AudioRecorder, AudioUtils } from 'react-native-audio';
 import styles from './styles';
 
-//import { connect } from 'react-redux';
-//import { bindActionCreators } from 'redux';
-//import { Creators as AudioActions } from '../../store/ducks/audiorec';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Creators as FormActions } from '../../store/ducks/form';
 
 class AudioRec extends Component {
 
@@ -206,7 +206,7 @@ class AudioRec extends Component {
           this._finishRecording(true, filePath);
           //this.props.submitAudio(filePath)
         }
-
+        this.setState({ filePath });
         return filePath;
       } catch (error) {
         console.error(error);
@@ -268,12 +268,42 @@ class AudioRec extends Component {
       //console.tron.log(`Finished recording of duration ${this.state.currentTime} seconds at path: ${filePath} and size of ${fileSize || 0} bytes`);
     }
 
+    saveFormAudio = data => {
+      const { filePath, audioPath } = this.state;
+      const { form, getSaveStateForm, startControlArray } = this.props;
+  
+     // console.tron.log(form.step);
+      if ( filePath ) {
+        for (var key in form.step) {
+          if ( key === data.data_name) {
+            const form = {};
+            form[data.data_name] = { 
+              key: data.data_name, 
+              value: {
+                uri: 'file://' + filePath,
+                type: 'audio/amr',
+                name: audioPath,
+              }, 
+              filled: true 
+            };
+           // console.tron.log(['formsaverrcampo', form])
+            getSaveStateForm(form);
+          }
+        }
+      }
+      startControlArray();
+    }
+
 
     render(filePath) {
       //console.tron.log(this.state.audioPath)
     //  console.tron.log(this.props)
-    const { label, hint } = this.props.data;
+      const { data_name, label, hint, default_value, newState} = this.props.data;
+      const { saveStep, step } = this.props.form;
 
+      if (saveStep) {
+        this.saveFormAudio({data_name, default_value});
+      }
       return (
 
           <View style={styles.container}>
@@ -296,9 +326,9 @@ class AudioRec extends Component {
   }
 
 const mapStateToProps = state => ({
-  audio: state.audiorec,
+  form: state.formState,
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators(AudioActions, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators(FormActions, dispatch);
 
-export default AudioRec;
+export default connect(mapStateToProps, mapDispatchToProps)(AudioRec);

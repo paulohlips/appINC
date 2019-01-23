@@ -190,14 +190,15 @@ async getAno() {
 saveFormVeiculo = data => {
   const { dadosVeiculo, dadosFipe } = this.state;
   const { form, getSaveStateForm, startControlArray } = this.props;
-  const dv = JSON.stringify(dadosVeiculo);
-  const df = JSON.stringify(dadosFipe);
+  const dados = { dadosVeiculo, dadosFipe }
+  const dv = JSON.stringify(dados);
+  
   //console.tron.log(['teste salvar info veiculo', dv, dadosVeiculo, dadosFipe]);
   if ( dadosVeiculo ) {
     for (var key in form.step) {
       if ( key === data.data_name) {
         const form = {};
-        form[data.data_name] = { key: data.data_name, value: dv + df , dadosVeiculo: dadosVeiculo, dadosFipe: dadosFipe, filled: true };
+        form[data.data_name] = { key: data.data_name, value: dv , dadosVeiculo: dadosVeiculo, dadosFipe: dadosFipe, filled: true };
         //console.tron.log(['formsavecampo', form])
         getSaveStateForm(form);
       }
