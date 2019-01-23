@@ -33,7 +33,7 @@ class New extends Component {
      // Initial value for opacity: 0
 
 
-    baseUrl: null,
+    baseUrl: '',
     resposta: null,
     escolha: null,
     showAlert: false,
@@ -248,7 +248,7 @@ class New extends Component {
   }
 
   render() {
-    const { tipo, subtipo, ssubtipo, formQuerry, classe, subClasse, incrementar, contador, showRef ,fadeAnim_ref, fadeAnim , fadeAnim_l , fadeAnim_s, baseUrl, showAlert } = this.state;
+    const { tipo, subtipo, ssubtipo, formQuerry, classe, subClasse, incrementar, contador, showRef ,fadeAnim_ref, fadeAnim , fadeAnim_l , fadeAnim_s, baseUrl, reqUrl, showAlert } = this.state;
     const { navigation } = this.props;
 
     return (
@@ -274,12 +274,13 @@ class New extends Component {
               <Picker
                 style={styles.estiloPicker}
                 placeholder="Selecione a perícia"
-                selectedValue={this.state.baseUrl}
                 onValueChange={(baseUrl => this.setState({ baseUrl }), this.reqUrl )}
+                selectedValue={this.state.baseUrl}
               >
+
                 <Picker.Item label='Selecione a perícia' />
                 <Picker.Item label='Veículos' value='4' />
-                <Picker.Item label='Arrombamento de caixa' value='6' />
+                <Picker.Item label='Incêndio' value='7' />
                 <Picker.Item label='Exemplo' value='1' />
               </Picker>
 

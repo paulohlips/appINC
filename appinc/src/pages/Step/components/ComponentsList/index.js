@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, ScrollView } from 'react-native';
-import { InputText, AudioRec, Camera, MyDatePicker, GeoLocation, Veiculos, Check, Scanner, Vestigios} from '../../../../components';
+import { InputText, AudioRec, Camera, MyDatePicker, GeoLocation, Veiculos, Check, Scanner, Sketch, Vestigios} from '../../../../components';
 import styles from './styles';
 
 
@@ -16,6 +16,13 @@ const ComponentList = (props) => (
           )
         }
 
+        {
+          props.data.component_type === 'croqui' && (
+            <View style={styles.component}>
+              <Sketch data={props.data} />
+            </View>
+          )
+        }
         
         {
           props.data.component_type === 'vestigios' && (
