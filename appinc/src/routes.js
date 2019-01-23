@@ -8,6 +8,7 @@ import Login from './pages/login';
 import Main from './pages/main';
 import New from './pages/new';
 import Testes from './pages/Testes';
+import Hist from './pages/hist';
 
 // Componentes
 import GeoLoc from './pages/components/geoloc';
@@ -24,17 +25,16 @@ import Veiculo from './pages/components/veiculo';
 import StepPage from './pages/Step';
 import StepList from './pages/StepList';
 
-
-
 const Routes = StackNavigator(
   {
 
-    Login: { screen: New},
+    Login: { screen: Main},
     StepPage: { screen: StepPage },
     Logged: createDrawerNavigator(
       {
         Main: { screen: Main },
         NewMenu: { screen: New },
+        Hist: { screen: Hist },
         Exit: { screen: Login },
       },
       {

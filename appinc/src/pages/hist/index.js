@@ -1,15 +1,25 @@
 import React, { Component } from 'react';
-import {View, Text, TouchableOpacity, StatusBar, Image, AsyncStorage } from 'react-native';
+import {View, Text, TouchableOpacity, StatusBar, ListView, AsyncStorage, Linking} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+
 import styles from './styles';
 import axios from 'axios';
 import { Header } from '../../globalComponents';
-import { Sketch } from '../../components';
+
+
 
 import { NavigationActions, withNavigation } from 'react-navigation';
 
 const dias = 23;
 class Hist extends Component {
+  
+  constructor(props) {
+    super(props);
+    this.state = {
+        IDLaudo: [],
+    };
+}
+
 
   navigateToScreen = (route) => () => {
       const navigateAction = NavigationActions.navigate({
@@ -60,12 +70,24 @@ class Hist extends Component {
     //console.tron.log(this.props);
   }
 
-  componentDidMount() {
-
-    //const drawer = this.props.navigation.setParams({ drawer: 'drawer' });
-  }
 
   renderSketch = () => {};
+
+  async componentWillMount(){
+    console.tron.log(['OK']);
+      const id = await AsyncStorage.getItem('@IDlaudo');
+      this.setState({ IDLaudo: id });
+     // this.setState({ IDLaudo: [...this.state.IDLaudo, id] });
+     // console.tron.log(['NUM IDS', this.state.IDLaudo]);
+      //const numIds = marcas.map(item => id);
+      //console.tron.log(['NUM IDS', numIds]);
+      
+       //this.setState({ renderPicker:true })
+    
+      }
+
+  
+
 
   render() {
     const { navigation } = this.props;
@@ -79,7 +101,24 @@ class Hist extends Component {
           openMenu={navigation.toggleDrawer}
           title='Minhas Perícias'
         />
+       
+       <View style={styles.container}>
+
+ 
+     
+          <Text
+            style={styles. textLink}
+            onPress={() => {Linking.openURL('http://35.231.239.168/pericia/links.php?id_pericia='+this.state.IDLaudo)}}
+          >Acessar Laudo nº    
+            {' '+this.state.IDLaudo}
+          </Text>
+    
+
       </View>
+    
+
+      </View>
+
     );
   }
 }
