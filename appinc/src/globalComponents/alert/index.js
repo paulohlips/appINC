@@ -1,65 +1,35 @@
-import React from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
- 
-import AwesomeAlert from 'react-native-awesome-alerts';
+import React, { Component } from 'react';
+import { View, Text, Modal, TouchableHighlight, ScrollView } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
+import styles from './styles';
 
-const Alert = (props) => {
-  const { showAlert } = props;
+class Alert extends Component {        
 
-    return (
-      <View style={styles.container}>
-        <Text>I'm AwesomeAlert</Text>
-        <TouchableOpacity onPress={() => {
-          this.showAlert();
-        }}>
-          <View style={styles.button}>
-            <Text style={styles.text}>Try me!</Text>
-          </View>
-        </TouchableOpacity>
-        {
-        showAlert && (
- 
-        <AwesomeAlert
-          show={showAlert}
-          showProgress={false}
-          title="AwesomeAlert"
-          message="I have a message for you!"
-          closeOnTouchOutside={true}
-          closeOnHardwareBackPress={false}
-          showCancelButton={true}
-          showConfirmButton={true}
-          cancelText="No, cancel"
-          confirmText="Yes, delete it"
-          confirmButtonColor="#DD6B55"
-          onCancelPressed={() => {
-            this.hideAlert();
-          }}
-          onConfirmPressed={() => {
-            this.hideAlert();
-          }}
-        />
-        )}
-      </View>
-    );
-  };
- 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#fff',
-  },
-  button: {
-    margin: 10,
-    paddingHorizontal: 10,
-    paddingVertical: 7,
-    borderRadius: 5,
-    backgroundColor: "#AEDEF4",
-  },
-  text: {
-    color: '#fff',
-    fontSize: 15
-  }
-});
+    render() {        
+        const { alertVisible, textInfo, goBack, closeModalAlert } = this.props;
+        return (            
+            <Modal
+                animationType="slide"
+                transparent={false}
+                visible={alertVisible}
+                onRequestClose={() => {}}
+            >
+                <View style={styles.container}>
+                    <View style={styles.buttonContainer}>
+                        <TouchableHighlight onPress={() => {
+                          closeModalAlert(); 
+                          goBack();
+                          }}>
+                            <Icon name="md-close" size={28} style={styles.iconClose} />
+                        </TouchableHighlight>
+                    </View>
+                    <View style={styles.box}>                        
+                      <Text style={styles.text}>Deseja salvar suas alterações</Text>                       
+                    </View>                    
+                </View>
+            </Modal>
+        );
+    }    
+}
 
+export default Alert;

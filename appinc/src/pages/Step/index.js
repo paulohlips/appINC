@@ -26,7 +26,8 @@ class StepPage extends Component {
       <View style={styles.container}>
       <Header 
         title={this.props.navigation.state.params.step.step_name} 
-        showArrow 
+        showArrow
+        showProgress 
         showInfo
         info={this.props.navigation.state.params.step.info_step}
         goBack={this.props.navigation.goBack} 
@@ -45,17 +46,6 @@ class StepPage extends Component {
             <ComponentList data={item}/>
           </View>
         ) }
-
-
-         <View style={styles.container}>
-          <TouchableOpacity style={styles.salvarbutton} onPress={() => this.saveStep()}>
-              <Text style={styles.buttonText}>
-                Salvar
-              </Text>
-            </TouchableOpacity>
-
-         </View>
-
         </ScrollView>
       </View>
     );
