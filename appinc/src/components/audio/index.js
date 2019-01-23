@@ -68,8 +68,8 @@ class AudioRec extends Component {
         SampleRate: 22050,
         Channels: 1,
         AudioQuality: "Low",
-        AudioEncoding: "aac",
-        AudioEncodingBitRate: 32000
+        AudioEncoding: "amr_wb",
+        AudioEncodingBitRate: 16000
       });
     }
 

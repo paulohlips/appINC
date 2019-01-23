@@ -21,7 +21,7 @@ render() {
     <View>
 
         <CheckBox
-            title={hint}
+            title={"teste"}
             checked={this.state.checked}
             onPress={() => this.setState({checked: !this.state.checked})} 
         />
