@@ -33,14 +33,20 @@ class Veiculos extends Component {
     const { form, data } = this.props;
 
     for (var key in form.step) {
-      if ( key === data.data_name) {        
+      if ( key === data.data_name) {
+               
         if(form.step[key].filled === true) {
-          this.setState({ dadosVeiculo: form.step[key].value, viewDenatran: true });
-          console.tron.log(['dados veiculo state', this.state.dadosVeiculo])
+          await this.setState({ 
+            dadosVeiculo: form.step[key].dadosVeiculo, 
+            dadosFipe: form.step[key].dadosFipe,
+            viewDenatran: true, 
+            viewFipe: true,
+          })          
+          console.tron.log(['teste salvar info veiculo2', this.state.dadosVeiculo, this.state.dadosFipe]);                 
         }
       }
     }
-
+    
    axios.get('http://fipeapi.appspot.com/api/1/carros/marcas.json')
    .then((resp) => {
      AsyncStorage.setItem('@Marcas', JSON.stringify(resp.data));
@@ -115,8 +121,6 @@ class Veiculos extends Component {
     this.setState({
       dadosMarcas: dadosMarcas,
     });
-
-
     const marcas = this.state.dadosMarcas;
     await this.setState({ marcas });
     const listaDeMarcas = marcas.map(item => item.name);
@@ -186,13 +190,14 @@ async getAno() {
 saveFormVeiculo = data => {
   const { dadosVeiculo, dadosFipe } = this.state;
   const { form, getSaveStateForm, startControlArray } = this.props;
-
-  //console.tron.log(['teste salvar info veiculo', dadosVeiculo, dadosFipe]);
+  const dv = JSON.stringify(dadosVeiculo);
+  const df = JSON.stringify(dadosFipe);
+  //console.tron.log(['teste salvar info veiculo', dv, dadosVeiculo, dadosFipe]);
   if ( dadosVeiculo ) {
     for (var key in form.step) {
       if ( key === data.data_name) {
         const form = {};
-        form[data.data_name] = { key: data.data_name, value: { ...dadosVeiculo, dadosFipe } , filled: true };
+        form[data.data_name] = { key: data.data_name, value: dv + df , dadosVeiculo: dadosVeiculo, dadosFipe: dadosFipe, filled: true };
         //console.tron.log(['formsavecampo', form])
         getSaveStateForm(form);
       }
