@@ -25,7 +25,7 @@ const ComponentList = (props) => (
         }
         
         {
-          props.data.component_type === 'vestigios' && (
+          props.data.component_type === 'vestigio' && (
             <View style={styles.component}>
               <Vestigios data={props.data} />
             </View>
