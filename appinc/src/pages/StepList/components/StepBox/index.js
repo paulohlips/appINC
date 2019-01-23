@@ -26,9 +26,9 @@ class StepBoxComponent extends Component {
       const form = {};
 
       if(component.component_type === 'date') {
-        form[component.data_name] = { key: component.data_name, value: '1980-01-21' };
+        form[component.data_name] = { key: component.data_name, value: '1980-01-21', filled: null };
       }else{
-        form[component.data_name] = { key: component.data_name, value: component.default_value }; 
+        form[component.data_name] = { key: component.data_name, value: component.default_value, filled: null }; 
       }
       getCreateForm(form);      
     });

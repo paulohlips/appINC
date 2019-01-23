@@ -20,14 +20,22 @@ class Camera extends React.Component {
     avatarSource: null,
     videoSource: null,
     imagePath: null,
+    image: null,
+    images: null,
   };
 
-  constructor() {
-    super();
-    this.state = {
-      image: null,
-      images: null,
-    };
+
+  componentWillMount() {    
+    const { form, data } = this.props;
+
+    for (var key in form.step) { 
+      if ( key === data.data_name) {
+        if(form.step[key].filled === true) {
+          this.setState({ image: form.step[key].data });
+        }
+      }  
+    }
+
   }
 
   pickSingleWithCamera(cropping) {
@@ -184,7 +192,7 @@ class Camera extends React.Component {
   }
 
   saveFormInput = data => {
-    const { imageData, imagePath } = this.state;
+    const { imageData, imagePath, image } = this.state;
     const { form, getSaveStateForm, startControlArray } = this.props;
 
      //console.tron.log([' nao entrei no if', imagePath]);
@@ -193,7 +201,7 @@ class Camera extends React.Component {
       for (var key in form.step) { 
         if ( key === data.data_name) {
           const form = {};
-          form[data.data_name] = { key: data.data_name, value: { uri: imagePath, type:'image/jpeg', name: `${data.data_name}.jpg` } };
+          form[data.data_name] = { key: data.data_name, value: { uri: imagePath, type:'image/jpeg', name: `${data.data_name}.jpg` }, data: image, filled: true };
           //console.tron.log(['formsavecampo', form]) 
           getSaveStateForm(form);
         }  
@@ -225,9 +233,7 @@ class Camera extends React.Component {
           </View>
           </View>
           { this.state.avatarSource === null ?
-
             <Text>oi</Text>
-
           :
             <Image style={styles.avatar} source={this.state.avatarSource} />
           }
@@ -236,15 +242,11 @@ class Camera extends React.Component {
 
         <TouchableOpacity onPress={() => this.pickSingle(false)} style={styles.button}>
           <View style = {styles.avatarContainer}>
-          <View style = {styles.avatarContainer2}><Icon name="photo-library" size={30} style={styles.icon} />
-          <View style = {styles.text_foto}>
-          <Text style = {styles.text}>Selecionar da galeria</Text>
-          </View>
-          </View>
-            { this.state.avatarSource === null ? <View style = {styles.avatarContainer2}><Icon name="add-a-photo" size={30} style={styles.icon} />
-            <View style = {styles.text_foto}><Text>Lesk</Text></View></View>:
-              <Image style={styles.avatar} source={this.state.avatarSource} />
-            }
+            <View style = {styles.avatarContainer2}><Icon name="photo-library" size={30} style={styles.icon} />
+              <View style = {styles.text_foto}>
+                <Text style = {styles.text}>Selecionar da galeria</Text>
+              </View>
+            </View>
           </View>
         </TouchableOpacity>
 
