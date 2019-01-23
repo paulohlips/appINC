@@ -1,40 +1,96 @@
 import React, { Component } from 'react';
-import {View, Alert, Text } from 'react-native';
-import BarcodeScanner from 'react-native-barcode-scanner-google';
-import styles from './styles';
+import {
+  AppRegistry,
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  Text
+} from 'react-native';
  
- 
-class Scanner extends Component {
+import RNSketchCanvas from '@terrylinla/react-native-sketch-canvas';
 
-  state = {
-    vetor: [], 
-    data: '',
+onPress = () => {
+  const { vetor } = this.state;
+}
+ 
+export default class Sketch extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      showScanner: false,
+      showButton: true,
+      showButton2: false
+    };
   }
 
-  onPress = () => {
-    const { vetor } = this.state;
-  }
 
   render() {
+    const { showScanner, showButton, showButton2 } = this.state;
     return (
       <View style={{justifyContent: 'center', alignItem: 'center'}}>
-          <BarcodeScanner
-              style={{width:330, height: 250, rigth:50}}
-              onBarcodeRead={({data}) => {
-                const { vetor } = this.state;
-                Alert.alert(`Código'${data}' lido com sucesso.`);
-                this.setState({ data }); //Guarda o valor de todos os códigos lidos.
-                console.log(vetor);
-              }}
+      {
+        showButton && (
+          <TouchableOpacity onPress={() => this.setState({ showScanner: true, showButton: false})} style={styles.button}>
+            <Text style={styles.button_text}>Escanear código</Text>
+          </TouchableOpacity>
+        )}
+
+
+{
+          showScanner && (     
+      <View style={{width:330, height: 250, rigth:50}}>
+
+          <RNSketchCanvas
+            containerStyle={{ backgroundColor: 'transparent', flex: 1 }}
+            canvasStyle={{ backgroundColor: 'transparent', flex: 1 }}
+            defaultStrokeIndex={0}
+            defaultStrokeWidth={5}
+            closeComponent={<View style={styles.functionButton}><Text style={{color: 'white'}}>Close</Text></View>}
+            undoComponent={<View style={styles.functionButton}><Text style={{color: 'white'}}>Undo</Text></View>}
+            clearComponent={<View style={styles.functionButton}><Text style={{color: 'white'}}>Clear</Text></View>}
+            eraseComponent={<View style={styles.functionButton}><Text style={{color: 'white'}}>Eraser</Text></View>}
+            strokeComponent={color => (
+              <View style={[{ backgroundColor: color }, styles.strokeColorButton]} />
+            )}
+            strokeSelectedComponent={(color, index, changed) => {
+              return (
+                <View style={[{ backgroundColor: color, borderWidth: 2 }, styles.strokeColorButton]} />
+              )
+            }}
+            strokeWidthComponent={(w) => {
+              return (<View style={styles.strokeWidthButton}>
+                <View  style={{
+                  backgroundColor: 'white', marginHorizontal: 2.5,
+                  width: Math.sqrt(w / 3) * 10, height: Math.sqrt(w / 3) * 10, borderRadius: Math.sqrt(w / 3) * 10 / 2
+                }} />
+              </View>
+            )}}
+            saveComponent={<View style={styles.functionButton}><Text style={{color: 'white'}}>Save</Text></View>}
+            savePreference={() => {
+              return {
+                folder: 'RNSketchCanvas',
+                filename: String(Math.ceil(Math.random() * 100000000)),
+                transparent: false,
+                imageType: 'png'
+              }
+            }}
           />
-            <Text style={styles.input}> Código:{this.state.data} </Text>
-      </View>  
-   
+       </View>
+       
+      )}
+         </View>  
     );
   }
 }
+ 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#F5FCFF',
+  },
+});
 
-export default Scanner  ;
+
 
 
 

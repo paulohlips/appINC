@@ -3,6 +3,7 @@ package com.appinc;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.terrylinla.rnsketchcanvas.SketchCanvasPackage;
 
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import com.airbnb.android.react.lottie.LottiePackage;
@@ -10,6 +11,7 @@ import com.rnim.rn.audio.ReactNativeAudioPackage;
 import com.zmxv.RNSound.RNSoundPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.spyworldxp.barcodescanner.BarcodeScannerPackage;
+
 
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -31,7 +33,9 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new SketchCanvasPackage(),
 
+           
             new PickerPackage(),          
             new LottiePackage(),
             new ReactNativeAudioPackage(),

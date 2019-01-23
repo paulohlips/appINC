@@ -80,7 +80,7 @@ class StepList extends Component {
         }}
       })
       .then(function (response) {
-          //handle success
+          AsyncStorage.setItem('@IDlaudo', response.data.number);
           Alert.alert('ID do laudo','O número do seu laudo é '+response.data.number);
           console.tron.log(['elemente forech', response]); 
       }) 
@@ -118,6 +118,9 @@ class StepList extends Component {
         />
 
           <View style={styles.container}>
+
+
+
             <TouchableOpacity style={styles.enviarbutton} onPress={() => this.enviaForm()}>
               <Text style={styles.buttonText}>
                 Enviar
