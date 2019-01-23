@@ -7,11 +7,14 @@ const Types = {
   STOP_SAVE_STEP: 'form/STOP_SAVE_STEP',
   START_CONTROL_ARRAY: 'form/START_CONTROL_ARRAY',
   SAVE_FORM: 'form/SAVE_FORM',
+  START_UPDATE_PROGRESS: 'form/UPDATE_PROGRESS',
+  FINISH_UPDATE_PROGRESS:'form/FINISH_UPDATE_PROGRESS',
 };
 
 const initialState = {
   saveStep: null,
   controlArraySize: null,
+  updateProgress: false,
   step: {},
 };
 
@@ -42,6 +45,10 @@ export default function formState(state = initialState, action) {
       saveFormAsync({ ref: action.payload.ref, state })
       return state;
     }
+    case Types.START_UPDATE_PROGRESS:
+      return { ...state, updateProgress: true };
+    case Types.FINISH_UPDATE_PROGRESS:
+      return { ...state, updateProgress: false };
     default:
       return state;
   }
@@ -73,6 +80,12 @@ export const Creators = {
     type: Types.SAVE_FORM,
     payload: { ref }
   }),
+  startUpdateProgress: () => ({
+    type: Types.START_UPDATE_PROGRESS,
+  }),
+  finishUpdateProgress: () => ({
+    type: Types.FINISH_UPDATE_PROGRESS,
+  })
 };
 
 // controla o tamano do array step
