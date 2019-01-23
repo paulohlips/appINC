@@ -12,8 +12,20 @@ import { Creators as FormActions } from '../../store/ducks/form';
 class MyDatePicker extends Component {
 
   state = {
-    date: 'hh:mm',
+    date: '',
     dataAtual: '2019-01-21'
+  }
+
+  componentDidMount() {
+    const { form, data } = this.props;
+
+    for (var key in form.step) {
+      if ( key === data.data_name) {        
+        if(form.step[key].filled === true) {
+          this.setState({ date: form.step[key].value });
+        }
+      }
+    }
   }
 
   saveFormInput = data => {
@@ -25,7 +37,7 @@ class MyDatePicker extends Component {
       for (var key in form.step) {
         if ( key === data.data_name) {
           const form = {};
-          form[data.data_name] = { key: data.data_name, value: dataAtual};
+          form[data.data_name] = { key: data.data_name, value: dataAtual, filled: true };
           //console.tron.log(['formsavecampo', form])
           getSaveStateForm(form);
         }
@@ -35,7 +47,7 @@ class MyDatePicker extends Component {
       for (var key in form.step) {
         if ( key === data.data_name) {
           const form = {};
-          form[data.data_name] = { key: data.data_name, value: date};
+          form[data.data_name] = { key: data.data_name, value: date, filled: true };
           //console.tron.log(['formsavecampo', form])
           getSaveStateForm(form);
         }
