@@ -28,7 +28,7 @@ class AudioRec extends Component {
       paused: false,
       stoppedRecording: false,
       finished: false,
-      audioPath: AudioUtils.DocumentDirectoryPath + '/test.aac',
+      audioPath: AudioUtils.DocumentDirectoryPath + '/test.amr',
       hasPermission: true,
       gravarcor: 'black',
       stopcor: 'black',

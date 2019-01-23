@@ -2,15 +2,7 @@ import { StyleSheet } from 'react-native';
 import { colors, metrics,responsividade } from '../../styles';
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    // backgroundColor: 'pink',
-    width: responsividade.largura_tela,
-    padding: 20,
-    paddingBottom: 40,
-    borderBottomWidth: 0.5,
-    borderBottomColor: 'black',
-  },
+
    Name: {
     width: responsividade.LARGURABOX,
     height: 30,
@@ -41,6 +33,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
 
+  button_text:{
+
+    color: 'white',
+    fontSize: 15,
+    fontWeight: 'bold',
+    marginLeft: 5,
+
+  },
+
   hint:{
 
     fontSize: 14,
@@ -49,6 +50,20 @@ const styles = StyleSheet.create({
     opacity: 0.3,
     paddingVertical: 10,
 
+  },
+  container: {
+    flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#F5FCFF',
+  },
+  strokeColorButton: {
+    marginHorizontal: 2.5, marginVertical: 8, width: 30, height: 30, borderRadius: 15,
+  },
+  strokeWidthButton: {
+    marginHorizontal: 2.5, marginVertical: 8, width: 30, height: 30, borderRadius: 15,
+    justifyContent: 'center', alignItems: 'center', backgroundColor: '#39579A'
+  },
+  functionButton: {
+    marginHorizontal: 2.5, marginVertical: 8, height: 30, width: 60,
+    backgroundColor: '#39579A', justifyContent: 'center', alignItems: 'center', borderRadius: 5,
   }
 
 });

@@ -4,9 +4,12 @@ import {
   StyleSheet,
   View,
   TouchableOpacity,
-  Text
+  Text,
+  Modal
 } from 'react-native';
- 
+
+import styles from './styles';
+
 import RNSketchCanvas from '@terrylinla/react-native-sketch-canvas';
 
 onPress = () => {
@@ -27,29 +30,36 @@ export default class Sketch extends Component {
 
   render() {
     const { showScanner, showButton, showButton2 } = this.state;
+    const { closeModalInfo, modalVisible, textInfo } = this.props;
+  
     return (
       <View style={{justifyContent: 'center', alignItem: 'center'}}>
       {
         showButton && (
           <TouchableOpacity onPress={() => this.setState({ showScanner: true, showButton: false})} style={styles.button}>
-            <Text style={styles.button_text}>Escanear código</Text>
+            <Text style={styles.button_text}>Fazer Croqui</Text>
           </TouchableOpacity>
         )}
-
-
 {
           showScanner && (     
       <View style={{width:330, height: 250, rigth:50}}>
-
-          <RNSketchCanvas
-            containerStyle={{ backgroundColor: 'transparent', flex: 1 }}
-            canvasStyle={{ backgroundColor: 'transparent', flex: 1 }}
+               
+             <Modal
+              animationType="slide"
+              transparent={false}
+              visible={showScanner}
+              onRequestClose={() => {}}
+            >
+              <View style={styles.container}>
+              <RNSketchCanvas
+            containerStyle={{ backgroundColor: 'transparent', height: 50 ,flex: 1 }}
+            canvasStyle={{ backgroundColor: 'transparent',  flex: 1 }}
             defaultStrokeIndex={0}
             defaultStrokeWidth={5}
-            closeComponent={<View style={styles.functionButton}><Text style={{color: 'white'}}>Close</Text></View>}
-            undoComponent={<View style={styles.functionButton}><Text style={{color: 'white'}}>Undo</Text></View>}
-            clearComponent={<View style={styles.functionButton}><Text style={{color: 'white'}}>Clear</Text></View>}
-            eraseComponent={<View style={styles.functionButton}><Text style={{color: 'white'}}>Eraser</Text></View>}
+            closeComponent={<View style={styles.functionButton}><Text style={{color: 'white'}}>Fechar</Text></View>}
+            undoComponent={<View style={styles.functionButton}><Text style={{color: 'white'}}>Desfazer</Text></View>}
+            clearComponent={<View style={styles.functionButton}><Text style={{color: 'white'}}>Limpar</Text></View>}
+            eraseComponent={<View style={styles.functionButton}><Text style={{color: 'white'}}>Apagar</Text></View>}
             strokeComponent={color => (
               <View style={[{ backgroundColor: color }, styles.strokeColorButton]} />
             )}
@@ -66,16 +76,21 @@ export default class Sketch extends Component {
                 }} />
               </View>
             )}}
-            saveComponent={<View style={styles.functionButton}><Text style={{color: 'white'}}>Save</Text></View>}
+            saveComponent={<View style={styles.functionButton}><Text onPress={() => this.setState({ showScanner: false, showButton: true }) } style={{color: 'white'}}>Salvar</Text></View>}
+            
             savePreference={() => {
               return {
-                folder: 'RNSketchCanvas',
+                folder: 'Croqui',
                 filename: String(Math.ceil(Math.random() * 100000000)),
                 transparent: false,
                 imageType: 'png'
               }
+
             }}
           />
+              </View>
+           </Modal>
+        
        </View>
        
       )}
@@ -84,11 +99,8 @@ export default class Sketch extends Component {
   }
 }
  
-const styles = StyleSheet.create({
-  container: {
-    flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#F5FCFF',
-  },
-});
+
+
 
 
 

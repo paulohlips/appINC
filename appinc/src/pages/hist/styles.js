@@ -71,14 +71,9 @@ const styles = StyleSheet.create({
 
   },
   textLink: {
-    marginLeft: 10,
-    marginTop: 40,
-    fontSize: 30,
+    fontSize: 18,
     color: colors.halfblack,
-    borderColor: '#d6d7da',
     fontWeight: 'bold',
-    borderRadius: 4,
-    borderWidth: 0.5,
     borderColor: '#f6d7da',
   },
   textType: {
@@ -125,6 +120,40 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     color: colors.tercery,
     fontSize: 16,
+  },
+  box:{
+    backgroundColor: 'white',
+    borderRadius: 5,
+    margin: 20,
+    justifyContent: "flex-start",
+    alignItems: "center",
+    padding: 20,
+    
+
+  },
+
+  titulo:
+  {
+    width: 200,
+    height: 20,
+    color: '#000000',
+    fontFamily: 'Roboto',
+    fontSize: 18,
+    fontWeight: '500',
+    lineHeight: 21,
+  },
+
+  num:
+  {
+    width: 200,
+    height: 20,
+    color: '#000000',
+    fontFamily: 'Roboto',
+    fontSize: 14,
+    opacity: 0.6,
+    fontWeight: '500',
+    lineHeight: 21,
+
   }
 
 

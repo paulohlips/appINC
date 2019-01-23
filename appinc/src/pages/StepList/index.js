@@ -97,14 +97,14 @@ class StepList extends Component {
     const { navigation } = this.props;
     //const { steps } = this.props;
     const { modalVisible, load, showAlert } = this.state;    
-    const form = this.props.navigation.getParam('form', this.state.form);
+    const form = this.props.navigation.getParam('inputSave', '');
     //console.tron.log('FORMEEE',form);
     const { steps, form_name } = this.state.form;
 
     return (
       <View style={styles.container}>        
         <Header 
-          title={form_name} 
+          title={form} 
           showArrow 
           showInfo
           info={form.info_form}
