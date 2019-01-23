@@ -14,6 +14,7 @@ import { Load } from '../../components';
 import { Header } from '../../globalComponents';
 import { connect } from 'react-redux';
 import axios from 'axios';
+
 import { bindActionCreators } from 'redux';
 import { Creators as FormAction} from '../../store/ducks/form';
 import AwesomeAlert from 'react-native-awesome-alerts';

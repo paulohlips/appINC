@@ -28,7 +28,7 @@ import StepList from './pages/StepList';
 const Routes = StackNavigator(
   {
 
-    Login: { screen: Main},
+    Login: { screen: New},
     StepPage: { screen: StepPage },
     Logged: createDrawerNavigator(
       {

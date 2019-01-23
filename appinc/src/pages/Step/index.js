@@ -13,11 +13,9 @@ import ComponentList from './components/ComponentsList';
 
 class StepPage extends Component {
 
-
   saveStep = () => {
     this.props.saveStepState();
   }
-
 
   render() {
     const { navigation } = this.props;

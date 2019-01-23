@@ -5,8 +5,11 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
 import Info from '../info';
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Creators as FormActions } from '../../store/ducks/form';
 
-class Header extends Component {
+class HeaderRedux extends Component {
   state ={
     modalVisible: false,
     showModalInfo: false,
@@ -21,7 +24,7 @@ class Header extends Component {
   }
 
   render() {  
-    const { showArrow, showMenu, showInfo, goBack, openMenu, title, info } = this.props;
+    const { showArrow, showMenu, showInfo, goBack, openMenu, title, info, startUpdateProgress } = this.props;
     const { showModalInfo } = this.state;    
 
     return (
@@ -38,7 +41,7 @@ class Header extends Component {
             }
             {
               showArrow && (
-                <TouchableOpacity onPress={() => goBack()} >
+                <TouchableOpacity onPress={() => { goBack(); startUpdateProgress()}} >
                   <Icon name="md-arrow-back" size={28} style={styles.iconMenu} />
                 </TouchableOpacity>
               )
@@ -71,4 +74,12 @@ class Header extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  form: state.formState,
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(FormActions, dispatch);
+
+const Header = connect(mapStateToProps, mapDispatchToProps)(HeaderRedux)
 export default withNavigation(Header);
