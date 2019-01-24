@@ -60,17 +60,14 @@ class Hist extends Component {
       //console.tron.log(err);
     });
   }
-
   state ={
     drawerStatus: null,
   }
-
   componentWillMount() {
     this.requestFroms();
     this.requestQuerry();
     //console.tron.log(this.props);
   }
-
 
   renderSketch = () => {};
 
@@ -86,9 +83,6 @@ class Hist extends Component {
        //this.setState({ renderPicker:true })
     
       }
-
-  
-
 
   render() {
     const { navigation } = this.props;

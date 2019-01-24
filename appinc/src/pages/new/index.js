@@ -30,6 +30,7 @@ class New extends Component {
     fadeAnim_l: new Animated.Value(0),
     fadeAnim_s: new Animated.Value(0),
     fadeAnim_ref: new Animated.Value(0),
+    showButton:  null,
      // Initial value for opacity: 0
 
 
@@ -221,7 +222,7 @@ class New extends Component {
   reqUrl = (value) => {   
     axios.get('http://35.231.239.168/api/pericia/formularios/'+value)
       .then((resp) => {
-        this.setState({ baseUrl: value})
+        this.setState({ baseUrl: value, showButton: true})
         //console.tron.log(['Requisição New', resp.data]);
         AsyncStorage.setItem('@Formulario', JSON.stringify(resp.data));
         this.setUrl();
@@ -249,7 +250,25 @@ class New extends Component {
   }
 
   render() {
-    const { tipo, subtipo, ssubtipo, formQuerry, classe, subClasse, incrementar, contador, showRef ,fadeAnim_ref, fadeAnim , fadeAnim_l , fadeAnim_s, baseUrl, reqUrl, showAlert } = this.state;
+    const { 
+      tipo, 
+      subtipo, 
+      ssubtipo, 
+      formQuerry, 
+      classe, 
+      subClasse, 
+      incrementar, 
+      contador, 
+      showRef ,
+      fadeAnim_ref, 
+      fadeAnim , 
+      fadeAnim_l , 
+      fadeAnim_s, 
+      baseUrl, 
+      reqUrl, 
+      showAlert,
+      showButton 
+    } = this.state;
     const { navigation } = this.props;
 
     return (
@@ -336,12 +355,15 @@ class New extends Component {
         />
           )
         }
-
+        {
+          showButton && (
             <TouchableOpacity style={styles.button} onPress={() => this.onPressButton()}>
               <Text style={styles.buttonText}>
                 Continuar
               </Text>
             </TouchableOpacity>
+          )
+        }           
         </ScrollView>
       </View>
 

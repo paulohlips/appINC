@@ -35,6 +35,12 @@ class Menu extends Component {
                             <Text style={styles.textButton}>Minhas perícias</Text>
                         </View>
                     </TouchableOpacity>
+                    <TouchableOpacity onPress={this.navigateToScreen('Offline')}>
+                        <View style={styles.buttonBox}>
+                            <Icon name="history" size={19} color="#fff" style={styles.icon} />
+                            <Text style={styles.textButton}>Minhas perícias offline</Text>
+                        </View>
+                    </TouchableOpacity>
                     <TouchableOpacity>
                         <View style={styles.buttonBox}>
                             <Icon name="key-variant" size={19} color="#fff" style={styles.icon} />
