@@ -28,11 +28,11 @@ class GeoLocation extends Component {
         if(form.step[key].filled === true) {          
           if(form.step[key].position !== null) {
             this.setState({
-              position: form.step[key].value,
-              latitude: form.step[key].value.coords.latitude,
-              longitude: form.step[key].value.coords.longitude,
-              acuracia: form.step[key].value.coords.accuracy,
-              altitude: form.step[key].value.coords.altitude,
+              position: form.step[key].position,
+              latitude: form.step[key].position.coords.latitude,
+              longitude: form.step[key].position.coords.longitude,
+              acuracia: form.step[key].position.coords.accuracy,
+              altitude: form.step[key].position.coords.altitude,
               error: null,
             });
           } else {
@@ -92,9 +92,9 @@ class GeoLocation extends Component {
    saveFormGeoloc = data => {
     const { position, dataGeo } = this.state;
     const { form, getSaveStateForm, startControlArray } = this.props;
-    const dg = JSON.stringify(dataGeo);
+    const dg = JSON.stringify(dataGeo.coords);
 
-    //console.tron.log(form.step);
+    console.tron.log(['geoloc', dataGeo, dg]);
     if ( position || dataGeo ) {
       for (var key in form.step) {
         if ( key === data.data_name) {
