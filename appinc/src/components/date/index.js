@@ -73,7 +73,7 @@ class MyDatePicker extends Component {
             style={styles.dataPicker}
             mode="date"
             placeholder="selecionar"
-            format="DD/MM/YYYY"
+            format="YYYY-MM-DD"
             minDate="01-01-2018"
             maxDate="01-01-2100"
             confirmBtnText="Confirm"
