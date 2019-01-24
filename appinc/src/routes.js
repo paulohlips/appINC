@@ -9,6 +9,7 @@ import Main from './pages/main';
 import New from './pages/new';
 import Testes from './pages/Testes';
 import Hist from './pages/hist';
+import Offline from './pages/offline';
 
 // Componentes
 import GeoLoc from './pages/components/geoloc';
@@ -27,13 +28,14 @@ import StepList from './pages/StepList';
 
 const Routes = StackNavigator(
   {
-    Login: { screen: Login},
+    Login: { screen: Offline},
     StepPage: { screen: StepPage },
     Logged: createDrawerNavigator(
       {
         Main: { screen: Main },
         NewMenu: { screen: New },
         Hist: { screen: Hist },
+        Offline: { screen: Offline},
         Exit: { screen: Login },
       },
       {
