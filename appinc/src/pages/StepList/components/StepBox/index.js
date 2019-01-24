@@ -22,7 +22,7 @@ class StepBoxComponent extends Component {
   }
 
   componentWillMount() {
-    console.tron.log(this.props);   
+    //console.tron.log(this.props);   
   }  
 
   createFormsSave = async () => { 
@@ -51,7 +51,7 @@ class StepBoxComponent extends Component {
         
     /* if(arrayProgress.length > 0) {
       this.compareProgress();
-      console.tron.log(['entrei no if', this.state.arrayProgress])
+      //console.tron.log(['entrei no if', this.state.arrayProgress])
     } */
   }
 
@@ -76,7 +76,7 @@ class StepBoxComponent extends Component {
       }
     }    
     progress = countProgress/arrayProgress.length;
-    console.tron.log(['teste conut progress', progress, countProgress, arrayProgress.length])
+    //console.tron.log(['teste conut progress', progress, countProgress, arrayProgress.length])
     this.setState({ progress })    
   }
 

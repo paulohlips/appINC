@@ -42,7 +42,7 @@ class Veiculos extends Component {
             viewDenatran: true, 
             viewFipe: true,
           })          
-          console.tron.log(['teste salvar info veiculo2', this.state.dadosVeiculo, this.state.dadosFipe]);                 
+          //console.tron.log(['teste salvar info veiculo2', this.state.dadosVeiculo, this.state.dadosFipe]);                 
         }
       }
     }

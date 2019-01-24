@@ -20,7 +20,7 @@ class Offline extends Component {
         const arrayRef = await AsyncStorage.getItem('arrayRef');
         const array = JSON.parse(arrayRef)
         this.setState({ arrayRef: array });
-        console.tron.log(['arrayRef', JSON.parse(arrayRef)]);
+        // console.tron.log(['arrayRef', JSON.parse(arrayRef)]);
         //console.tron.log(this.props);
     }
     
@@ -36,12 +36,12 @@ class Offline extends Component {
     }
 
     restoreForm = async name => {
-        console.tron.log(['props1', this.props]);
+        //console.tron.log(['props1', this.props]);
         const formAsync = await AsyncStorage.getItem(name);
         const form = JSON.parse(formAsync)
-        console.tron.log(['fomr', form]);
+        //console.tron.log(['fomr', form]);
         await this.props.restoreFormState(form);
-        console.tron.log(['props', this.props]);
+        //console.tron.log(['props', this.props]);
         this.setState({ modalVisible: true, form: formAsync })        
     }
   
@@ -49,7 +49,7 @@ class Offline extends Component {
   render() {
     const { arrayRef, modalVisible, form } = this.state;
     const { navigation } = this.props;
-    console.tron.log(['arrayRefrender',arrayRef]);
+    //console.tron.log(['arrayRefrender',arrayRef]);
     return (
       <View style={styles.container}>
         <Header

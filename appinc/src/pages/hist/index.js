@@ -72,7 +72,7 @@ class Hist extends Component {
   renderSketch = () => {};
 
   async componentWillMount(){
-    console.tron.log(['OK']);
+   // console.tron.log(['OK']);
       const id = await AsyncStorage.getItem('@IDlaudo');
       this.setState({ IDLaudo: id });
      // this.setState({ IDLaudo: [...this.state.IDLaudo, id] });

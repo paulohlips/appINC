@@ -94,7 +94,7 @@ class GeoLocation extends Component {
     const { form, getSaveStateForm, startControlArray } = this.props;
     const dg = JSON.stringify(dataGeo.coords);
 
-    console.tron.log(['geoloc', dataGeo, dg]);
+    // console.tron.log(['geoloc', dataGeo, dg]);
     if ( position || dataGeo ) {
       for (var key in form.step) {
         if ( key === data.data_name) {
