@@ -9,6 +9,7 @@ const Types = {
   SAVE_FORM: 'form/SAVE_FORM',
   START_UPDATE_PROGRESS: 'form/UPDATE_PROGRESS',
   FINISH_UPDATE_PROGRESS:'form/FINISH_UPDATE_PROGRESS',
+  RESTORE_FORM: 'form/RESTORE_FORM',
 };
 
 const initialState = {
@@ -49,6 +50,8 @@ export default function formState(state = initialState, action) {
       return { ...state, updateProgress: true };
     case Types.FINISH_UPDATE_PROGRESS:
       return { ...state, updateProgress: false };
+    case Types.RESTORE_FORM:
+    return { ...state, step: action.payload.form}
     default:
       return state;
   }
@@ -85,7 +88,11 @@ export const Creators = {
   }),
   finishUpdateProgress: () => ({
     type: Types.FINISH_UPDATE_PROGRESS,
-  })
+  }),
+  restoreFormState: form => ({
+    type: Types.RESTORE_FORM,
+    payload: { form }
+  }),
 };
 
 // controla o tamano do array step

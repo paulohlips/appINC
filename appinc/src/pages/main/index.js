@@ -54,9 +54,11 @@ class Main extends Component {
     drawerStatus: null,
   }
 
-  componentWillMount() {
+  async componentWillMount() {
     this.requestFroms();
     this.requestQuerry();
+    const arrayRef = await AsyncStorage.getItem('teste2');
+    console.tron.log(['arrayRef',arrayRef]);
     //console.tron.log(this.props);
   }
 
