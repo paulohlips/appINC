@@ -74,8 +74,8 @@ class MyDatePicker extends Component {
             mode="date"
             placeholder="selecionar"
             format="YYYY-MM-DD"
-            minDate="01-01-2018"
-            maxDate="01-01-2100"
+            minDate="2018-01-01"
+            maxDate="2100-01-01"
             confirmBtnText="Confirm"
             cancelBtnText="Cancel"
             onDateChange={(date) => { this.props.submitDATE({ date }); this.setState({ date }); }}
