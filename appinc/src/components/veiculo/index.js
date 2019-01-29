@@ -24,13 +24,13 @@ class Veiculos extends Component {
      modelos: '',
      renderPickerModelos: false,
      renderPickerAno: false,
-     listaMarcas: 'paulo',
      renderPicker: false,
      ano: '',
    }
 
   async componentWillMount() {
     const { form, data } = this.props;
+    await this.consultaMarcas();
 
     for (var key in form.step) {
       if ( key === data.data_name) {
@@ -41,151 +41,115 @@ class Veiculos extends Component {
             dadosFipe: form.step[key].dadosFipe,
             viewDenatran: true, 
             viewFipe: true,
-          })          
-          //console.tron.log(['teste salvar info veiculo2', this.state.dadosVeiculo, this.state.dadosFipe]);                 
+          })                  
         }
       }
     }
-    
-   axios.get('http://fipeapi.appspot.com/api/1/carros/marcas.json')
-   .then((resp) => {
-     AsyncStorage.setItem('@Marcas', JSON.stringify(resp.data));
-     this.getMarcas();
-   }).catch(err => {
-     //console.tron.log(err);
-   });   
-
-    
  }
 
  consultaPlaca = async() => {
     this.setState({
       viewDenatran: true,
-    }),
-
+    });
       axios.get('http://35.231.239.168/api/pericia/denatran/' +this.state.placa)
       .then((resp) => {
         AsyncStorage.setItem('@InfoPlaca', JSON.stringify(resp.data));
         this.getDadosPlaca(resp.data);
-      }).catch(err => {
-        //console.tron.log(err);
-      });
+      }).catch(err => {});
   }
 
   async getDadosPlaca(data) {
-    //const dadosPuro = await AsyncStorage.getItem('@InfoPlaca');
-    //const dadosVeiculo = JSON.parse(dadosPuro);
     this.setState({ dadosVeiculo: data});
-
   }
+  
+  consultaFipe = async () => {
+    //console.tron.log(['MARCA PICKER', this.state.anos])    
+      const urlFipe = 'http://fipeapi.appspot.com/api/1/carros/veiculo/'+this.state.marca+'/'+this.state.modelo+'/'+this.state.anos+'.json';
+   
+      axios.get(urlFipe)
+      .then(async resp => {
+        const dadosPuro = resp.data;
+        await this.setState({ dadosFipe: dadosPuro, viewFipe: true,});
+        //console.tron.log('DEPOIS', this.state);
 
-
-
-  consultaFipe = () => {
-    //console.tron.log(['MARCA PICKER', this.state.anos])
-
-    this.setState({
-      urlFipe: 'http://fipeapi.appspot.com/api/1/carros/veiculo/'+this.state.marca+'/'+this.state.modelo+'/'+this.state.anos+'.json',
-    }),
-      axios.get(this.state.urlFipe)
-      .then((resp) => {
-        AsyncStorage.setItem('@InfoFipe', JSON.stringify(resp.data));
-        this.getDadosFipe();
+        //this.getDadosFipe();
       }).catch(err => {
         //console.tron.log(err);
       });
   }
 
-  async getDadosFipe() {
+  /*async getDadosFipe() {
     const dadosPuro = await AsyncStorage.getItem('@InfoFipe');
     const dadosFipe = JSON.parse(dadosPuro);
-    this.setState({ dadosFipe: dadosFipe, viewFipe: true});
-  }
+    this.setState({ dadosFipe: dadosFipe});
+  }*/
 
 
   consultaMarcas = () => {
-
       axios.get('http://fipeapi.appspot.com/api/1/carros/marcas.json')
       .then((resp) => {
-        AsyncStorage.setItem('@Marcas', JSON.stringify(resp.data));
-        this.getMarcas();
+        //console.tron.log(['true', resp])
+        //AsyncStorage.setItem('@Marcas', JSON.stringify(resp.data));
+        this.getMarcas(resp.data);
       }).catch(err => {
         //console.tron.log(err);
       });
   }
 
-  async getMarcas() {
-
-    const dadosPuro = await AsyncStorage.getItem('@Marcas');
-    const dadosMarcas = JSON.parse(dadosPuro);
-    this.setState({
-      dadosMarcas: dadosMarcas,
+  getMarcas = async data => {
+    //console.tron.log(['dar', data])
+    //const dadosPuro = await AsyncStorage.getItem('@Marcas');
+   
+    //const marcas = this.state.dadosMarcas;
+    await this.setState({
+      dadosMarcas: data,
+      renderPicker: true,
     });
-    const marcas = this.state.dadosMarcas;
-    await this.setState({ marcas });
-    const listaDeMarcas = marcas.map(item => item.name);
-    const listaDeValor = marcas.map(item => item.id);
-
-    this.setState({ renderPicker:true })
-
+    
+    //this.setState({ marcas });
+    //const listaDeMarcas = marcas.map(item => item.name);
+    //const listaDeValor = marcas.map(item => item.id);
+    //this.setState({ renderPicker:true })
+    //console.tron.log(['state', this.state])
   }
 
 
 
   pegaModelos = (value) => {
-    this.setState({ marca : value});
+    this.setState({ marca: value});
     axios.get('http://fipeapi.appspot.com/api/1/carros/veiculos/'+value+'.json')
     .then((resp) => {
-      AsyncStorage.setItem('@Modelos', JSON.stringify(resp.data));
-      this.getModelos();
+      //AsyncStorage.setItem('@Modelos', JSON.stringify(resp.data));
+      this.getModelos(resp.data);
     }).catch(err => {
       //console.tron.log(err);
     });
-}
+  }
 
-async getModelos() {
+  getModelos = async data => {
+    await this.setState({
+      dadosModelos: data,
+      renderPickerModelos: true,
+    });
+  }
+    
+  pegaAno = value => {
+    this.setState({ modelo : value});
+    axios.get('http://fipeapi.appspot.com/api/1/carros/veiculo/'+this.state.marca+'/'+value+'.json')
+    .then((resp) => {
+      //AsyncStorage.setItem('@Ano', JSON.stringify(resp.data));
+      this.getAno(resp.data);
+    }).catch(err => {
+      //console.tron.log(err);
+    });
+  }
 
-  const dadosPuro = await AsyncStorage.getItem('@Modelos');
-  const dadosModelos = JSON.parse(dadosPuro);
-  this.setState({
-    dadosModelos: dadosModelos,
-  });
-
-
-  const modelos = this.state.dadosModelos;
-  await this.setState({ modelos });
-  this.setState({ renderPickerModelos:true })
-
-
-}
-
-
-
-
-pegaAno = (value) => {
-  this.setState({ modelo : value});
-  axios.get('http://fipeapi.appspot.com/api/1/carros/veiculo/'+this.state.marca+'/'+value+'.json')
-  .then((resp) => {
-    AsyncStorage.setItem('@Ano', JSON.stringify(resp.data));
-    this.getAno();
-  }).catch(err => {
-    //console.tron.log(err);
-  });
-}
-
-async getAno() {
-  const dadosPuro = await AsyncStorage.getItem('@Ano');
-  const dadosAno = JSON.parse(dadosPuro);
-  this.setState({
-    dadosAno : dadosAno,
-  });
-  //console.tron.log(["Ano", dadosAno]);
-
-
-  const ano = this.state.dadosAno;
-  await this.setState({ ano });
-  this.setState({ renderPickerAno:true })
-}
+  getAno = async data => {
+    this.setState({
+      dadosAno : data,
+      renderPickerAno: true,
+    });
+  }
 
 saveFormVeiculo = data => {
   const { dadosVeiculo, dadosFipe } = this.state;
@@ -210,7 +174,20 @@ saveFormVeiculo = data => {
   render() {
     const { data_name, label, hint, default_value, newState} = this.props.data;
     const { saveStep } = this.props.form;
-    const { dadosVeiculo, dadosFipe, dadosMarcas, marcas, modelos, renderPicker, renderPickerModelos, ano, anos, renderPickerAno } = this.state;
+    const { 
+      dadosVeiculo, 
+      dadosModelos,
+      dadosAno,
+      dadosFipe, 
+      dadosMarcas, 
+      marcas, 
+      modelos, 
+      renderPicker, 
+      renderPickerModelos, 
+      ano, 
+      anos, 
+      renderPickerAno 
+    } = this.state;
     
     if (saveStep) {
       this.saveFormVeiculo({data_name, default_value});
@@ -237,7 +214,7 @@ saveFormVeiculo = data => {
                       >
                         <Picker.Item label='Fabricante'/>
                         {
-                          marcas.map(item => <Picker.Item label={item.name} value={item.id}></Picker.Item>)
+                          dadosMarcas.map(item => <Picker.Item label={item.name} value={item.id}></Picker.Item>)
                         }
                   </Picker>
                 </View>
@@ -253,7 +230,7 @@ saveFormVeiculo = data => {
                   >
                     <Picker.Item label='Modelo'/>
                       {
-                        modelos.map(item => <Picker.Item label={item.name} value={item.id}></Picker.Item>)
+                        dadosModelos.map(item => <Picker.Item label={item.name} value={item.id}></Picker.Item>)
                       }
                   </Picker>
                 </View>
@@ -269,7 +246,7 @@ saveFormVeiculo = data => {
                       >
                         <Picker.Item label='Ano'/>
                         {
-                          ano.map(item => <Picker.Item label={item.id} value={item.id}></Picker.Item>)
+                          dadosAno.map(item => <Picker.Item label={item.id} value={item.id}></Picker.Item>)
                         }
                   </Picker>
                 </View>
