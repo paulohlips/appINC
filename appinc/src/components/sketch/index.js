@@ -56,7 +56,10 @@ export default class Sketch extends Component {
             canvasStyle={{ backgroundColor: 'transparent',  flex: 1 }}
             defaultStrokeIndex={0}
             defaultStrokeWidth={5}
-            closeComponent={<View style={styles.functionButton}><Text style={{color: 'white'}}>Fechar</Text></View>}
+
+            closeComponent={<View style={styles.functionButton}><Text onPress={() => this.setState({ showScanner: false, showButton: true }) } style={{color: 'red', fontWeight: 'bold'}}>Fechar</Text></View>}
+            saveComponent={<View style={styles.functionButton}><Text  style={{color: 'green', fontWeight: 'bold'}}>Salvar</Text></View>}
+
             undoComponent={<View style={styles.functionButton}><Text style={{color: 'white'}}>Desfazer</Text></View>}
             clearComponent={<View style={styles.functionButton}><Text style={{color: 'white'}}>Limpar</Text></View>}
             eraseComponent={<View style={styles.functionButton}><Text style={{color: 'white'}}>Apagar</Text></View>}
@@ -76,7 +79,6 @@ export default class Sketch extends Component {
                 }} />
               </View>
             )}}
-            saveComponent={<View style={styles.functionButton}><Text onPress={() => this.setState({ showScanner: false, showButton: true }) } style={{color: 'white'}}>Salvar</Text></View>}
             
             savePreference={() => {
               return {
