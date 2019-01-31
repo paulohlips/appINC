@@ -33,21 +33,20 @@ class MyDatePicker extends Component {
     const { form, getSaveStateForm, startControlArray } = this.props;
 
     //console.tron.log(form.step);
-    if ( date === '' ) {
-      for (var key in form.step) {
-        if ( key === data.data_name) {
-          const form = {};
-          form[data.data_name] = { key: data.data_name, value: dataAtual, filled: null };
-          //console.tron.log(['formsavecampo', form])
-          getSaveStateForm(form);
-        }
-      }
-    }
-    else {
+    if ( date ) {
       for (var key in form.step) {
         if ( key === data.data_name) {
           const form = {};
           form[data.data_name] = { key: data.data_name, value: date, filled: true };
+          //console.tron.log(['formsavecampo', form])
+          getSaveStateForm(form);
+        }
+      }
+    } else {
+      for (var key in form.step) {
+        if ( key === data.data_name) {
+          const form = {};
+          form[data.data_name] = { key: data.data_name, value: '1980-01-21', filled: false };
           //console.tron.log(['formsavecampo', form])
           getSaveStateForm(form);
         }

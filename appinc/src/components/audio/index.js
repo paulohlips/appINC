@@ -290,6 +290,23 @@ class AudioRec extends Component {
             getSaveStateForm(form);
           }
         }
+      } else {
+        for (var key in form.step) {
+          if ( key === data.data_name) {
+            const form = {};
+            form[data.data_name] = { 
+              key: data.data_name, 
+              value: {
+                uri: '',
+                type: '',
+                name: '',
+              }, 
+              filled: false, 
+            };
+           // console.tron.log(['formsaverrcampo', form])
+            getSaveStateForm(form);
+          }
+        }
       }
       startControlArray();
     }
