@@ -22,10 +22,10 @@ class StepBoxComponent extends Component {
   }
 
   componentWillMount() {
-    //console.tron.log(this.props);   
-  }  
+    //console.tron.log(this.props);
+  }
 
-  createFormsSave = async () => { 
+  createFormsSave = async () => {
     const { getCreateForm, steps } = this.props;
     this.setState({ createdForms: true });
     const arrayProgress = {
@@ -36,19 +36,19 @@ class StepBoxComponent extends Component {
 
     steps.item.components.forEach(component => {
       // console.tron.log(component);
-      const form = {};      
+      const form = {};
       if(component.component_type === 'date') {
         form[component.data_name] = { key: component.data_name, value: '1980-01-21', filled: null };
       }else{
-        form[component.data_name] = { key: component.data_name, value: component.default_value, filled: null }; 
+        form[component.data_name] = { key: component.data_name, value: component.default_value, filled: null };
       }
       getCreateForm(form);
       arrayProgress.array.push(component.data_name);
       const lengthArray = arrayProgress.array.length;
-      arrayProgress.length = lengthArray;      
-      this.setState({ arrayProgress: arrayProgress, callFunction: true });         
+      arrayProgress.length = lengthArray;
+      this.setState({ arrayProgress: arrayProgress, callFunction: true });
     });
-        
+
     /* if(arrayProgress.length > 0) {
       this.compareProgress();
       //console.tron.log(['entrei no if', this.state.arrayProgress])
@@ -62,11 +62,11 @@ class StepBoxComponent extends Component {
     const { arrayProgress } = this.state;
     var progress = 0;
     var countProgress = 0;
-    
-    if( arrayProgress.length > 0) {      
-      for(var key in step) {               
-        arrayProgress.array.map(item => { 
-          //console.tron.log(['teste conut in for do ayrtinho', item, step[key].filled]); 
+
+    if( arrayProgress.length > 0) {
+      for(var key in step) {
+        arrayProgress.array.map(item => {
+          //console.tron.log(['teste conut in for do ayrtinho', item, step[key].filled]);
           if(item === key && step[key].filled === true) {
             //console.tron.log(['teste conut in for e if', progress, countProgress])
             countProgress++;
@@ -74,10 +74,10 @@ class StepBoxComponent extends Component {
           }
         })
       }
-    }    
+    }
     progress = countProgress/arrayProgress.length;
     //console.tron.log(['teste conut progress', progress, countProgress, arrayProgress.length])
-    this.setState({ progress })    
+    this.setState({ progress })
   }
 
   render() {
@@ -89,7 +89,7 @@ class StepBoxComponent extends Component {
       this.createFormsSave();
       //console.tron.log('createFormSave');
     }
-    if(callFunction || form.updateProgress) {
+    if (callFunction || form.updateProgress) {
       this.compareProgress();
     }
 

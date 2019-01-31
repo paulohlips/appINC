@@ -11,19 +11,19 @@ import { Creators as FormActions } from '../../store/ducks/form';
 
 class Offline extends Component {
 
-    state = { 
+    state = {
         arrayRef: null,
         modalVisible: false,
-        form: null,      
+        form: null,
     }
-    async componentWillMount() {        
+    async componentWillMount() {
         const arrayRef = await AsyncStorage.getItem('arrayRef');
         const array = JSON.parse(arrayRef)
         this.setState({ arrayRef: array });
         // console.tron.log(['arrayRef', JSON.parse(arrayRef)]);
         //console.tron.log(this.props);
     }
-    
+
     renderCard = item => {
         return (
             <TouchableOpacity onPress={() => this.restoreForm(item)}>
@@ -31,21 +31,23 @@ class Offline extends Component {
                     <Text style={styles.title}>Nome da Perícia:</Text>
                     <Text style={styles.name}>{item}</Text>
                 </View>
-            </TouchableOpacity>            
+            </TouchableOpacity>
         );
     }
 
     restoreForm = async name => {
         //console.tron.log(['props1', this.props]);
+        const { navigation } = this.props;
         const formAsync = await AsyncStorage.getItem(name);
-        const form = JSON.parse(formAsync)
+        const form = JSON.parse(formAsync);
         //console.tron.log(['fomr', form]);
         await this.props.restoreFormState(form);
+        navigation.navigate('StepList', { inputSave: form.form });
         //console.tron.log(['props', this.props]);
-        this.setState({ modalVisible: true, form: formAsync })        
+        this.setState({ modalVisible: true, form: formAsync })
     }
-  
-    
+
+
   render() {
     const { arrayRef, modalVisible, form } = this.state;
     const { navigation } = this.props;
@@ -73,22 +75,23 @@ class Offline extends Component {
                         <View style={styles.box}>
                         {
                             form && (
-                                <Text style={styles.text}>{form}</Text> 
+                                <Text style={styles.text}>{form}</Text>
                             )
-                        }                     
-                                                  
+                        }
+
                         </View>
                     </ScrollView>
                 </View>
             </Modal>
         <View style={styles.main}>
-        {
-            arrayRef && (
-                arrayRef.map(item => this.renderCard(item))
-            )     
-
-        }           
-        </View>        
+          <ScrollView>
+            {
+              arrayRef && (
+                  arrayRef.map(item => this.renderCard(item))
+              )
+            }
+          </ScrollView>
+        </View>
       </View>
     );
   }
@@ -98,8 +101,8 @@ class Offline extends Component {
 const mapStateToProps = state => ({
     form: state.formState,
 });
-  
+
 const mapDispatchToProps = dispatch =>
 bindActionCreators(FormActions, dispatch);
-  
+
 export default connect(mapStateToProps, mapDispatchToProps)(Offline);

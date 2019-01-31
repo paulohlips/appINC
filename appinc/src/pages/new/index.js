@@ -63,7 +63,7 @@ class New extends Component {
 
   }
 
-  navigateToStepList = () => this.props.navigation.navigate('StepList', { form: this.state.resposta });
+  navigateToStepList = () => this.props.navigation.navigate('StepList', { inputSave: this.state.resposta });
 
   areaPicker = (value) => {
     this.setState({ tipo: value},
@@ -212,14 +212,14 @@ class New extends Component {
     const { inputSave } = this.state;
     if(inputSave) {
       getReference(this.state.inputSave);
-      navigation.navigate('StepList' , { inputSave: this.state.inputSave });
+      navigation.navigate('StepList', { inputSave: this.state.inputSave });
     } else {
       getReference('Laudo sem Nome');
       navigation.navigate('StepList');
     }
   }
 
-  reqUrl = (value) => {   
+  reqUrl = (value) => {
     axios.get('http://35.231.239.168/api/pericia/formularios/'+value)
       .then((resp) => {
         this.setState({ baseUrl: value, showButton: true})
@@ -250,30 +250,30 @@ class New extends Component {
   }
 
   render() {
-    const { 
-      tipo, 
-      subtipo, 
-      ssubtipo, 
-      formQuerry, 
-      classe, 
-      subClasse, 
-      incrementar, 
-      contador, 
+    const {
+      tipo,
+      subtipo,
+      ssubtipo,
+      formQuerry,
+      classe,
+      subClasse,
+      incrementar,
+      contador,
       showRef ,
-      fadeAnim_ref, 
-      fadeAnim , 
-      fadeAnim_l , 
-      fadeAnim_s, 
-      baseUrl, 
-      reqUrl, 
+      fadeAnim_ref,
+      fadeAnim ,
+      fadeAnim_l ,
+      fadeAnim_s,
+      baseUrl,
+      reqUrl,
       showAlert,
-      showButton 
+      showButton
     } = this.state;
     const { navigation } = this.props;
 
     return (
 
-      
+
       <View style={styles.container}>
 
         <Header
@@ -303,7 +303,7 @@ class New extends Component {
                 <Picker.Item label='Incêndio' value='19' />
                 <Picker.Item label='Arrombamento de Caixa' value='6' />
                 <Picker.Item label='Exemplo' value='1' />
-                
+
               </Picker>
 
             </View>
@@ -335,7 +335,7 @@ class New extends Component {
 
         {
           showAlert && (
- 
+
         <AwesomeAlert
           show={showAlert}
           showProgress={false}
@@ -365,7 +365,7 @@ class New extends Component {
               </Text>
             </TouchableOpacity>
           )
-        }           
+        }
         </ScrollView>
       </View>
 
