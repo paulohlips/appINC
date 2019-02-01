@@ -27,24 +27,23 @@ class Login extends Component {
 
   state = {
     progress: new Animated.Value(0),
-    bttEntrar: false,
-    bttCadastrar: true,
     btt: null,
     inputSave: null,
+    password: null,
+    idUser: null,
     currentPosition: 0
   }
 
   async componentWillMount() {
     try {
-      await AsyncStorage.clear();
-      await AsyncStorage.getItem('@Id')
-      .then( resp => {console.tron.log(['Teste', resp]), this.setState({ btt:resp }); if(resp === null) {this.setState({ bttCadastrar: true, bttEntrar: false})}
-    else { this.setState({ bttCadastrar: false, bttEntrar: true}) }}
-      ).catch( erro => {console.tron.log('Erro');});
+      //await AsyncStorage.clear();
+      const id = await AsyncStorage.getItem('@Id');
+      console.tron.log(['Teste',id]);
     } catch(err) {
       console.tron.log('nao funcionou');
     }
-    
+    this.setState({btt: id });
+    console.tron.log(['Teste btt',btt])
   }
 
   navigateToLogged = () => {
@@ -79,7 +78,7 @@ class Login extends Component {
   }
 
   render() {
-    const { bttEntrar, bttCadastrar, btt } = this.state;
+    const { btt } = this.state;
     return (
       <ImageBackground source={require('../../assents/imgs/local_crime.jpg')} style={styles.backgroundImage} >
 
@@ -88,18 +87,28 @@ class Login extends Component {
           <StatusBar backgroundColor="rgba(45, 45, 45, 0.8)" />
 
           <Text style={styles.title}>Bem-Vindo</Text>
-          <Text style={styles.descript}>Por favor digite seu ID</Text>
+          <Text style={styles.descript}>Por favor digite suas credenciais</Text>
           <View style={styles.forms}>
-              <Text style={styles.input} underlineColorAndroid="rgba(0,0,0,0)">{btt}</Text>
-            <TextInput
-              style={styles.input}
-              autoCapitalize="none"
-              autoCorrect={false}
-              placeholder="Digite seu ID"
-              underlineColorAndroid="rgba(0,0,0,0)"
-              onChangeText={inputSave => this.setState({ inputSave})}
-              value={this.state.inputSave}
-            />
+              <TextInput
+                style={styles.input}
+                autoCapitalize="none"
+                autoCorrect={false}
+                placeholder="ID"
+                underlineColorAndroid="rgba(0,0,0,0)"
+                onChangeText={inputSave => this.setState({ inputSave})}
+                value={this.state.inputSave}
+                defaultValue={btt}
+              />
+              <TextInput
+                style={styles.input}
+                autoCapitalize="none"
+                autoCorrect={false}
+                placeholder="Senha"
+                underlineColorAndroid="rgba(0,0,0,0)"
+                secureTextEntry= {true}
+                onChangeText={password => this.setState({ password})}
+                value={this.state.inputSave}
+              />
                 <TouchableOpacity style={styles.testebutton} onPress={this.navigateToLogged}>
                   <Text style={styles.buttonText}>
                     Entrar

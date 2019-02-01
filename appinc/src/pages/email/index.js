@@ -17,7 +17,7 @@ import StepIndicator from 'react-native-step-indicator';
 import styles from './styles';
 import { red } from 'ansi-colors';
 
-const labels = ["ID","Captcha","Senha","Fim"];
+const labels = ["ID","Captcha","Senha"];
 const customStyles = {
   stepIndicatorSize: 45,
   currentStepIndicatorSize:45,
@@ -94,7 +94,7 @@ class Login extends Component {
             customStyles={customStyles}
             currentPosition={this.state.currentPosition}
             labels={labels}
-            stepCount={4}
+            stepCount={3}
           />
         </View>
       </View>

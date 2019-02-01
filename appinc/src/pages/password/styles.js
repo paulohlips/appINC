@@ -7,12 +7,26 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
+  first:{
+    flex: 1,
+
+  },
+
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: metrics.basePadding * 2,
     // backgroundColor: colors.lighter,
+    backgroundColor: 'rgba(45, 45, 45, 0.8)',
+  },
+
+  indicadorContainer: { 
+    backgroundColor: 'rgba(45, 45, 45, 0.8)',
+    paddingBottom: 40,
+  },
+
+  mainContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: 'rgba(45, 45, 45, 0.8)',
   },
 
