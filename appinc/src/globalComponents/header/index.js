@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, StatusBar } from 'react-native';
+import { View, Text, TouchableOpacity, StatusBar, AsyncStorage } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
@@ -34,20 +34,25 @@ class HeaderRedux extends Component {
     this.setState({ showAlert: false, alertVisible: false })
   }
 
-  render() {  
-    const { 
-      showArrow, 
-      showMenu, 
-      showInfo, 
-      goBack, 
-      openMenu, 
-      title, 
-      info, 
+  clearAsync = () => {
+    AsyncStorage.clear();
+  }
+
+  render() {
+    const {
+      showClear,
+      showArrow,
+      showMenu,
+      showInfo,
+      goBack,
+      openMenu,
+      title,
+      info,
       startUpdateProgress,
       showProgress,
       saveStepState,
     } = this.props;
-    const { showModalInfo, showAlert } = this.state;    
+    const { showModalInfo, showAlert } = this.state;
 
     return (
       <View style={styles.header}>
@@ -63,13 +68,13 @@ class HeaderRedux extends Component {
             }
             {
               showArrow && (
-                <TouchableOpacity onPress={() => {                    
+                <TouchableOpacity onPress={() => {
                     if(showProgress){
                       startUpdateProgress();
                       saveStepState();
                     }
-                    goBack();                                  
-                  }} 
+                    goBack();
+                  }}
                 >
                   <Icon name="md-arrow-back" size={28} style={styles.iconMenu} />
                 </TouchableOpacity>
@@ -83,15 +88,22 @@ class HeaderRedux extends Component {
             </View>
           <View>
             {
-              showInfo ? 
+              showInfo ?
                 <TouchableOpacity onPress={() => this.openInfo()}>
                   <Icon name="ios-information-circle-outline" size={28} style={styles.iconMenu} />
                 </TouchableOpacity>
-              : <View style={styles.concerto} />           
+              : <View style={styles.concerto} />
+            }
+            {
+              showClear && (
+                <TouchableOpacity onPress={() => this.clearAsync()}>
+                  <Icon name="md-trash" size={28} style={styles.iconMenu} />
+                </TouchableOpacity>
+              )
             }
             {
               showModalInfo && (
-                <Info 
+                <Info
                   closeModalInfo={this.closeInfo}
                   textInfo={info}
                 />

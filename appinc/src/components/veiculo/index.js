@@ -167,6 +167,15 @@ saveFormVeiculo = data => {
         getSaveStateForm(form);
       }
     }
+  } else {
+    for (var key in form.step) {
+      if ( key === data.data_name) {
+        const form = {};
+        form[data.data_name] = { key: data.data_name, value: '' , dadosVeiculo: null, dadosFipe: null, filled: false };
+        //console.tron.log(['formsavecampo', form])
+        getSaveStateForm(form);
+      }
+    }
   }
   startControlArray();
 }

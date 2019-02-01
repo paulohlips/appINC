@@ -56,7 +56,7 @@ const Routes = StackNavigator(
     Geoloc: { screen: GeoLoc },
     Camera: { screen: CameraPage },
     Date: { screen: Date },
-  
+
     BarCode: { screen: BarCode },
     Veiculo: { screen: Veiculo }
   },

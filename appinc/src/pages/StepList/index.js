@@ -5,7 +5,7 @@ import {
   ScrollView,
   AsyncStorage,
   TouchableOpacity,
-  Text, 
+  Text,
   Alert
 } from 'react-native';
 import styles from './styles';
@@ -16,8 +16,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 
 import { bindActionCreators } from 'redux';
-import { Creators as FormAction} from '../../store/ducks/form';
-import AwesomeAlert from 'react-native-awesome-alerts';
+import { Creators as FormAction } from '../../store/ducks/form';
 
 class StepList extends Component {
   state ={
@@ -25,13 +24,18 @@ class StepList extends Component {
     load: false,
     form: '',
     teste: 10,
-    showAlert: false
+    showAlert: false,
+    formRedux: true,
   }
 
   async componentWillMount() {
-    const valueForm = await AsyncStorage.getItem('@Formulario');
-    const formLocal = JSON.parse(valueForm);
-    this.setState({ form: formLocal});
+    //const form = this.props.navigation.getParam('inputSave', '');
+    //console.tron.log(['tste', form2 ]);
+    //const { setSaveContentForm } = this.props;
+    //const valueForm = await AsyncStorage.getItem('@Formulario');
+    //const formLocal = JSON.parse(valueForm);
+    //await this.setState({ form: formLocal });
+    //setSaveContentForm(formLocal);
   }
 
   closeModal() {
@@ -42,12 +46,12 @@ class StepList extends Component {
     this.setState({ modalVisible: true });
   }
 
-  cancel() { 
+  cancel() {
     this.props.navigation.goBack();
   }
 
   saveForm = () => {
-    const { reference, saveForm } = this.props;
+    const { reference, saveForm, setSaveContentForm, form } = this.props;
     //console.tron.log(['saveformstep', reference]);
     saveForm(reference);
   }
@@ -55,7 +59,7 @@ class StepList extends Component {
   resetAsync = () => {
     AsyncStorage.clear();
   }
-  
+
   enviaForm = async () => {
     //this.setState({ showAlert: true });
     const { formulario } = this.props;
@@ -66,25 +70,25 @@ class StepList extends Component {
       data.append(formulario.step[key].key, formulario.step[key].value)
       //console.tron.log(['elemente forech', formulario.step[key]])
     }
-     
-    //console.tron.log(['elemente forech', data]); 
-    //console.log(['elemente forech', data]);  
+
+    //console.tron.log(['elemente forech', data]);
+    //console.log(['elemente forech', data]);
 
     axios({
       method: 'post',
       url: 'http://35.231.239.168/api/pericia/formulario/envio',
       data: data,
-      config: { 
+      config: {
         headers: {
-          'Content-Type': 'multipart/form-data', 
-          'Accept': 'application/json'              
+          'Content-Type': 'multipart/form-data',
+          'Accept': 'application/json'
         }}
       })
       .then(function (response) {
           AsyncStorage.setItem('@IDlaudo', response.data.number);
           Alert.alert('ID do laudo','O número do seu laudo é '+response.data.number);
-          //console.tron.log(['elemente forech', response]); 
-      }) 
+          //console.tron.log(['elemente forech', response]);
+      })
       .catch(function (response) {
           //handle error
           console.log(response);
@@ -94,34 +98,35 @@ class StepList extends Component {
 
   render() {
     //console.tron.log(this.props);
+    const { formRedux } = this.state;
+    const form = this.props.form;
+    if (formRedux) {
+      this.props.setSaveContentForm(form);
+      this.setState({ formRedux: false });
+    }
+
+    console.tron.log(['form', form]);
     const { navigation } = this.props;
     //const { steps } = this.props;
-    const { modalVisible, load, showAlert } = this.state;    
-    const form = this.props.navigation.getParam('inputSave', '');
+    const { modalVisible, load, showAlert } = this.state;
     //console.tron.log('FORMEEE',form);
-    const { steps, form_name } = this.state.form;
+    //const { steps, form_name } = form;
 
     return (
-      <View style={styles.container}>        
-        <Header 
-          title={form} 
-          showArrow 
+      <View style={styles.container}>
+        <Header
+          title={form.area}
+          showArrow
           showInfo
           info={form.info_form}
-          goBack={this.props.navigation.goBack} 
+          goBack={this.props.navigation.goBack}
         />
-
         <ScrollView>
-
-        <FlatList
-          data={steps}
-          renderItem={item => <StepBox steps={item} />}
-        />
-
+          <FlatList
+            data={form.steps}
+            renderItem={item => <StepBox steps={item} form={form} />}
+          />
           <View style={styles.container}>
-
-
-
             <TouchableOpacity style={styles.enviarbutton} onPress={() => this.enviaForm()}>
               <Text style={styles.buttonText}>
                 Enviar
@@ -135,7 +140,6 @@ class StepList extends Component {
             </TouchableOpacity>
           </View>
         </ScrollView>
-
         {
           load && (
             <Load
@@ -150,7 +154,7 @@ class StepList extends Component {
 }
 
 const mapStateToProps = state => ({
-  form: state.newState.form,
+  form: state.newState.data,
   reference: state.newState.reference,
   formulario: state.formState,
 });

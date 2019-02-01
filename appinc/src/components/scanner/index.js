@@ -48,6 +48,15 @@ class Scanner extends Component {
           getSaveStateForm(form);
         }
       }
+    } else {
+      for (var key in form.step) {
+        if ( key === dataScanner.data_name) {
+          const form = {};
+          form[dataScanner.data_name] = { key: dataScanner.data_name, value: '', filled: false };
+         // console.tron.log(['formsavecampo', form])
+          getSaveStateForm(form);
+        }
+      }
     }
     startControlArray();
   }

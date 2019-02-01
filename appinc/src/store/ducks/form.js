@@ -8,8 +8,9 @@ const Types = {
   START_CONTROL_ARRAY: 'form/START_CONTROL_ARRAY',
   SAVE_FORM: 'form/SAVE_FORM',
   START_UPDATE_PROGRESS: 'form/UPDATE_PROGRESS',
-  FINISH_UPDATE_PROGRESS:'form/FINISH_UPDATE_PROGRESS',
+  FINISH_UPDATE_PROGRESS: 'form/FINISH_UPDATE_PROGRESS',
   RESTORE_FORM: 'form/RESTORE_FORM',
+  SAVE_CONTENT_FORM: 'form/SAVE_CONTENT_FORM',
 };
 
 const initialState = {
@@ -17,6 +18,8 @@ const initialState = {
   controlArraySize: null,
   updateProgress: false,
   step: {},
+  form: null,
+  formEdit: false,
 };
 
 export default function formState(state = initialState, action) {
@@ -25,6 +28,8 @@ export default function formState(state = initialState, action) {
       return { ...state, step: { ...state.step, ...action.payload.data } };
     case Types.SAVE_FORM_STATE:
       return { ...state, step: { ...state.step, ...action.payload.data } };
+    case Types.SAVE_CONTENT_FORM:
+      return { ...state, form: action.payload.form };
     case Types.START_SAVE_STEP:
       return { ...state, saveStep: true };
     case Types.STOP_SAVE_STEP:
@@ -43,7 +48,7 @@ export default function formState(state = initialState, action) {
       return { ...state, controlArraySize: status };
     }
     case Types.SAVE_FORM: {
-      saveFormAsync({ ref: action.payload.ref, state })
+      saveFormAsync({ ref: action.payload.ref, state: { ...state, formEdit: true } });
       return state;
     }
     case Types.START_UPDATE_PROGRESS:
@@ -51,7 +56,7 @@ export default function formState(state = initialState, action) {
     case Types.FINISH_UPDATE_PROGRESS:
       return { ...state, updateProgress: false };
     case Types.RESTORE_FORM:
-    return { ...state, step: action.payload.form}
+      return { ...state, step: action.payload.form.step, form: action.payload.form.form, formEdit: action.payload.form.formEdit };
     default:
       return state;
   }
@@ -62,6 +67,10 @@ export const Creators = {
   getCreateForm: data => ({
     type: Types.CREATE_FORM,
     payload: { data }
+  }),
+  setSaveContentForm: form => ({
+      type: Types.SAVE_CONTENT_FORM,
+      payload: { form }
   }),
   // inicial o processo de savar os valores recolhidos no step
   saveStepState: () => ({
@@ -102,40 +111,39 @@ const controlArraySte = state => {
   // caso seja null ele pega o tamnho do arra step e retorna
   if (!arraySize) {
     const step = state.step;
-    const size = Object.keys(step).length;   
+    const size = Object.keys(step).length;
     return size;
   }
   // diminui o valor da variavel controlArraySize em 1 toda vez que a função e chamada e retorna o novo valor
-  const size2 = arraySize - 1;  
-  if (size2 === 0) {    
+  const size2 = arraySize - 1;
+  if (size2 === 0) {
     return false;
   }
   return size2;
 };
 
-const saveFormAsync = async data => {    
+const saveFormAsync = async data => {
   const arrayRef = await AsyncStorage.getItem('arrayRef');
-  var arrayControl = false;
- 
+  let arrayControl = false;
   // verifica se ja existe um array de referencia se nao cria um e ja puxa a primeira referencia pra primeiro campod do array
   if (arrayRef === null) {
-    const array = new Array();
+    const array = [];
     array.push(data.ref);
     await AsyncStorage.setItem('arrayRef', JSON.stringify(array));
-    await AsyncStorage.setItem(data.ref, JSON.stringify(data.state.step));
+    await AsyncStorage.setItem(data.ref, JSON.stringify(data.state));
   } else {
     // caso contrario varre o array pra ver se tem aguma ref caso sim ele so substitui caso nao pussh a ref pro fim do array e os dados
-    const array = JSON.parse(arrayRef)    
-    array.map( item => {
-      if (item === data.ref) {        
-        AsyncStorage.setItem(data.ref, JSON.stringify(data.state.step));        
+    const array = JSON.parse(arrayRef);
+    array.map(item => {
+      if (item === data.ref) {
+        AsyncStorage.setItem(data.ref, JSON.stringify(data.state));
         arrayControl = true;
-      }         
-    })
+      }
+    });
     if (!arrayControl) {
-      array.push(data.ref)   ;   
-      await AsyncStorage.setItem('arrayRef', JSON.stringify(array) );
-      await AsyncStorage.setItem(data.ref, JSON.stringify(data.state.step));      
+      array.push(data.ref);
+      await AsyncStorage.setItem('arrayRef', JSON.stringify(array));
+      await AsyncStorage.setItem(data.ref, JSON.stringify(data.state));
     }
-  }  
-}
+  }
+};
