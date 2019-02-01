@@ -9,7 +9,8 @@ import {
   StatusBar,
   ImageBackground,
   Animated,
-  Easing
+  Easing,
+  AsyncStorage
 } from 'react-native';
 import LottieView from 'lottie-react-native';
 
@@ -36,6 +37,12 @@ class Login extends Component {
     this.props.navigation.dispatch(resetAction);
   }
 
+   salvarId = async() => {
+    const IdUser = await AsyncStorage.getItem('@IdProv');
+    AsyncStorage.setItem('@Id',IdUser);
+    console.tron.log('Vem chacualhando');
+  }
+
   onPressAnimated = async () => {
     this.animation.play(30, 1000);
   }
@@ -48,17 +55,24 @@ class Login extends Component {
           <StatusBar backgroundColor="rgba(34, 34, 34, 0.75)" />
 
           <View style={styles.forms}>
+          <TextInput
+                style={styles.input}
+                autoCapitalize="none"
+                autoCorrect={false}
+                placeholder="Definir senha "
+                underlineColorAndroid="rgba(0,0,0,0)"
+            />
             <TextInput
                 style={styles.input}
                 autoCapitalize="none"
                 autoCorrect={false}
-                placeholder="Digite o código "
+                placeholder="Repetir senha "
                 underlineColorAndroid="rgba(0,0,0,0)"
             />
 
-            <TouchableOpacity style={styles.testebutton} onPress={this.navigateToLogin}>
+            <TouchableOpacity style={styles.testebutton} onPress={ () => {this.navigateToLogin(); this.salvarId();}}>
               <Text style={styles.buttonText}>
-                Confirmar sua senha
+                Cadastrar
                </Text>
              </TouchableOpacity>
            </View>

@@ -14,7 +14,10 @@ import {
 } from 'react-native';
 import LottieView from 'lottie-react-native';
 
+
 import styles from './styles';
+
+
 
 
 class Login extends Component {
@@ -27,13 +30,15 @@ class Login extends Component {
     bttEntrar: false,
     bttCadastrar: true,
     btt: null,
+    inputSave: null,
+    currentPosition: 0
   }
 
   async componentWillMount() {
     try {
       await AsyncStorage.clear();
       await AsyncStorage.getItem('@Id')
-      .then( resp => {console.tron.log(['Teste', resp]); if(resp === null) {this.setState({ bttCadastrar: true, bttEntrar: false})}
+      .then( resp => {console.tron.log(['Teste', resp]), this.setState({ btt:resp }); if(resp === null) {this.setState({ bttCadastrar: true, bttEntrar: false})}
     else { this.setState({ bttCadastrar: false, bttEntrar: true}) }}
       ).catch( erro => {console.tron.log('Erro');});
     } catch(err) {
@@ -64,6 +69,11 @@ class Login extends Component {
     this.props.navigation.dispatch(resetAction);
   }
 
+  salvarIdProv = () => {
+    console.tron.log(this.state.inputSave);
+    AsyncStorage.setItem('@IdProv',this.state.inputSave);
+  }
+
   onPressAnimated = async () => {
     this.animation.play(30, 1000);
   }
@@ -72,42 +82,41 @@ class Login extends Component {
     const { bttEntrar, bttCadastrar, btt } = this.state;
     return (
       <ImageBackground source={require('../../assents/imgs/local_crime.jpg')} style={styles.backgroundImage} >
+
         <View style={styles.container}>
-          <StatusBar backgroundColor="rgba(34, 34, 34, 0.75)" />
+
+          <StatusBar backgroundColor="rgba(45, 45, 45, 0.8)" />
+
           <Text style={styles.title}>Bem-Vindo</Text>
           <Text style={styles.descript}>Por favor digite seu ID</Text>
           <View style={styles.forms}>
+              <Text style={styles.input} underlineColorAndroid="rgba(0,0,0,0)">{btt}</Text>
             <TextInput
               style={styles.input}
               autoCapitalize="none"
               autoCorrect={false}
               placeholder="Digite seu ID"
               underlineColorAndroid="rgba(0,0,0,0)"
+              onChangeText={inputSave => this.setState({ inputSave})}
+              value={this.state.inputSave}
             />
-            {
-              bttEntrar && (
                 <TouchableOpacity style={styles.testebutton} onPress={this.navigateToLogged}>
                   <Text style={styles.buttonText}>
                     Entrar
                   </Text>
                 </TouchableOpacity>
-              )
-            }
-            {
-              bttCadastrar && (
-                <TouchableOpacity style={styles.testebutton} onPress={this.navigateToSignUp}>
+                <TouchableOpacity style={styles.testebutton} onPress={ () => {this.navigateToSignUp(); this.salvarIdProv();}}>
                   <Text style={styles.buttonText}>
                     Cadastrar
                   </Text>
-                </TouchableOpacity>
-              )
-            }
+                </TouchableOpacity> 
            </View>
         </View>
        </ImageBackground>
     );
   }
 }
+
 
 
 export default Login;

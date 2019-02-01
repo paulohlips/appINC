@@ -58,7 +58,7 @@ class Login extends Component {
 
             <TouchableOpacity style={styles.testebutton} onPress={this.navigateToPassword}>
               <Text style={styles.buttonText}>
-                Confirmar código
+                Continuar
                </Text>
              </TouchableOpacity>
            </View>

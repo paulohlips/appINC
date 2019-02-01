@@ -12,8 +12,35 @@ import {
   Easing
 } from 'react-native';
 import LottieView from 'lottie-react-native';
+import StepIndicator from 'react-native-step-indicator';
 
 import styles from './styles';
+import { red } from 'ansi-colors';
+
+const labels = ["ID","Captcha","Senha","Fim"];
+const customStyles = {
+  stepIndicatorSize: 45,
+  currentStepIndicatorSize:45,
+  separatorStrokeWidth: 2,
+  currentStepStrokeWidth: 3,
+  stepStrokeCurrentColor: 'rgb(225, 200, 133)',
+  stepStrokeWidth: 3,
+  stepStrokeFinishedColor: 'rgb(225, 200, 133)',
+  stepStrokeUnFinishedColor: '#aaaaaa',
+  separatorFinishedColor: 'rgb(225, 200, 133)',
+  separatorUnFinishedColor: '#aaaaaa',
+  stepIndicatorFinishedColor: 'rgb(225, 200, 133)',
+  stepIndicatorUnFinishedColor: '#ffffff',
+  stepIndicatorCurrentColor: '#ffffff',
+  stepIndicatorLabelFontSize: 13,
+  currentStepIndicatorLabelFontSize: 13,
+  stepIndicatorLabelCurrentColor: 'rgb(225, 200, 133)',
+  stepIndicatorLabelFinishedColor: '#ffffff',
+  stepIndicatorLabelUnFinishedColor: '#aaaaaa',
+  labelColor: '#999999',
+  labelSize: 13,
+  currentStepLabelColor: 'rgb(225, 200, 133)',
+}
 
 
 class Login extends Component {
@@ -42,29 +69,39 @@ class Login extends Component {
 
   render() {
     return (
-      <ImageBackground source={require('../../assents/imgs/local_crime.jpg')} style={styles.backgroundImage} >
-        <View style={styles.container}>
-        <Text style={styles.descript}>Por favor digite seu email</Text>
-          <StatusBar backgroundColor="rgba(34, 34, 34, 0.75)" />
-
-          <View style={styles.forms}>
-            <TextInput
-                style={styles.input}
-                autoCapitalize="none"
-                autoCorrect={false}
-                placeholder="Digite seu email "
-                underlineColorAndroid="rgba(0,0,0,0)"
+      <View style={styles.container}>
+      <StatusBar backgroundColor="rgba(45, 45, 45, 0.8)" />
+        <View style={styles.mainContainer}>
+          <Text style={styles.descript}>Por favor digite seu ID</Text>
+            <View style={styles.forms}>
+              <TextInput
+                  style={styles.input}
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  placeholder="Digite seu ID "
+                  underlineColorAndroid="rgba(0,0,0,0)"
             />
 
-            <TouchableOpacity style={styles.testebutton} onPress={this.navigateToHash}>
+            <TouchableOpacity style={styles.testebutton} onPress={() => {this.navigateToHash();}}>
               <Text style={styles.buttonText}>
-                Confirmar email
+                Continuar
                </Text>
              </TouchableOpacity>
            </View>
         </View>
-       </ImageBackground>
+        <View style={styles.indicadorContainer}>
+          <StepIndicator
+            customStyles={customStyles}
+            currentPosition={this.state.currentPosition}
+            labels={labels}
+            stepCount={4}
+          />
+        </View>
+      </View>
     );
+  }
+  onPageChange(position){
+    this.setState({currentPosition: position});
   }
 }
 

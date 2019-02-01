@@ -60,7 +60,6 @@ class Main extends Component {
     const arrayRef = await AsyncStorage.getItem('teste2');
     // console.tron.log(['arrayRef',arrayRef]);
     //console.tron.log(this.props);
-    AsyncStorage.setItem('@Id','Ola');
   }
 
   componentDidMount() {
