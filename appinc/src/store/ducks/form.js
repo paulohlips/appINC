@@ -20,6 +20,7 @@ const initialState = {
   step: {},
   form: null,
   formEdit: false,
+  ref: '',
 };
 
 export default function formState(state = initialState, action) {
@@ -56,7 +57,13 @@ export default function formState(state = initialState, action) {
     case Types.FINISH_UPDATE_PROGRESS:
       return { ...state, updateProgress: false };
     case Types.RESTORE_FORM:
-      return { ...state, step: action.payload.form.step, form: action.payload.form.form, formEdit: action.payload.form.formEdit };
+      return { ...state,
+        step: action.payload.form.step,
+        form: action.payload.form.form,
+        formEdit: action.payload.form.formEdit,
+        updateProgress: true,
+        ref: action.payload.form.ref,
+      };
     default:
       return state;
   }
