@@ -17,7 +17,6 @@ import axios from 'axios';
 
 import { bindActionCreators } from 'redux';
 import { Creators as FormAction } from '../../store/ducks/form';
-import AwesomeAlert from 'react-native-awesome-alerts';
 
 class StepList extends Component {
   state ={
@@ -25,17 +24,18 @@ class StepList extends Component {
     load: false,
     form: '',
     teste: 10,
-    showAlert: false
+    showAlert: false,
+    formRedux: true,
   }
 
   async componentWillMount() {
-    const form2 = this.props.navigation.getParam('inputSave');
-    console.tron.log(['tste', form2 ]);
-    const { setSaveContentForm } = this.props;
-    const valueForm = await AsyncStorage.getItem('@Formulario');
-    const formLocal = JSON.parse(valueForm);
-    await this.setState({ form: formLocal });
-    setSaveContentForm(formLocal);
+    //const form = this.props.navigation.getParam('inputSave', '');
+    //console.tron.log(['tste', form2 ]);
+    //const { setSaveContentForm } = this.props;
+    //const valueForm = await AsyncStorage.getItem('@Formulario');
+    //const formLocal = JSON.parse(valueForm);
+    //await this.setState({ form: formLocal });
+    //setSaveContentForm(formLocal);
   }
 
   closeModal() {
@@ -51,11 +51,9 @@ class StepList extends Component {
   }
 
   saveForm = () => {
-    const { reference, saveForm, setSaveContentForm } = this.props;
-    const { form } = this.state;
+    const { reference, saveForm, setSaveContentForm, form } = this.props;
     //console.tron.log(['saveformstep', reference]);
     saveForm(reference);
-
   }
 
   resetAsync = () => {
@@ -100,18 +98,24 @@ class StepList extends Component {
 
   render() {
     //console.tron.log(this.props);
-    const form = this.props.navigation.getParam('inputSave');
+    const { formRedux } = this.state;
+    const form = this.props.form;
+    if (formRedux) {
+      this.props.setSaveContentForm(form);
+      this.setState({ formRedux: false });
+    }
+
     console.tron.log(['form', form]);
     const { navigation } = this.props;
     //const { steps } = this.props;
     const { modalVisible, load, showAlert } = this.state;
     //console.tron.log('FORMEEE',form);
-    const { steps, form_name } = form;
+    //const { steps, form_name } = form;
 
     return (
       <View style={styles.container}>
         <Header
-          title={form}
+          title={form.area}
           showArrow
           showInfo
           info={form.info_form}
@@ -119,7 +123,7 @@ class StepList extends Component {
         />
         <ScrollView>
           <FlatList
-            data={steps}
+            data={form.steps}
             renderItem={item => <StepBox steps={item} form={form} />}
           />
           <View style={styles.container}>
@@ -150,7 +154,7 @@ class StepList extends Component {
 }
 
 const mapStateToProps = state => ({
-  form: state.newState.form,
+  form: state.newState.data,
   reference: state.newState.reference,
   formulario: state.formState,
 });

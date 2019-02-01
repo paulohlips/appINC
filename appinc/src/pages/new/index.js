@@ -102,7 +102,7 @@ class New extends Component {
     const classe = this.state.formQuerry[0].classes;
     await this.setState({ classe });
     //const testeclasse = classe.map(item => console.tron.log(item.classe_name));
-    this.setState({ subtipo: value},
+    this.setState({ subtipo: value },
       () => {
       }
     );
@@ -115,7 +115,7 @@ class New extends Component {
   }
 
   subClassePicker = (value) => {
-    this.setState({ subtipo: value},
+    this.setState({ subtipo: value },
       () => {
         //console.tron.log(["Funfou",this.state.subtipo])
         this.onSubClassePickerChange();
@@ -210,7 +210,7 @@ class New extends Component {
   onPressButton = () => {
     const { navigation, getReference } = this.props;
     const { inputSave } = this.state;
-    if(inputSave) {
+    if (inputSave) {
       getReference(this.state.inputSave);
       navigation.navigate('StepList', { inputSave: this.state.inputSave });
     } else {
@@ -220,15 +220,8 @@ class New extends Component {
   }
 
   reqUrl = (value) => {
-    axios.get('http://35.231.239.168/api/pericia/formularios/'+value)
-      .then((resp) => {
-        this.setState({ baseUrl: value, showButton: true})
-        //console.tron.log(['Requisição New', resp.data]);
-        AsyncStorage.setItem('@Formulario', JSON.stringify(resp.data));
-        this.setUrl();
-      }).catch(err => {
-        //console.tron.log(err);
-      });
+    const { getNewRequest } = this.props;
+    getNewRequest(value);
   }
 
   async setUrl() {
@@ -269,20 +262,16 @@ class New extends Component {
       showAlert,
       showButton
     } = this.state;
-    const { navigation } = this.props;
+    const { navigation, newState } = this.props;
 
     return (
-
-
       <View style={styles.container}>
-
         <Header
           title='Nova Pericia'
           showMenu
           openMenu={navigation.toggleDrawer}
         />
         <ScrollView>
-
         <View style={styles.forms1}>
           <View style={styles.title}>
             <View style={styles.ball}>
@@ -297,7 +286,6 @@ class New extends Component {
                 onValueChange={(baseUrl => this.setState({ baseUrl }), this.reqUrl )}
                 selectedValue={this.state.baseUrl}
               >
-
                 <Picker.Item label='Selecione a perícia' />
                 <Picker.Item label='Veículos' value='4' />
                 <Picker.Item label='Incêndio' value='19' />
@@ -310,10 +298,10 @@ class New extends Component {
         </View>
 
         {
-          showRef && (
+          newState.showButton && (
 
             <Animated.View
-            style={{ ...this.props.style , opacity: fadeAnim_ref }}>
+            style={{ ...this.props.style, opacity: fadeAnim_ref }}>
             {this.props.children}
                   <View style={styles.forms}>
                   <View style={styles.title}>
@@ -358,7 +346,7 @@ class New extends Component {
           )
         }
         {
-          showButton && (
+          newState.showButton && (
             <TouchableOpacity style={styles.button} onPress={() => this.onPressButton()}>
               <Text style={styles.buttonText}>
                 Continuar
@@ -376,7 +364,6 @@ class New extends Component {
 const mapStateToProps = state => ({
   newState: state.newState
 });
-
 
 const mapDispatchToProps = dispatch => bindActionCreators(NewActions, dispatch);
 

@@ -26,7 +26,8 @@ class StepBoxComponent extends Component {
   }
 
   createFormsSave = async () => {
-    const { getCreateForm, steps } = this.props;
+    const { getCreateForm, steps, formState } = this.props;
+
     this.setState({ createdForms: true });
     const arrayProgress = {
       name: steps.item.step_name,
@@ -34,25 +35,45 @@ class StepBoxComponent extends Component {
       length: 0,
     };
 
-    steps.item.components.forEach(component => {
-      // console.tron.log(component);
-      const form = {};
-      if(component.component_type === 'date') {
-        form[component.data_name] = { key: component.data_name, value: '1980-01-21', filled: null };
-      }else{
-        form[component.data_name] = { key: component.data_name, value: component.default_value, filled: null };
-      }
-      getCreateForm(form);
-      arrayProgress.array.push(component.data_name);
-      const lengthArray = arrayProgress.array.length;
-      arrayProgress.length = lengthArray;
-      this.setState({ arrayProgress: arrayProgress, callFunction: true });
-    });
-
-    /* if(arrayProgress.length > 0) {
-      this.compareProgress();
-      //console.tron.log(['entrei no if', this.state.arrayProgress])
-    } */
+    if (formState.formEdit) {
+      steps.item.components.forEach(component => {
+        // console.tron.log(component);
+        const form = {};
+        if (component.component_type === 'date') {
+          formState.step.map(item => {
+            if (component.data_name === item.key) {
+              form[component.data_name] = item;
+            }
+          });
+        } else {
+          formState.step.map(item => {
+            if (component.data_name === item.key) {
+              form[component.data_name] = item;
+            }
+          });
+        }
+        getCreateForm(form);
+        arrayProgress.array.push(component.data_name);
+        const lengthArray = arrayProgress.array.length;
+        arrayProgress.length = lengthArray;
+        this.setState({ arrayProgress: arrayProgress, callFunction: true });
+      });
+    } else {
+      steps.item.components.forEach(component => {
+        // console.tron.log(component);
+        const form = {};
+        if (component.component_type === 'date') {
+          form[component.data_name] = { key: component.data_name, value: '1980-01-21', filled: null };
+        } else {
+          form[component.data_name] = { key: component.data_name, value: component.default_value, filled: null };
+        }
+        getCreateForm(form);
+        arrayProgress.array.push(component.data_name);
+        const lengthArray = arrayProgress.array.length;
+        arrayProgress.length = lengthArray;
+        this.setState({ arrayProgress: arrayProgress, callFunction: true });
+      });
+    }
   }
 
   compareProgress = async () => {
@@ -118,7 +139,7 @@ class StepBoxComponent extends Component {
 }
 
 const mapStateToProps = state => ({
-  form: state.formState,
+  formState: state.formState,
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators(FormsActions, dispatch);

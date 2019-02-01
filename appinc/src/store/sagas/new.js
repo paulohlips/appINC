@@ -3,9 +3,9 @@ import { call, put } from 'redux-saga/effects';
 
 import { Creators as NewActions } from '../ducks/new';
 
-export function* getNew() {
+export function* getNewRequest(action) {
   try {
-    const response = yield call(api.get, 'http://35.231.239.168/api/pericia/formularios/');
+    const response = yield call(api.get, `/pericia/formularios/${action.payload.number}`);
     //console.tron.log(response);
     yield put(NewActions.getNewSucsses(response.data));
   } catch (erro) {

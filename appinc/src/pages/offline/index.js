@@ -8,6 +8,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Creators as FormActions } from '../../store/ducks/form';
+import { Creators as NewActions } from '../../store/ducks/new';
 
 class Offline extends Component {
 
@@ -18,34 +19,35 @@ class Offline extends Component {
     }
     async componentWillMount() {
         const arrayRef = await AsyncStorage.getItem('arrayRef');
-        const array = JSON.parse(arrayRef)
+        const array = JSON.parse(arrayRef);
         this.setState({ arrayRef: array });
         // console.tron.log(['arrayRef', JSON.parse(arrayRef)]);
         //console.tron.log(this.props);
     }
 
-    renderCard = item => {
-        return (
-            <TouchableOpacity onPress={() => this.restoreForm(item)}>
-                <View style={styles.card}>
-                    <Text style={styles.title}>Nome da Perícia:</Text>
-                    <Text style={styles.name}>{item}</Text>
-                </View>
-            </TouchableOpacity>
-        );
-    }
-
     restoreForm = async name => {
         //console.tron.log(['props1', this.props]);
-        const { navigation } = this.props;
+        const { navigation, restoreFormState, setForm } = this.props;
         const formAsync = await AsyncStorage.getItem(name);
         const form = JSON.parse(formAsync);
         //console.tron.log(['fomr', form]);
-        await this.props.restoreFormState(form);
-        navigation.navigate('StepList', { inputSave: form.form });
+        await setForm(form.form);
+        await restoreFormState(form);
+        navigation.navigate('StepList');
         //console.tron.log(['props', this.props]);
-        this.setState({ modalVisible: true, form: formAsync })
+        //this.setState({ modalVisible: true, form: formAsync });
     }
+
+  renderCard = item => {
+    return (
+      <TouchableOpacity onPress={() => this.restoreForm(item)}>
+          <View style={styles.card}>
+              <Text style={styles.title}>Nome da Perícia:</Text>
+              <Text style={styles.name}>{item}</Text>
+          </View>
+      </TouchableOpacity>
+    );
+  }
 
 
   render() {
@@ -56,6 +58,7 @@ class Offline extends Component {
       <View style={styles.container}>
         <Header
           showMenu
+          showClear
           openMenu={navigation.toggleDrawer}
           title='Minhas Perícias Offline'
         />
@@ -103,6 +106,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch =>
-bindActionCreators(FormActions, dispatch);
+bindActionCreators({ ...FormActions, ...NewActions }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Offline);

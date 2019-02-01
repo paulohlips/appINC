@@ -19,6 +19,7 @@ const initialState = {
   updateProgress: false,
   step: {},
   form: null,
+  formEdit: false,
 };
 
 export default function formState(state = initialState, action) {
@@ -47,7 +48,7 @@ export default function formState(state = initialState, action) {
       return { ...state, controlArraySize: status };
     }
     case Types.SAVE_FORM: {
-      saveFormAsync({ ref: action.payload.ref, state })
+      saveFormAsync({ ref: action.payload.ref, state: { ...state, formEdit: true } });
       return state;
     }
     case Types.START_UPDATE_PROGRESS:
@@ -55,7 +56,7 @@ export default function formState(state = initialState, action) {
     case Types.FINISH_UPDATE_PROGRESS:
       return { ...state, updateProgress: false };
     case Types.RESTORE_FORM:
-      return { ...state, step: action.payload.form.step, form: action.payload.form.form };
+      return { ...state, step: action.payload.form.step, form: action.payload.form.form, formEdit: action.payload.form.formEdit };
     default:
       return state;
   }
