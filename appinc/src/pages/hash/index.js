@@ -9,14 +9,16 @@ import {
   StatusBar,
   ImageBackground,
   Animated,
-  Easing
+  Easing,
+  AsyncStorage
 } from 'react-native';
 import LottieView from 'lottie-react-native';
 import StepIndicator from 'react-native-step-indicator';
+import Axios from 'axios';
 
 import styles from './styles';
 
-const labels = ["ID","Captcha","Senha"];
+const labels = ["ID","PIN","Senha"];
 const customStyles = {
   stepIndicatorSize: 45,
   currentStepIndicatorSize:45,
@@ -48,7 +50,14 @@ class Login extends Component {
 
   state = {
     progress: new Animated.Value(0),
-    currentPosition: 1
+    currentPosition: 1,
+    idRegistro: null,
+    inputSave: null
+  }
+
+  async componentWillMount() {
+    const idRegistro = await AsyncStorage.getItem('@IdRegistro');
+    this.setState({ idRegistro: idRegistro });
   }
 
   navigateToPassword = () => {
@@ -66,6 +75,17 @@ class Login extends Component {
     this.animation.play(30, 1000);
   }
 
+  conferePIN = () => {
+    const { inputSave, idRegistro } = this.state;
+    //console.tron.log('Teste ID', inputSave);
+    Axios({
+      method: 'post',
+      url: 'http://35.231.239.168/api/pericia/usuario/validaPin',
+      data: { matricula: inputSave, pin: idRegistro },
+    });
+    AsyncStorage.setItem('@PinRegistro', idRegistro);
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -80,9 +100,11 @@ class Login extends Component {
                   autoCorrect={false}
                   placeholder="Digite o código "
                   underlineColorAndroid="rgba(0,0,0,0)"
+                  onChangeText={inputSave => this.setState({ inputSave })}
+                  value={this.state.inputSave}
             />
 
-            <TouchableOpacity style={styles.testebutton} onPress={() => {this.navigateToPassword();}}>
+            <TouchableOpacity style={styles.testebutton} onPress={() => { this.conferePIN(); this.navigateToPassword(); }}>
               <Text style={styles.buttonText}>
                 Continuar
                </Text>

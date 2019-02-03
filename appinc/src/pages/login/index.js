@@ -13,12 +13,9 @@ import {
   AsyncStorage
 } from 'react-native';
 import LottieView from 'lottie-react-native';
-
+import axios from 'axios';
 
 import styles from './styles';
-
-
-
 
 class Login extends Component {
   static navigationOptions = {
@@ -38,12 +35,12 @@ class Login extends Component {
     try {
       //await AsyncStorage.clear();
       const id = await AsyncStorage.getItem('@Id');
-      console.tron.log(['Teste',id]);
-    } catch(err) {
+      console.tron.log(['Teste', id]);
+    } catch (err) {
       console.tron.log('nao funcionou');
     }
-    this.setState({btt: id });
-    console.tron.log(['Teste btt',btt])
+    this.setState({ btt: id });
+    console.tron.log(['Teste btt', this.state.btt]);
   }
 
   navigateToLogged = () => {
@@ -73,6 +70,18 @@ class Login extends Component {
     AsyncStorage.setItem('@IdProv',this.state.inputSave);
   }
 
+  confereCadastro = () => {
+    const { password, inputSave } = this.state;
+    axios({
+      method: 'post',
+      url: 'http://35.231.239.168/api/pericia/usuario/login',
+      data: { matricula: inputSave, pass: password },
+      //if(response.status == 'false'){
+      //  alert('Deu erro');
+      //}
+    });
+  }
+
   onPressAnimated = async () => {
     this.animation.play(30, 1000);
   }
@@ -95,7 +104,7 @@ class Login extends Component {
                 autoCorrect={false}
                 placeholder="ID"
                 underlineColorAndroid="rgba(0,0,0,0)"
-                onChangeText={inputSave => this.setState({ inputSave})}
+                onChangeText={inputSave => this.setState({ inputSave })}
                 value={this.state.inputSave}
                 defaultValue={btt}
               />
@@ -105,20 +114,20 @@ class Login extends Component {
                 autoCorrect={false}
                 placeholder="Senha"
                 underlineColorAndroid="rgba(0,0,0,0)"
-                secureTextEntry= {true}
-                onChangeText={password => this.setState({ password})}
-                value={this.state.inputSave}
+                secureTextEntry={true}
+                onChangeText={password => this.setState({ password })}
+                value={this.state.password}
               />
-                <TouchableOpacity style={styles.testebutton} onPress={this.navigateToLogged}>
+                <TouchableOpacity style={styles.testebutton} onPress={() => { this.confereCadastro(); this.navigateToLogged(); }}>
                   <Text style={styles.buttonText}>
                     Entrar
                   </Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.testebutton} onPress={ () => {this.navigateToSignUp(); this.salvarIdProv();}}>
+                <TouchableOpacity style={styles.testebutton} onPress={() => { this.navigateToSignUp(); this.salvarIdProv(); }}>
                   <Text style={styles.buttonText}>
                     Cadastrar
                   </Text>
-                </TouchableOpacity> 
+                </TouchableOpacity>
            </View>
         </View>
        </ImageBackground>

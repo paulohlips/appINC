@@ -9,15 +9,17 @@ import {
   StatusBar,
   ImageBackground,
   Animated,
-  Easing
+  Easing,
+  AsyncStorage
 } from 'react-native';
 import LottieView from 'lottie-react-native';
 import StepIndicator from 'react-native-step-indicator';
 
 import styles from './styles';
 import { red } from 'ansi-colors';
+import Axios from 'axios';
 
-const labels = ["ID","Captcha","Senha"];
+const labels = ["ID","PIN","Senha"];
 const customStyles = {
   stepIndicatorSize: 45,
   currentStepIndicatorSize:45,
@@ -50,6 +52,7 @@ class Login extends Component {
 
   state = {
     progress: new Animated.Value(0),
+    inputSave: null
   }
 
   navigateToHash = () => {
@@ -61,6 +64,17 @@ class Login extends Component {
       ]
     });
     this.props.navigation.dispatch(resetAction);
+  }
+
+  confereID = () => {
+    const { inputSave } = this.state;
+    //console.tron.log('Teste ID', inputSave);
+    Axios({
+      method: 'post',
+      url: 'http://35.231.239.168/api/pericia/usuario/cadastro',
+      data: { matricula: inputSave },
+    });
+    AsyncStorage.setItem('@IdRegistro', inputSave);
   }
 
   onPressAnimated = async () => {
@@ -80,13 +94,15 @@ class Login extends Component {
                   autoCorrect={false}
                   placeholder="Digite seu ID "
                   underlineColorAndroid="rgba(0,0,0,0)"
-            />
+                  onChangeText={inputSave => this.setState({ inputSave })}
+                  value={this.state.inputSave}
+              />
 
-            <TouchableOpacity style={styles.testebutton} onPress={() => {this.navigateToHash();}}>
-              <Text style={styles.buttonText}>
-                Continuar
-               </Text>
-             </TouchableOpacity>
+              <TouchableOpacity style={styles.testebutton} onPress={() => { this.confereID(); this.navigateToHash(); }}>
+                <Text style={styles.buttonText}>
+                  Continuar
+                </Text>
+              </TouchableOpacity>
            </View>
         </View>
         <View style={styles.indicadorContainer}>

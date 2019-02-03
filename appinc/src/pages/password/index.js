@@ -10,14 +10,16 @@ import {
   ImageBackground,
   Animated,
   Easing,
-  AsyncStorage
+  AsyncStorage,
+  Alert
 } from 'react-native';
 import LottieView from 'lottie-react-native';
 import StepIndicator from 'react-native-step-indicator';
+import Axios from 'axios';
 
 import styles from './styles';
 
-const labels = ["ID","Captcha","Senha"];
+const labels = ["ID","PIN","Senha"];
 const customStyles = {
   stepIndicatorSize: 45,
   currentStepIndicatorSize:45,
@@ -51,7 +53,20 @@ class Login extends Component {
   state = {
     progress: new Animated.Value(0),
     currentPosition: 2,
-    id: null,
+    idRegistro: null,
+    pinRegistro: null,
+    inputSave1: null,
+    inputSave2: null,
+    id: null
+  }
+
+  async componentWillMount() {
+    const idRegistro = await AsyncStorage.getItem('@IdRegistro');
+    this.setState({ idRegistro: idRegistro });
+    const pinRegistro = await AsyncStorage.getItem('@PinRegistro');
+    this.setState({ pinRegistro: pinRegistro });
+    const id = await AsyncStorage.getItem('@IdProv');
+    this.setState({ id: id });
   }
 
   navigateToLogin = () => {
@@ -65,15 +80,18 @@ class Login extends Component {
     this.props.navigation.dispatch(resetAction);
   }
 
-   salvarId = async () => {
-     try{
-      const idProv = await AsyncStorage.getItem('@IdProv');
-      console.tron.log(['Teste',idProv]);
-     }
-     catch(err){{console.tron.log('Erro 2');}}
- 
-    AsyncStorage.setItem('@Id','Paolo');
-    console.tron.log('Vem chacoalhando');
+   salvarId = () => {
+    const { id, idRegistro, pinRegistro, inputSave1, inputSave2 } = this.state;
+    if (inputSave1 == inputSave2){
+      Axios({
+        method: 'post',
+        url: 'http://35.231.239.168/api/pericia/usuario/geraSenha',
+        data: { matricula: idRegistro, pin: pinRegistro, pass: inputSave2 },
+      });
+    } else {
+      Alert.alert('Senhas diferentes');
+    }
+    AsyncStorage.setItem('@Id', id);
   }
 
   onPressAnimated = async () => {
@@ -93,6 +111,8 @@ class Login extends Component {
                   autoCorrect={false}
                   placeholder="Defina senha "
                   underlineColorAndroid="rgba(0,0,0,0)"
+                  onChangeText={inputSave1 => this.setState({ inputSave1 })}
+                  value={this.state.inputSave1}
             />
             <TextInput
                   style={styles.input}
@@ -100,6 +120,8 @@ class Login extends Component {
                   autoCorrect={false}
                   placeholder="Confirmar senha"
                   underlineColorAndroid="rgba(0,0,0,0)"
+                  onChangeText={inputSave2 => this.setState({ inputSave2 })}
+                  value={this.state.inputSave2}
             />
 
             <TouchableOpacity style={styles.testebutton} onPress={() => {this.navigateToLogin(); this.salvarId();}}>
