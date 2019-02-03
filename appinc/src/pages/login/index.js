@@ -96,7 +96,7 @@ class Login extends Component {
           <StatusBar backgroundColor="rgba(45, 45, 45, 0.8)" />
 
           <Text style={styles.title}>Bem-Vindo</Text>
-          <Text style={styles.descript}>Por favor digite suas credenciais</Text>
+          <Text style={styles.descript}>Por favor, digite suas credenciais</Text>
           <View style={styles.forms}>
               <TextInput
                 style={styles.input}
@@ -123,7 +123,7 @@ class Login extends Component {
                     Entrar
                   </Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.testebutton} onPress={() => { this.navigateToSignUp(); this.salvarIdProv(); }}>
+                <TouchableOpacity style={styles.cadastrobutton} onPress={() => { this.navigateToSignUp(); this.salvarIdProv(); }}>
                   <Text style={styles.buttonText}>
                     Cadastrar
                   </Text>

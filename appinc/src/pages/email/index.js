@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StackActions, NavigationActions } from 'react-navigation';
+import HideWithKeyboard from 'react-native-hide-with-keyboard';
 import {
   View,
   Text,
@@ -86,6 +87,7 @@ class Login extends Component {
       <View style={styles.container}>
       <StatusBar backgroundColor="rgba(45, 45, 45, 0.8)" />
         <View style={styles.mainContainer}>
+        <Text style={styles.step}>01</Text>
           <Text style={styles.descript}>Por favor digite seu ID</Text>
             <View style={styles.forms}>
               <TextInput
@@ -105,6 +107,7 @@ class Login extends Component {
               </TouchableOpacity>
            </View>
         </View>
+        <HideWithKeyboard>
         <View style={styles.indicadorContainer}>
           <StepIndicator
             customStyles={customStyles}
@@ -113,6 +116,7 @@ class Login extends Component {
             stepCount={3}
           />
         </View>
+        </HideWithKeyboard>
       </View>
     );
   }

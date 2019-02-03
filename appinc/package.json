@@ -19,6 +19,7 @@
     "react-native-datepicker": "^1.7.2",
     "react-native-elements": "^1.0.0-beta7",
     "react-native-fetch-blob": "^0.10.8",
+    "react-native-hide-with-keyboard": "^1.2.0",
     "react-native-image-crop-picker": "^0.21.3",
     "react-native-sound": "^0.10.9",
     "react-native-step-indicator": "^0.0.9",

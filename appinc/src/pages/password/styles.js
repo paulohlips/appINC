@@ -12,13 +12,18 @@ const styles = StyleSheet.create({
 
   },
 
+  step:{
+    color: 'white',
+    fontSize : 58,
+  },
+
   container: {
     flex: 1,
     // backgroundColor: colors.lighter,
     backgroundColor: 'rgba(45, 45, 45, 0.8)',
   },
 
-  indicadorContainer: { 
+  indicadorContainer: {
     backgroundColor: 'rgba(45, 45, 45, 0.8)',
     paddingBottom: 40,
   },
