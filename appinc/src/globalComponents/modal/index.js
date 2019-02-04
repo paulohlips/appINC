@@ -47,7 +47,7 @@ class ModalCheck extends Component {
 
 
   render() {
-    const { viewModal, onClose } = this.props;
+    const { viewModal, onClose, sourceImage, success, failure, message } = this.props;
     console.tron.log(this.state.progress);
     return (
       <Modal
@@ -57,19 +57,37 @@ class ModalCheck extends Component {
         onRequestClose={() => {}}
       >
         <View style={styles.container}>
-          <View style={styles.box}>
-            <View style={styles.lottie}>
-              <LottieView source={require('../../../assents/lottie/check.json')} progress={this.state.progress}/>
-            </View>
-            <Text style={styles.text}>Cadastro realizado com sucesso!</Text>
-            <TouchableOpacity style={styles.ok} onPress={ () => this.navigateToLogin() }>
-              <Text style={styles.okt}>
-                Ok!
-               </Text>
-             </TouchableOpacity>
-
-        </View>
-
+          {
+            success && (
+              <View style={styles.box}>
+                <View style={styles.lottie}>
+                  <LottieView source={sourceImage} progress={this.state.progress}/>
+                </View>
+                <Text style={styles.text}>Cadastro realizado com sucesso!</Text>
+                <TouchableOpacity style={styles.ok} onPress={() => this.navigateToLogin()}>
+                  <Text style={styles.okt}>
+                    Ok!
+                   </Text>
+                 </TouchableOpacity>
+              </View>
+            )
+          }
+          {
+            failure && (
+              <View style={styles.box}>
+                <View style={styles.lottie}>
+                  <LottieView source={sourceImage} progress={this.state.progress}/>
+                </View>
+                <Text style={styles.texterro}>Algo deu errado!</Text>
+                <Text style={styles.erro}>{message}</Text>
+                <TouchableOpacity style={styles.oke} onPress={ () => this.navigateToLogin() }>
+                  <Text style={styles.okterro}>
+                    Ok!
+                   </Text>
+                 </TouchableOpacity>
+              </View>
+            )
+          }
         </View>
       </Modal>
     );

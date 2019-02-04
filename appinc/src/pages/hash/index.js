@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StackActions, NavigationActions } from 'react-navigation';
 import HideWithKeyboard from 'react-native-hide-with-keyboard';
+import { ModalCheck } from '../../globalComponents';
 import {
   View,
   Text,
@@ -17,6 +18,8 @@ import {
 import LottieView from 'lottie-react-native';
 import StepIndicator from 'react-native-step-indicator';
 import Axios from 'axios';
+
+const imageCheck = require('../../assents/lottie/warning.json');
 
 import styles from './styles';
 
@@ -54,7 +57,9 @@ class Login extends Component {
     progress: new Animated.Value(0),
     currentPosition: 1,
     idRegistro: null,
-    inputSave: null
+    inputSave: null,
+    viewModal: false,
+    messageRequest: '',
   }
 
   async componentWillMount() {
@@ -89,15 +94,16 @@ class Login extends Component {
       if (resp.status === 200) {
         this.navigateToPassword();
       } else {
-        Alert.alert(resp.data.mensagem);
+          this.setState({ viewModal: true , messageRequest: resp.data.mensagem });
       }
     }).catch(err => {
-      Alert.alert('Erro de conexão');
+        this.setState({ viewModal: true , messageRequest: resp.data.mensagem });
     });
     AsyncStorage.setItem('@PinRegistro', inputSave);
   }
 
   render() {
+    const { viewModal, messageRequest} = this.state;
     return (
       <View style={styles.container}>
       <StatusBar backgroundColor="rgba(45, 45, 45, 0.8)" />
@@ -133,6 +139,16 @@ class Login extends Component {
           />
         </View>
         </HideWithKeyboard>
+        {
+          viewModal && (
+            <ModalCheck
+              message={messageRequest}
+              viewModal
+              failure
+              sourceImage={imageCheck}
+            />
+          )
+        }
       </View>
     );
   }

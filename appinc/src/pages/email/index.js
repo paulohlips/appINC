@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StackActions, NavigationActions } from 'react-navigation';
 import HideWithKeyboard from 'react-native-hide-with-keyboard';
+import { ModalCheck } from '../../globalComponents';
 import {
   View,
   Text,
@@ -16,6 +17,8 @@ import {
 } from 'react-native';
 import LottieView from 'lottie-react-native';
 import StepIndicator from 'react-native-step-indicator';
+
+const imageCheck = require('../../assents/lottie/warning.json');
 
 import styles from './styles';
 import { red } from 'ansi-colors';
@@ -54,7 +57,9 @@ class Login extends Component {
 
   state = {
     progress: new Animated.Value(0),
-    inputSave: null
+    inputSave: null,
+    viewModal: false,
+    messageRequest: '',
   }
 
   navigateToHash = () => {
@@ -80,10 +85,10 @@ class Login extends Component {
       if (resp.status === 200) {
         this.navigateToHash();
       } else {
-        Alert.alert(resp.data.mensagem);
+          this.setState({ viewModal: true , messageRequest: resp.data.mensagem });
       }
     }).catch(err => {
-      Alert.alert('Erro de conexão');
+      this.setState({ viewModal: true, messageRequest: resp.data.mensagem });
     });
     AsyncStorage.setItem('@IdRegistro', inputSave);
   }
@@ -93,7 +98,9 @@ class Login extends Component {
   }
 
   render() {
+    const { viewModal, messageRequest} = this.state;
     return (
+
       <View style={styles.container}>
       <StatusBar backgroundColor="rgba(45, 45, 45, 0.8)" />
         <View style={styles.mainContainer}>
@@ -109,7 +116,6 @@ class Login extends Component {
                   onChangeText={inputSave => this.setState({ inputSave })}
                   value={this.state.inputSave}
               />
-
               <TouchableOpacity style={styles.testebutton} onPress={() => { this.confereID(); }}>
                 <Text style={styles.buttonText}>
                   Continuar
@@ -127,6 +133,17 @@ class Login extends Component {
           />
         </View>
         </HideWithKeyboard>
+
+        {
+          viewModal && (
+            <ModalCheck
+              message={messageRequest}
+              viewModal
+              failure
+              sourceImage={imageCheck}
+            />
+          )
+        }
       </View>
     );
   }

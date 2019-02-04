@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StackActions, NavigationActions } from 'react-navigation';
+import { ModalCheck } from '../../globalComponents';
 import {
   View,
   Text,
@@ -18,6 +19,8 @@ import axios from 'axios';
 
 import styles from './styles';
 
+const imageCheck = require('../../assents/lottie/warning.json');
+
 class Login extends Component {
   static navigationOptions = {
     header: null,
@@ -29,7 +32,9 @@ class Login extends Component {
     inputSave: null,
     password: null,
     idUser: null,
-    currentPosition: 0
+    currentPosition: 0,
+    viewModal: false,
+    messageRequest: '',
   }
 
   async componentWillMount() {
@@ -77,10 +82,11 @@ class Login extends Component {
       if (resp.status === 200) {
         this.navigateToLogged();
       } else {
-        Alert.alert(resp.data.mensagem);
+        this.setState({ viewModal: true, messageRequest: resp.data.mensagem });
+        //Alert.alert(resp.data.mensagem);
       }
     }).catch(err => {
-      Alert.alert('Erro de conexão');
+      this.setState({ viewModal: true });
     });
   }
 
@@ -89,7 +95,7 @@ class Login extends Component {
   }
 
   render() {
-    const { btt } = this.state;
+    const { btt, viewModal, messageRequest } = this.state;
     return (
       <ImageBackground source={require('../../assents/imgs/local_crime.jpg')} style={styles.backgroundImage} >
 
@@ -132,6 +138,16 @@ class Login extends Component {
                 </TouchableOpacity>
            </View>
         </View>
+        {
+          viewModal && (
+            <ModalCheck
+              message={messageRequest}
+              viewModal
+              failure
+              sourceImage={imageCheck}
+            />
+          )
+        }
        </ImageBackground>
     );
   }
