@@ -92,7 +92,7 @@ export default class Sketch extends Component {
             )}}
             localSourceImage={
               {
-                filename: 'img.jpg',  
+                filename: this.state.fundo,  
                 directory: 'android/app/src/main/res/drawable',
                 mode: 'AspectFill'
               }
