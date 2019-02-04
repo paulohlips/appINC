@@ -30,8 +30,6 @@ export default class Sketch extends Component {
 
 
   render() {
-    console.tron.log(this.state.fundo);
-
     const { showScanner, showButton } = this.state;
     return (
       <View style={{justifyContent: 'center', alignItem: 'center'}}>
@@ -92,7 +90,7 @@ export default class Sketch extends Component {
             )}}
             localSourceImage={
               {
-                filename: 'img.jpg',  
+                filename: this.state.fundo,  
                 directory: 'android/app/src/main/res/drawable',
                 mode: 'AspectFill'
               }
