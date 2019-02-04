@@ -32,7 +32,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
   },
-
+ picker:{
+  width: 10
+ },
   button_text:{
 
     color: 'white',
