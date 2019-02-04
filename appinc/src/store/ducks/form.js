@@ -11,6 +11,7 @@ const Types = {
   FINISH_UPDATE_PROGRESS: 'form/FINISH_UPDATE_PROGRESS',
   RESTORE_FORM: 'form/RESTORE_FORM',
   SAVE_CONTENT_FORM: 'form/SAVE_CONTENT_FORM',
+  RESET_EDIT_FORM: 'form/RESET_EDIT_FORM',
 };
 
 const initialState = {
@@ -29,7 +30,7 @@ export default function formState(state = initialState, action) {
     case Types.SAVE_FORM_STATE:
       return { ...state, step: { ...state.step, ...action.payload.data } };
     case Types.SAVE_CONTENT_FORM:
-      return { ...state, form: action.payload.form };
+      return { ...state, form: action.payload.form, };
     case Types.START_SAVE_STEP:
       return { ...state, saveStep: true };
     case Types.STOP_SAVE_STEP:
@@ -57,6 +58,8 @@ export default function formState(state = initialState, action) {
       return { ...state, updateProgress: false };
     case Types.RESTORE_FORM:
       return { ...state, step: action.payload.form.step, form: action.payload.form.form, formEdit: action.payload.form.formEdit };
+    case Types.RESET_EDIT_FORM:
+      return { ...state, formEdit: false };
     default:
       return state;
   }
@@ -102,7 +105,11 @@ export const Creators = {
     type: Types.RESTORE_FORM,
     payload: { form }
   }),
+  resetEditForm: () => ({
+    type: Types.RESET_EDIT_FORM,
+  })
 };
+
 
 // controla o tamano do array step
 const controlArraySte = state => {
