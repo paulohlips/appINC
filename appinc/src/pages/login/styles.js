@@ -60,6 +60,15 @@ const styles = StyleSheet.create({
 
    },
 
+   cadastrobutton: {
+     height: 50,
+     marginTop: metrics.baseMargin,
+     paddingHorizontal: metrics.basePadding,
+     justifyContent: 'center',
+     alignItems: 'center',
+
+   },
+
    buttonText: {
      color: 'rgb(225, 200, 133)',
      fontWeight: 'bold',

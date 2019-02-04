@@ -35,32 +35,56 @@ class StepBoxComponent extends Component {
       length: 0,
     };
 
+    //console.tron.log(['fromedit', formState.formEdit, arrayProgress]);
     if (formState.formEdit) {
+      //console.tron.log(['fromedit2', arrayProgress]);
       steps.item.components.forEach(component => {
         // console.tron.log(component);
+
+        //console.tron.log(['fromedit3', component]);
+
         const form = {};
         if (component.component_type === 'date') {
-          formState.step.map(item => {
+
+          for(var key1 in formState.step) {
+            //console.tron.log(['fromedit5', key1]);
+            if (component.data_name === key1.key) {
+              form[component.data_name] = key1;
+            }
+          }
+
+          /* formState.step.forEach(item => {
+            console.tron.log(['fromedit5', item]);
             if (component.data_name === item.key) {
               form[component.data_name] = item;
             }
-          });
+          });*/
         } else {
-          formState.step.map(item => {
+          //console.tron.log(['fromedit6', formState.step]);
+          for(var key in formState.step) {
+            //console.tron.log(['fromedit5', key]);
+            if (component.data_name === key.key) {
+              form[component.data_name] = key;
+            }
+          }
+
+          /* formState.step.forEach(item => {
+            console.tron.log(['fromedit5', item]);
             if (component.data_name === item.key) {
               form[component.data_name] = item;
             }
-          });
+          });*/
         }
         getCreateForm(form);
         arrayProgress.array.push(component.data_name);
         const lengthArray = arrayProgress.array.length;
         arrayProgress.length = lengthArray;
-        this.setState({ arrayProgress: arrayProgress, callFunction: true });
+        this.setState({ arrayProgress, callFunction: true });
+        //console.tron.log(['fromedit4', arrayProgress]);
       });
     } else {
       steps.item.components.forEach(component => {
-        // console.tron.log(component);
+        //console.tron.log(['nao entrei aqui', component]);
         const form = {};
         if (component.component_type === 'date') {
           form[component.data_name] = { key: component.data_name, value: '1980-01-21', filled: null };
@@ -71,9 +95,10 @@ class StepBoxComponent extends Component {
         arrayProgress.array.push(component.data_name);
         const lengthArray = arrayProgress.array.length;
         arrayProgress.length = lengthArray;
-        this.setState({ arrayProgress: arrayProgress, callFunction: true });
+        this.setState({ arrayProgress, callFunction: true });
       });
     }
+    //console.tron.log(['arrayprogresstest', arrayProgress]);
   }
 
   compareProgress = async () => {
@@ -90,16 +115,14 @@ class StepBoxComponent extends Component {
       for(var key in step) {
         //console.tron.log(['teste oiureewtrt', key, arrayProgress]);
         arrayProgress.array.map(item => {
-          console.tron.log(['teste conut in for do ayrtinho', item, step[key].filled]);
           if(item === key && step[key].filled === true) {
             console.tron.log([' if 1', progress, countProgress])
             countProgress++;
-            console.tron.log([' if2 asfa', progress, countProgress])
           }
         })
       }
     }
-    progress = countProgress/arrayProgress.length;
+    progress = countProgress / arrayProgress.length;
     //console.tron.log(['teste conut progress', progress, countProgress, arrayProgress.length])
     this.setState({ progress });
   }
@@ -109,6 +132,7 @@ class StepBoxComponent extends Component {
     const { steps, form, formState } = this.props;
     const { createdForms, arrayProgress, callFunction, progress } = this.state;
     const { item } = steps;
+    //console.tron.log(['teste no rende', arrayProgress, callFunction, progress]);
     if (!createdForms) {
       this.createFormsSave();
       //console.tron.log('createFormSave');
@@ -144,6 +168,7 @@ class StepBoxComponent extends Component {
 
 const mapStateToProps = state => ({
   formState: state.formState,
+  form: state.formState,
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators(FormsActions, dispatch);

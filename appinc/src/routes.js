@@ -10,6 +10,9 @@ import New from './pages/new';
 import Testes from './pages/Testes';
 import Hist from './pages/hist';
 import Offline from './pages/offline';
+import Singup from './pages/email';
+import Hash from './pages/hash';
+import Password from './pages/password';
 
 // Componentes
 import GeoLoc from './pages/components/geoloc';
@@ -28,7 +31,10 @@ import StepList from './pages/StepList';
 
 const Routes = StackNavigator(
   {
-    Login: { screen: Login},
+    Login: { screen: Login },
+    SignUp: {screen: Singup},
+    Hash: {screen: Hash},
+    Password: {screen: Password},
     StepPage: { screen: StepPage },
     Logged: createDrawerNavigator(
       {
@@ -39,7 +45,7 @@ const Routes = StackNavigator(
         Exit: { screen: Login },
       },
       {
-        contentComponent: props => <Menu props={props}/>,
+        contentComponent: props => <Menu props={props} />,
         drawerWidth: 270,
       }
     ),

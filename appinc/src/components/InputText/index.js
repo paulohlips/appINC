@@ -68,7 +68,7 @@ class InputText extends Component {
       <Text style = {styles.hint}>{hint}</Text>
         <TextInput
           style={styles.input}
-          autoCapitalize="none"
+          autoCapitalize="sentences"
           autoCorrect={false}
           placeholder={"Digite aqui..."}
           maxLength={255}

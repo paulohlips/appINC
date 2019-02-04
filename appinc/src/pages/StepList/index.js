@@ -105,7 +105,7 @@ class StepList extends Component {
       this.setState({ formRedux: false });
     }
 
-    console.tron.log(['form', form]);
+    //console.tron.log(['form', form]);
     const { navigation } = this.props;
     //const { steps } = this.props;
     const { modalVisible, load, showAlert } = this.state;

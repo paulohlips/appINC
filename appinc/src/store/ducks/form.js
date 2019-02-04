@@ -21,6 +21,7 @@ const initialState = {
   step: {},
   form: null,
   formEdit: false,
+  ref: '',
 };
 
 export default function formState(state = initialState, action) {
