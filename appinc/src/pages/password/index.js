@@ -88,6 +88,15 @@ class Login extends Component {
         method: 'post',
         url: 'http://35.231.239.168/api/pericia/usuario/geraSenha',
         data: { matricula: idRegistro, pin: pinRegistro, pass: inputSave2 },
+      })
+      .then((resp) => {
+        if (resp.status === 200) {
+          this.navigateToLogged();
+        } else {
+          Alert.alert(resp.data.mensagem);
+        }
+      }).catch(err => {
+        Alert.alert('Erro de conexão');
       });
     } else {
       Alert.alert('Senhas diferentes');
@@ -128,7 +137,7 @@ class Login extends Component {
                   value={this.state.inputSave2}
             />
 
-            <TouchableOpacity style={styles.testebutton} onPress={() => {this.navigateToLogin(); this.salvarId();}}>
+            <TouchableOpacity style={styles.testebutton} onPress={() => { this.salvarId(); }}>
               <Text style={styles.buttonText}>
                 Cadastrar
                </Text>

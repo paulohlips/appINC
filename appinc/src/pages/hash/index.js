@@ -11,7 +11,8 @@ import {
   ImageBackground,
   Animated,
   Easing,
-  AsyncStorage
+  AsyncStorage,
+  Alert
 } from 'react-native';
 import LottieView from 'lottie-react-native';
 import StepIndicator from 'react-native-step-indicator';
@@ -82,9 +83,18 @@ class Login extends Component {
     Axios({
       method: 'post',
       url: 'http://35.231.239.168/api/pericia/usuario/validaPin',
-      data: { matricula: inputSave, pin: idRegistro },
+      data: { matricula: idRegistro, pin: inputSave },
+    })
+    .then((resp) => {
+      if (resp.status === 200) {
+        this.navigateToPassword();
+      } else {
+        Alert.alert(resp.data.mensagem);
+      }
+    }).catch(err => {
+      Alert.alert('Erro de conexão');
     });
-    AsyncStorage.setItem('@PinRegistro', idRegistro);
+    AsyncStorage.setItem('@PinRegistro', inputSave);
   }
 
   render() {
@@ -106,7 +116,7 @@ class Login extends Component {
                   value={this.state.inputSave}
             />
 
-            <TouchableOpacity style={styles.testebutton} onPress={() => { this.conferePIN(); this.navigateToPassword(); }}>
+            <TouchableOpacity style={styles.testebutton} onPress={() => { this.conferePIN(); }}>
               <Text style={styles.buttonText}>
                 Continuar
                </Text>
