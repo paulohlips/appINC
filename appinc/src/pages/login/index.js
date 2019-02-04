@@ -10,7 +10,8 @@ import {
   ImageBackground,
   Animated,
   Easing,
-  AsyncStorage
+  AsyncStorage,
+  Alert
 } from 'react-native';
 import LottieView from 'lottie-react-native';
 import axios from 'axios';
@@ -32,15 +33,10 @@ class Login extends Component {
   }
 
   async componentWillMount() {
-    try {
       //await AsyncStorage.clear();
       const id = await AsyncStorage.getItem('@Id');
-      console.tron.log(['Teste', id]);
-    } catch (err) {
-      console.tron.log('nao funcionou');
-    }
-    this.setState({ btt: id });
-    console.tron.log(['Teste btt', this.state.btt]);
+      this.setState({ btt: id });
+      console.tron.log(['Teste btt', this.state.btt]);
   }
 
   navigateToLogged = () => {
@@ -76,9 +72,15 @@ class Login extends Component {
       method: 'post',
       url: 'http://35.231.239.168/api/pericia/usuario/login',
       data: { matricula: inputSave, pass: password },
-      //if(response.status == 'false'){
-      //  alert('Deu erro');
-      //}
+    })
+    .then((resp) => {
+      if (resp.status === 200) {
+        this.navigateToLogged();
+      } else {
+        Alert.alert(resp.data.mensagem);
+      }
+    }).catch(err => {
+      Alert.alert('Erro de conexão');
     });
   }
 
@@ -118,7 +120,7 @@ class Login extends Component {
                 onChangeText={password => this.setState({ password })}
                 value={this.state.password}
               />
-                <TouchableOpacity style={styles.testebutton} onPress={() => { this.confereCadastro(); this.navigateToLogged(); }}>
+                <TouchableOpacity style={styles.testebutton} onPress={() => { this.confereCadastro();}}>
                   <Text style={styles.buttonText}>
                     Entrar
                   </Text>

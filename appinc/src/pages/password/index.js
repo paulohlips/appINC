@@ -79,7 +79,16 @@ class Login extends Component {
         method: 'post',
         url: 'http://35.231.239.168/api/pericia/usuario/geraSenha',
         data: { matricula: idRegistro, pin: pinRegistro, pass: inputSave2 },
-      }).then(response => this.setState({ viewModal: true })).catch();
+      })
+      .then((resp) => {
+        if (resp.status === 200) {
+          this.setState({ viewModal: true })
+        } else {
+          Alert.alert(resp.data.mensagem);
+        }
+      }).catch(err => {
+        Alert.alert('Erro de conexão');
+      });
     } else {
       Alert.alert('Senhas diferentes');
     }

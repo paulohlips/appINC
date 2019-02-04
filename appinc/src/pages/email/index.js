@@ -11,7 +11,8 @@ import {
   ImageBackground,
   Animated,
   Easing,
-  AsyncStorage
+  AsyncStorage,
+  Alert
 } from 'react-native';
 import LottieView from 'lottie-react-native';
 import StepIndicator from 'react-native-step-indicator';
@@ -74,6 +75,15 @@ class Login extends Component {
       method: 'post',
       url: 'http://35.231.239.168/api/pericia/usuario/cadastro',
       data: { matricula: inputSave },
+    })
+    .then((resp) => {
+      if (resp.status === 200) {
+        this.navigateToHash();
+      } else {
+        Alert.alert(resp.data.mensagem);
+      }
+    }).catch(err => {
+      Alert.alert('Erro de conexão');
     });
     AsyncStorage.setItem('@IdRegistro', inputSave);
   }
@@ -100,7 +110,7 @@ class Login extends Component {
                   value={this.state.inputSave}
               />
 
-              <TouchableOpacity style={styles.testebutton} onPress={() => { this.confereID(); this.navigateToHash(); }}>
+              <TouchableOpacity style={styles.testebutton} onPress={() => { this.confereID(); }}>
                 <Text style={styles.buttonText}>
                   Continuar
                 </Text>

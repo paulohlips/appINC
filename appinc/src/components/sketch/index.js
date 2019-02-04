@@ -5,7 +5,8 @@ import {
   View,
   TouchableOpacity,
   Text,
-  Modal
+  Modal,
+  Picker
 } from 'react-native';
 
 import styles from './styles';
@@ -23,7 +24,8 @@ export default class Sketch extends Component {
     this.state = {
       showScanner: false,
       showButton: true,
-      showButton2: false
+      showButton2: false,
+      fundo: '',
     };
   }
 
@@ -50,16 +52,27 @@ export default class Sketch extends Component {
               visible={showScanner}
               onRequestClose={() => {}}
             >
-              <View style={styles.container}>
-              <RNSketchCanvas
-            containerStyle={{ backgroundColor: 'transparent', height: 50 ,flex: 1 }}
-            canvasStyle={{ backgroundColor: 'transparent',  flex: 1 }}
+ <View style={styles.container}>
+        <View style={{ flex: 1, flexDirection: 'row' }}>
+          <RNSketchCanvas
+            containerStyle={{ backgroundColor: 'transparent', flex: 1 }}
+            canvasStyle={{ backgroundColor: 'transparent', flex: 1 }}
             defaultStrokeIndex={0}
             defaultStrokeWidth={5}
+            changeImg={<View style={styles.functionButton}>
+              <Picker
+                selectedValue={this.state.fundo}
+                style={{height: 50, width: 50}}
+                onValueChange={(value => this.setState({ fundo: value }) )}>
 
+                <Picker.Item label="Croqui" value= 'croqui.png' />                
+                <Picker.Item label="Vítima" value='img.jpg' />
+                <Picker.Item label="Bodybuilder" value='img2.png' />
+
+              </Picker>
+            </View>}
             closeComponent={<View style={styles.functionButton}><Text onPress={() => this.setState({ showScanner: false, showButton: true }) } style={{color: 'red', fontWeight: 'bold'}}>Fechar</Text></View>}
             saveComponent={<View style={styles.functionButton}><Text  style={{color: 'green', fontWeight: 'bold'}}>Salvar</Text></View>}
-
             undoComponent={<View style={styles.functionButton}><Text style={{color: 'white'}}>Desfazer</Text></View>}
             clearComponent={<View style={styles.functionButton}><Text style={{color: 'white'}}>Limpar</Text></View>}
             eraseComponent={<View style={styles.functionButton}><Text style={{color: 'white'}}>Apagar</Text></View>}
@@ -79,18 +92,25 @@ export default class Sketch extends Component {
                 }} />
               </View>
             )}}
-            
+            localSourceImage={
+              {
+                filename: this.state.fundo,  
+                directory: 'android/app/src/main/res/drawable',
+                mode: 'AspectFill'
+              }
+            }
             savePreference={() => {
               return {
-                folder: 'Croqui',
+                folder: 'RNSketchCanvas',
                 filename: String(Math.ceil(Math.random() * 100000000)),
                 transparent: false,
                 imageType: 'png'
               }
-
             }}
           />
-              </View>
+        </View>
+      </View>
+             
            </Modal>
         
        </View>
