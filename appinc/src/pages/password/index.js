@@ -14,7 +14,7 @@ import {
   AsyncStorage,
   Alert
 } from 'react-native';
-import LottieView from 'lottie-react-native';
+import ModalCheck from './modal';
 import StepIndicator from 'react-native-step-indicator';
 import Axios from 'axios';
 
@@ -58,7 +58,8 @@ class Login extends Component {
     pinRegistro: null,
     inputSave1: null,
     inputSave2: null,
-    id: null
+    id: null,
+    viewModal: false,
   }
 
   async componentWillMount() {
@@ -70,16 +71,6 @@ class Login extends Component {
     this.setState({ id: id });
   }
 
-  navigateToLogin = () => {
-    const resetAction = StackActions.reset({
-      index: 0,
-      actions: [
-        // Logged
-        NavigationActions.navigate({ routeName: 'Login' }),
-      ]
-    });
-    this.props.navigation.dispatch(resetAction);
-  }
 
    salvarId = () => {
     const { id, idRegistro, pinRegistro, inputSave1, inputSave2 } = this.state;
@@ -88,7 +79,7 @@ class Login extends Component {
         method: 'post',
         url: 'http://35.231.239.168/api/pericia/usuario/geraSenha',
         data: { matricula: idRegistro, pin: pinRegistro, pass: inputSave2 },
-      });
+      }).then(response => this.setState({ viewModal: true })).catch();
     } else {
       Alert.alert('Senhas diferentes');
     }
@@ -100,6 +91,7 @@ class Login extends Component {
   }
 
   render() {
+    const { viewModal } = this.state;
     return (
       <View style={styles.container}>
       <StatusBar backgroundColor="rgba(45, 45, 45, 0.8)" />
@@ -128,7 +120,7 @@ class Login extends Component {
                   value={this.state.inputSave2}
             />
 
-            <TouchableOpacity style={styles.testebutton} onPress={() => {this.navigateToLogin(); this.salvarId();}}>
+            <TouchableOpacity style={styles.testebutton} onPress={() => { this.salvarId(); }}>
               <Text style={styles.buttonText}>
                 Cadastrar
                </Text>
@@ -145,11 +137,16 @@ class Login extends Component {
           />
         </View>
         </HideWithKeyboard>
+        {
+          viewModal && (
+            <ModalCheck viewModal />
+          )
+        }
       </View>
     );
   }
   onPageChange(position){
-    this.setState({currentPosition: position});
+    this.setState({ currentPosition: position });
   }
 }
 
