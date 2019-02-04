@@ -62,9 +62,10 @@ class StepList extends Component {
 
   enviaForm = async () => {
     //this.setState({ showAlert: true });
+    //console.tron.log('entrei')
     const { formulario } = this.props;
     const data = new FormData();
-    data.append('form_name', this.state.form.form_name);
+    data.append('form_name', formulario.form.form_name);
 
     for (var key in formulario.step) {
       data.append(formulario.step[key].key, formulario.step[key].value)
@@ -86,7 +87,8 @@ class StepList extends Component {
       })
       .then(function (response) {
           AsyncStorage.setItem('@IDlaudo', response.data.number);
-          Alert.alert('ID do laudo','O número do seu laudo é '+response.data.number);
+          const resp = JSON.parse(response) 
+          Alert.alert('ID do laudo','O número do seu laudo é ' + resp.data.number);
           //console.tron.log(['elemente forech', response]);
       })
       .catch(function (response) {

@@ -41,7 +41,7 @@ class Login extends Component {
       //await AsyncStorage.clear();
       const id = await AsyncStorage.getItem('@Id');
       this.setState({ btt: id });
-      console.tron.log(['Teste btt', this.state.btt]);
+      //console.tron.log(['Teste btt', this.state.btt]);
   }
 
   navigateToLogged = () => {
@@ -67,7 +67,7 @@ class Login extends Component {
   }
 
   salvarIdProv = () => {
-    console.tron.log(this.state.inputSave);
+    //console.tron.log(this.state.inputSave);
     AsyncStorage.setItem('@IdProv',this.state.inputSave);
   }
 

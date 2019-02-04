@@ -41,14 +41,14 @@ class ModalCheck extends Component {
   async componentWillReceiveProps() {
     if (this.state.progress > 0.99) {
       this.props.navigation.navigate('Login');
-      console.tron.log(['bar', this.state.progress]);
+      //console.tron.log(['bar', this.state.progress]);
     }
   }
 
 
   render() {
     const { viewModal, onClose, sourceImage, success, failure, message } = this.props;
-    console.tron.log(this.state.progress);
+    //console.tron.log(this.state.progress);
     return (
       <Modal
         animationType="slide"
