@@ -24,21 +24,20 @@ export default class Sketch extends Component {
     this.state = {
       showScanner: false,
       showButton: true,
-      showButton2: false,
       fundo: '',
     };
   }
 
 
   render() {
-    const { showScanner, showButton, showButton2 } = this.state;
-    const { closeModalInfo, modalVisible, textInfo } = this.props;
-  
+    console.tron.log(this.state.fundo);
+
+    const { showScanner, showButton } = this.state;
     return (
       <View style={{justifyContent: 'center', alignItem: 'center'}}>
       {
         showButton && (
-          <TouchableOpacity onPress={() => this.setState({ showScanner: true, showButton: false})} style={styles.button}>
+          <TouchableOpacity onPress={() => this.setState({ showScanner: true, showButton: false })} style={styles.button}>
             <Text style={styles.button_text}>Fazer Croqui</Text>
           </TouchableOpacity>
         )}
@@ -67,7 +66,6 @@ export default class Sketch extends Component {
 
                 <Picker.Item label="Croqui" value= 'croqui.png' />                
                 <Picker.Item label="Vítima" value='img.jpg' />
-                <Picker.Item label="Bodybuilder" value='img2.png' />
 
               </Picker>
             </View>}
@@ -94,7 +92,7 @@ export default class Sketch extends Component {
             )}}
             localSourceImage={
               {
-                filename: this.state.fundo,  
+                filename: 'img.jpg',  
                 directory: 'android/app/src/main/res/drawable',
                 mode: 'AspectFill'
               }
@@ -120,11 +118,3 @@ export default class Sketch extends Component {
     );
   }
 }
- 
-
-
-
-
-
-
-
