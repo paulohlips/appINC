@@ -102,22 +102,22 @@ class StepBoxComponent extends Component {
   }
 
   compareProgress = async () => {
-    this.setState({ callFunction: null, functionConstructor: true });
-    //console.tron.log('entrei compareProgress')
+    this.setState({ callFunction: null, functionConstructor: true })
     this.props.finishUpdateProgress();
-    const { step } = this.props.form;
+    const { step } = this.props.formState;
     const { arrayProgress } = this.state;
     var progress = 0;
     var countProgress = 0;
+    console.tron.log(['finish', arrayProgress, step, this.props]);
 
     if( arrayProgress.length > 0) {
+      //console.tron.log(['teste ', key, arrayProgress]);
       for(var key in step) {
+        //console.tron.log(['teste oiureewtrt', key, arrayProgress]);
         arrayProgress.array.map(item => {
-          //console.tron.log(['teste conut in for do ayrtinho', item, step[key].filled, key]);
           if(item === key && step[key].filled === true) {
-            //console.tron.log(['teste conut in for e if', progress, countProgress])
+            console.tron.log([' if 1', progress, countProgress])
             countProgress++;
-          //console.tron.log(['teste conut in for e if2', progress, countProgress])
           }
         })
       }
@@ -129,7 +129,7 @@ class StepBoxComponent extends Component {
 
   render() {
     // console.tron.log(this.props);
-    const { steps, form } = this.props;
+    const { steps, form, formState } = this.props;
     const { createdForms, arrayProgress, callFunction, progress } = this.state;
     const { item } = steps;
     //console.tron.log(['teste no rende', arrayProgress, callFunction, progress]);
@@ -137,8 +137,9 @@ class StepBoxComponent extends Component {
       this.createFormsSave();
       //console.tron.log('createFormSave');
     }
-    if (callFunction || form.updateProgress) {
+    if (callFunction || formState.updateProgress) {
       this.compareProgress();
+      console.tron.log(['avenida', arrayProgress]);
     }
 
     return (

@@ -9,6 +9,7 @@ import AwesomeAlert from 'react-native-awesome-alerts';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Creators as NewActions } from '../../store/ducks/new';
+import { Creators as FormActios } from '../../store/ducks/form'; 
 
 
 class New extends Component {
@@ -208,13 +209,15 @@ class New extends Component {
   }
 
   onPressButton = () => {
-    const { navigation, getReference } = this.props;
+    const { navigation, getReference, resetEditForm } = this.props;
     const { inputSave } = this.state;
     if (inputSave) {
       getReference(this.state.inputSave);
+      resetEditForm();
       navigation.navigate('StepList', { inputSave: this.state.inputSave });
     } else {
       getReference('Laudo sem Nome');
+      resetEditForm();
       navigation.navigate('StepList');
     }
   }
@@ -222,6 +225,14 @@ class New extends Component {
   reqUrl = (value) => {
     const { getNewRequest } = this.props;
     getNewRequest(value);
+    this.setState({ showRef: true });
+    Animated.timing(                  // Animate over time
+      this.state.fadeAnim_ref,            // The animated value to drive
+      {
+        toValue: 1,                   // Animate to opacity: 1 (opaque)
+        duration: 2000,              // Make it take a while
+      }
+    ).start();
   }
 
   async setUrl() {
@@ -263,7 +274,7 @@ class New extends Component {
       showButton
     } = this.state;
     const { navigation, newState } = this.props;
-
+    console.tron.log(this.props);
     return (
       <View style={styles.container}>
         <Header
@@ -298,51 +309,49 @@ class New extends Component {
         </View>
 
         {
-          newState.showButton && (
-
+          showRef && (
             <Animated.View
-            style={{ ...this.props.style, opacity: fadeAnim_ref }}>
-            {this.props.children}
-                  <View style={styles.forms}>
-                  <View style={styles.title}>
-                      <View style={styles.ball}><Text style={styles.numberType}> 2 </Text></View>
-                      <Text style={styles.textType}> Referência: </Text>
+              style={{ ...this.props.style, opacity: fadeAnim_ref }}>
+              {this.props.children}
+                    <View style={styles.forms}>
+                    <View style={styles.title}>
+                        <View style={styles.ball}><Text style={styles.numberType}> 2 </Text></View>
+                        <Text style={styles.textType}> Referência: </Text>
+                    </View>
+                    <TextInput
+                      style={styles.input}
+                      autoCapitalize="none"
+                      autoCorrect={false}
+                      maxLength={72}
+                      underlineColorAndroid="rgba(0,0,0,0)"
+                      onChangeText={inputSave => this.setState({ inputSave })}
+                    />
                   </View>
-                  <TextInput
-                    style={styles.input}
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    maxLength={72}
-                    underlineColorAndroid="rgba(0,0,0,0)"
-                    onChangeText={inputSave => this.setState({ inputSave })}
-                  />
-                </View>
-                  </Animated.View>
+              </Animated.View>
           )
         }
 
         {
           showAlert && (
-
-        <AwesomeAlert
-          show={showAlert}
-          showProgress={false}
-          title="Começar perícia?"
-          message="I have a message for you!"
-          closeOnTouchOutside={true}
-          closeOnHardwareBackPress={false}
-          showCancelButton={true}
-          showConfirmButton={true}
-          cancelText="No, cancel"
-          confirmText="Yes, delete it"
-          confirmButtonColor="#DD6B55"
-          onCancelPressed={() => {
-            this.hideAlert();
-          }}
-          onConfirmPressed={() => {
-            this.onPressButton();
-          }}
-        />
+            <AwesomeAlert
+              show={showAlert}
+              showProgress={false}
+              title="Começar perícia?"
+              message="I have a message for you!"
+              closeOnTouchOutside={true}
+              closeOnHardwareBackPress={false}
+              showCancelButton={true}
+              showConfirmButton={true}
+              cancelText="No, cancel"
+              confirmText="Yes, delete it"
+              confirmButtonColor="#DD6B55"
+              onCancelPressed={() => {
+                this.hideAlert();
+              }}
+              onConfirmPressed={() => {
+                this.onPressButton();
+              }}
+            />
           )
         }
         {
@@ -365,6 +374,9 @@ const mapStateToProps = state => ({
   newState: state.newState
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators(NewActions, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ 
+  ...NewActions, 
+  ...FormActios 
+}, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(New);
