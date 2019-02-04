@@ -97,7 +97,7 @@ export default class Sketch extends Component {
             }
             savePreference={() => {
               return {
-                folder: 'RNSketchCanvas',
+                folder: 'Croqui',
                 filename: String(Math.ceil(Math.random() * 100000000)),
                 transparent: false,
                 imageType: 'png'
