@@ -10,10 +10,10 @@ import { Header } from '../../globalComponents';
 
 import { NavigationActions, withNavigation } from 'react-navigation';
 
- 
+
 const dias = 23;
 class Hist extends Component {
-  
+
   constructor(props) {
     super(props);
     this.state = {
@@ -79,9 +79,9 @@ class Hist extends Component {
      // console.tron.log(['NUM IDS', this.state.IDLaudo]);
       //const numIds = marcas.map(item => id);
       //console.tron.log(['NUM IDS', numIds]);
-      
+
        //this.setState({ renderPicker:true })
-    
+
       }
 
   render() {
@@ -96,37 +96,20 @@ class Hist extends Component {
           openMenu={navigation.toggleDrawer}
           title='Minhas Perícias'
         />
-       
+
        <View style={styles.container}>
 
- 
-     <View style ={styles.box}>
-
-     
-     <TouchableOpacity onPress={() => {Linking.openURL('http://35.231.239.168/pericia/links.php?id_pericia='+this.state.IDLaudo)}}>
-          <View style={styles.card_titulo}>
-          <Text style={styles.titulo}>Referência</Text>
-           
-          </View>
-          <View style={styles.card_descricao}>
-          <Text style={styles.num}>Acessar Laudo nº    
-            {' '+this.state.IDLaudo}</Text>
-          </View>
-
-          
-
-        </TouchableOpacity>
-
-          
-
-
-     </View>
-
-          
-    
+         <TouchableOpacity style ={styles.box} onPress={() => {Linking.openURL('http://35.231.239.168/pericia/links.php?id_pericia='+this.state.IDLaudo)}}>
+           <Text style={styles.status1}>{" Minha Perícia" + " - " + this.state.IDLaudo }</Text>
+           <View style = {styles.row}>
+              <Text style={styles.status1}> Status :</Text>
+              <Text style={styles.status}> Finalizado</Text>
+           </View>
+           <Text style={styles.status1}> Última modificação : 29/09/1999</Text>
+         </TouchableOpacity>
 
       </View>
-    
+
 
       </View>
 

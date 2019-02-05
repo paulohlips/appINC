@@ -5,8 +5,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.light2,
-    //alignItems: 'center',
-    //justifyContent: 'center',
+    // alignItems: 'center',
+    // justifyContent: 'center',
   },
   icon: {
     color: colors.white,
@@ -125,27 +125,25 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 5,
     margin: 20,
-    justifyContent: "flex-start",
-    alignItems: "center",
+    // justifyContent: "flex-start",
+    // alignItems: "center",
     padding: 20,
-    
 
   },
 
   titulo:
   {
-    width: 200,
+    // width: 200,
     height: 20,
     color: '#000000',
     fontFamily: 'Roboto',
     fontSize: 18,
-    fontWeight: '500',
     lineHeight: 21,
   },
 
   num:
   {
-    width: 200,
+
     height: 20,
     color: '#000000',
     fontFamily: 'Roboto',
@@ -154,6 +152,33 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     lineHeight: 21,
 
+  },
+  status:{
+
+    height: 20,
+    color: 'green',
+    fontFamily: 'Roboto',
+    fontSize: 16,
+    fontWeight: '500',
+    lineHeight: 21,
+    opacity: 0.6,
+    marginTop: 3,
+
+  },
+  status1:{
+
+    height: 20,
+    fontFamily: 'Roboto',
+    fontSize: 16,
+    fontWeight: '500',
+    lineHeight: 21,
+    // opacity: 0.6,
+    marginTop: 3,
+
+  },
+
+  row:{
+    flexDirection: "row",
   }
 
 
