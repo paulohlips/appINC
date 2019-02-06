@@ -230,7 +230,7 @@ Para adicionar novos componentes alguns passos simples devem ser seguidos:
 #### 2) Instanciar o componente dentro do repositório de componentes em ./src/components/pasta_do_novo_componente.
 #### 3) Configurar o componente dentro da pasta de páginas em ./src/pages/components/pasta_do_novo_componente/index.js
 #### 4) Instanciar o componente na página src/pages/Step/components/ComponentsList/index.js. Ex:
-````
+```
         {
           props.data.component_type === 'nome_do_componente' && (
             <View style={styles.component}>
@@ -238,6 +238,16 @@ Para adicionar novos componentes alguns passos simples devem ser seguidos:
             </View>
           )
         }
-````
+```
 
 É importante que o nome do componente no JSON seja o mesmo no arquivo index.js de ComponentList. 
+
+### Gerando APK:
+#### 1) Dentro da pasta do projeto:
+```
+$ react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
+```
+#### 2) Dentro da pasta .Android:
+```
+$ gradlew assembleRelease
+```
