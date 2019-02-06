@@ -133,7 +133,6 @@ class Login extends Component {
           />
         </View>
         </HideWithKeyboard>
-
         {
           viewModal && (
             <ModalCheck

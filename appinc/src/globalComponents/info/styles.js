@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
         padding: 15,
         marginTop: 10,
         backgroundColor: colors.white,
-        borderRadius: 15,
+        borderRadius: 5,
         justifyContent: 'flex-start',
         alignItems: 'flex-start',
     },

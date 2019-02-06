@@ -4,6 +4,7 @@ export const Types = {
   GET_FAILURE: 'new/GET_FAILURE',
   GET_REFERENCE: 'new/GET_REFERENCE',
   SET_FORM: 'new/SET_FORM',
+  CLOSE_MODAL_ERROR: 'new/CLOSE_MODAL_ERROR',
 };
 
 const InitialState = {
@@ -24,12 +25,14 @@ export default function newState(state = InitialState, action) {
     case Types.GET_SUCSSES:
       return { ...state, data: action.payload.data, load: false, sucsses: true, showButton: true };
     case Types.GET_FAILURE:
-      return state;
+      return { ...state, erro: true, load: false };
     case Types.GET_REFERENCE:
       return { ...state, reference: action.payload.ref };
     case Types.SET_FORM:
       return { ...state, data: action.payload.data };
-      default:
+    case Types.CLOSE_MODAL_ERROR:
+      return { ...state, erro: false, load: false };
+    default:
       return state;
   }
 }
@@ -53,5 +56,8 @@ export const Creators = {
   setForm: data => ({
     type: Types.SET_FORM,
     payload: { data },
+  }),
+  closeModalError: () => ({
+    type: Types.CLOSE_MODAL_ERROR,
   }),
 };
