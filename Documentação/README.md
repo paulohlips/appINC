@@ -205,6 +205,39 @@ Este componente permite integrar o aplicativo a APIs e BDs externos, com auxíli
 
 * [Axios](https://github.com/axios/axios)
 
-#### C) Componentes Globais
+### Componentes Globais
 
+### Adicionando Novos Documentos
 
+Para adicionar novos componentes alguns passos simples devem ser seguidos:
+
+#### 1) Adicionar a chamada do componente no JSON da perícia dentro do step desejado. Ex:
+```
+{
+          "hint": "Dica para ajudar o usuário",
+          "group": "false",
+          "label": "Rótulo do componente",
+          "required": "false",
+          "data_name": "nome_do_dado_coletado",
+          "lenght_max": "0",
+          "length_min": "0",
+          "invalid_text": "mensangem de erro",
+          "default_value": "99",
+          "component_type": "nome_do_componente",
+          "required_message": ""
+        }
+ ```
+#### 2) Instanciar o componente dentro do repositório de componentes em ./src/components/pasta_do_novo_componente.
+#### 3) Configurar o componente dentro da pasta de páginas em ./src/pages/components/pasta_do_novo_componente/index.js
+#### 4) Instanciar o componente na página src/pages/Step/components/ComponentsList/index.js. Ex:
+````
+        {
+          props.data.component_type === 'nome_do_componente' && (
+            <View style={styles.component}>
+              <nome_do_componente data={props.data} />
+            </View>
+          )
+        }
+````
+
+É importante que o nome do componente no JSON seja o mesmo no arquivo index.js de ComponentList. 
