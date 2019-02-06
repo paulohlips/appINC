@@ -1,11 +1,26 @@
 import { StyleSheet } from 'react-native';
-import { colors, metrics,responsividade } from '../../styles';
+import { colors, metrics, responsividade } from '../../styles';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
     backgroundColor: '#EDF0F2',
+  },
+
+  message: {
+    width: responsividade.largura_tela,
+    height: 20,
+    position: 'relative',
+    backgroundColor: 'red',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  messageError: {
+    fontSize: 10,
+    fontWeight: 'bold',
+    color: 'white',
   },
 
   salvarbutton: {
@@ -20,6 +35,7 @@ const styles = StyleSheet.create({
     borderColor: 'green',
         marginBottom: 30,
   },
+
   enviarbutton: {
     alignItems: 'center',
     justifyContent: 'center',

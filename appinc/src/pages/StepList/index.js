@@ -6,7 +6,8 @@ import {
   AsyncStorage,
   TouchableOpacity,
   Text,
-  Alert
+  Alert,
+  ActivityIndicator,
 } from 'react-native';
 import styles from './styles';
 import StepBox from './components/StepBox';
@@ -26,24 +27,8 @@ class StepList extends Component {
     teste: 10,
     showAlert: false,
     formRedux: true,
-  }
+    viewError: false,
 
-  async componentWillMount() {
-    //const form = this.props.navigation.getParam('inputSave', '');
-    //console.tron.log(['tste', form2 ]);
-    //const { setSaveContentForm } = this.props;
-    //const valueForm = await AsyncStorage.getItem('@Formulario');
-    //const formLocal = JSON.parse(valueForm);
-    //await this.setState({ form: formLocal });
-    //setSaveContentForm(formLocal);
-  }
-
-  closeModal() {
-    this.setState({ modalVisible: false });
-  }
-
-  openModal() {
-    this.setState({ modalVisible: true });
   }
 
   cancel() {
@@ -60,8 +45,12 @@ class StepList extends Component {
     AsyncStorage.clear();
   }
 
+  errorMessage = () => {
+    this.setState({ viewError: true });
+  }
+
   enviaForm = async () => {
-    //this.setState({ showAlert: true });
+    this.setState({ load: true });
     //console.tron.log('entrei')
     const { formulario } = this.props;
     const data = new FormData();
@@ -71,9 +60,6 @@ class StepList extends Component {
       data.append(formulario.step[key].key, formulario.step[key].value)
       //console.tron.log(['elemente forech', formulario.step[key]])
     }
-
-    //console.tron.log(['elemente forech', data]);
-    //console.log(['elemente forech', data]);
 
     axios({
       method: 'post',
@@ -85,16 +71,20 @@ class StepList extends Component {
           'Accept': 'application/json'
         }}
       })
-      .then(function (response) {
+      .then(response => {
+          this.setState({ viewError: false, load: false });
+          console.tron.log(['errop', response]);
           AsyncStorage.setItem('@IDlaudo', response.data.number);
-          const resp = JSON.parse(response) 
-          Alert.alert('ID do laudo','O número do seu laudo é ' + resp.data.number);
+          const resp = JSON.stringify(response);
+          Alert.alert('ID do laudo','O número do seu laudo é ' + response.data.number);
+          console.tron.log(['errop', response]);
+
           //console.tron.log(['elemente forech', response]);
       })
-      .catch(function (response) {
-          //handle error
-          console.log(response);
-          alert(response);
+      .catch(response => {
+          this.setState({ viewError: false, load: false });
+          this.errorMessage();
+          console.tron.log(['error', response]);
       });
   }
 
@@ -110,7 +100,7 @@ class StepList extends Component {
     //console.tron.log(['form', form]);
     const { navigation } = this.props;
     //const { steps } = this.props;
-    const { modalVisible, load, showAlert } = this.state;
+    const { viewError, load } = this.state;
     //console.tron.log('FORMEEE',form);
     //const { steps, form_name } = form;
 
@@ -123,6 +113,13 @@ class StepList extends Component {
           info={form.info_form}
           goBack={this.props.navigation.goBack}
         />
+        {
+          viewError && (
+            <View style={styles.message}>
+              <Text style={styles.messageError}>Sem conexão</Text>
+            </View>
+          )
+        }
         <ScrollView>
           <FlatList
             data={form.steps}
@@ -130,9 +127,14 @@ class StepList extends Component {
           />
           <View style={styles.container}>
             <TouchableOpacity style={styles.enviarbutton} onPress={() => this.enviaForm()}>
-              <Text style={styles.buttonText}>
-                Enviar
-              </Text>
+            { load ?
+              <ActivityIndicator size={35} color='#FFF' />
+              : <Text style={styles.buttonText}>
+                  Enviar
+                </Text>
+          }
+
+
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.salvarbutton} onPress={() => this.saveForm()}>
@@ -142,14 +144,6 @@ class StepList extends Component {
             </TouchableOpacity>
           </View>
         </ScrollView>
-        {
-          load && (
-            <Load
-              loadVisible
-              textLoad='Salvando...'
-            />
-          )
-        }
       </View>
     );
   }
