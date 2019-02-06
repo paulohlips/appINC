@@ -40,12 +40,14 @@ class Offline extends Component {
 
   renderCard = item => {
     return (
-      <TouchableOpacity onPress={() => this.restoreForm(item)}>
-          <View style={styles.card}>
-              <Text style={styles.title}>Nome da Perícia:</Text>
-              <Text style={styles.name}>{item}</Text>
-          </View>
-      </TouchableOpacity>
+        <TouchableOpacity style ={styles.box} onPress={() => {Linking.openURL('http://35.231.239.168/pericia/links.php?id_pericia='+this.state.IDLaudo)}}>
+            <Text style={styles.status1}>{" Minha Perícia" + " - " + item }</Text>
+                <View style = {styles.row}>
+                    <Text style={styles.status1}> Status :</Text>
+                    <Text style={styles.status}> Em andamento</Text>
+                </View>
+            <Text style={styles.status1}> Última modificação : 29/09/1999</Text>
+        </TouchableOpacity>
     );
   }
 

@@ -100,6 +100,10 @@ class Login extends Component {
     AsyncStorage.setItem('@Id', id);
   }
 
+  closeModal = () => {
+    this.props.navigation.navigate('Password');
+  }
+
   onPressAnimated = async () => {
     this.animation.play(30, 1000);
   }
@@ -171,6 +175,7 @@ class Login extends Component {
               viewModal
               failure
               sourceImage={imageCheck}
+              onClose={this.closeModal}
             />
           )
         }
