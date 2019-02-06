@@ -102,100 +102,41 @@ O diretório ./src contém o núcleo do aplicativo onde ficam os principais arqu
 *  Login: Página inicial que possibilita ao usuário entrar com suas credenciais ou realizar cadastro.
 
 <p align="center">
-  <img width="250" height="400" src=./imagens_doc/app1.jpg>
+  <img width="250" 420 src=./imagens_doc/app1.jpg>
 </p>
 
 * SignUp: O usuário informa seu ID para cadastrar a senha de acesso.
 <p align="center">
-  <img width="250" height="400" src=./imagens_doc/app(2).jpg>
+  <img width="250" 420 src=./imagens_doc/app(2).jpg>
 </p> 
 
 * Main: Usuário logado pode iniciar nova coleta, acessar o histórico de coletas realizadas ou verificar a validade do seu token de acesso ao aplicativo.
 
 <p align="center">
-  <img width="250" height="400" src=./imagens_doc/app(3).jpg>
+  <img width="250" 420 src=./imagens_doc/app(3).jpg>
 </p>
 
 
 * NewMenu: Nesta página o usuário escolhe qual tipo de coleta deseja fazer, esta seleção determina quais compenentes serão disponibilizados para uso.
 <p align="center">
-  <img width="250" height="400" src=./imagens_doc/app(5).jpg>
+  <img width="250" 420 src=./imagens_doc/app(5).jpg>
 </p>
 
 * StepPage: Selec
 <p align="center">
-  <img width="250" height="400" src=./imagens_doc/app(6).jpg>
+  <img width="250" 420 src=./imagens_doc/app(6).jpg>
 </p>
 
-* StepPage: 
+* StepList: 
 <p align="center">
-  <img width="250" height="400" src=./imagens_doc/app(7).jpg>
+  <img width="250" 420 src=./imagens_doc/app(7).jpg>
 </p>
 
-* Hist: 
+* Hist: Mostra a lista de perícias já enviadas para o servidor e o seu id para download do docx e das mídias associadas.
 <p align="center">
-  <img width="250" height="400" src=./imagens_doc/hist.jpg>
+  <img width="250" 420 src=./imagens_doc/hist.jpeg>
 </p>
 
-* Offline: 
-<p align="center">
-  <img width="250" height="400" src=./imagens_doc/app1.jpg>
-</p>
-
-* Exit: 
-<p align="center">
-  <img width="250" height="400" src=./imagens_doc/app(4).jpg>
-</p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-O appINC utiliza componentes de terceiros, são eles:
-
-* [react-native-audio](https://github.com/jsierles/react-native-audio)
-* [react-native-datepicker](https://github.com/xgfe/react-native-datepicker)
-* [react-native-image-picker](https://github.com/react-community/react-native-image-picker)
-* [react-native-sound](https://github.com/zmxv/react-native-sound)
-* [react-native-vector-icons](https://github.com/oblador/react-native-vector-icons)
-* [react-navigation](https://reactnavigation.org/)
-* [Reactotron](https://github.com/infinitered/reactotron)
-* [reactotron-redux](https://github.com/infinitered/reactotron/blob/master/docs/plugin-redux.md)
-* [reactotron-redux-saga](https://github.com/infinitered/reactotron/blob/master/docs/plugin-redux-saga.md)
-* [Redux](https://redux.js.org/)
-* [axios](https://github.com/axios/axios)
-
-### Redux
-
-Para controlar a o estado da nossa aplicação e manipular melhor o fluxo de dados, escolhemos o redux que otimiza o tratamento de dados bem como as requisições facilitando a construção e renderização de telas e formulários.
-
-* [Redux](https://redux.js.org/)
-* [Redux Saga](https://redux-saga.js.org/)
-
-### Reactotron
-
-Utilizamos o reactotron e suas extenções como ferramenta de debug devido a sua facilidade de analisar o redux(state, actions e requisições) de forma mais detalhada além de outras informações uteis.
-
-* [Reactotron](https://github.com/infinitered/reactotron)
-* [Reactotron redux](https://github.com/infinitered/reactotron/blob/master/docs/plugin-redux.md)
-* [Reactotron redux-saga](https://github.com/infinitered/reactotron/blob/master/docs/plugin-redux-saga.md)
 
 ### Os Componentes
 
