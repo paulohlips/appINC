@@ -102,6 +102,13 @@ const styles = StyleSheet.create({
      marginTop: metrics.baseMargin / 3,
      backgroundColor: colors.whiteTransparent
    },
+
+   icon:{
+    padding: 10,
+    borderRadius: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+ },
 });
 
 export default styles;

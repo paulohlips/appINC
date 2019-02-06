@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StackActions, NavigationActions } from 'react-navigation';
-
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import HideWithKeyboard from 'react-native-hide-with-keyboard';
 import {
   View,
@@ -110,7 +110,10 @@ class Login extends Component {
       <View style={styles.container}>
       <StatusBar backgroundColor="rgba(45, 45, 45, 0.8)" />
         <View style={styles.mainContainer}>
-        <Text style={styles.step}>03</Text>
+        <View style={styles.icon}>
+        <Icon name="vpn-key" size={60} color="#fff" style={styles.icon} />
+        </View>
+        
           <Text style={styles.descript}>Escolha uma senha</Text>
             <View style={styles.forms}>
               <TextInput
