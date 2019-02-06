@@ -3,7 +3,7 @@
 # Sistema Móvel de Suporte à Perícia - AppINC
 
 #### Introdução
-O appINC é uma solução composta de um aplicativo para dispositivos móveis e o correspondente servidor de processamento, customização e armazenamento de POPs (Procedimento Operacional Padrão) dando suporte ao usuário durante a coleta de vestígios e confecção dos laudos em docx editável.
+O appINC é uma solução composta de um aplicativo para dispositivos móveis e o correspondente servidor de processamento, customização e armazenamento de POPs (Procedimento Operacional Padrão) dando suporte ao usuário durante a coleta de vestígios e a confecção dos laudos em docx editável.
 
 #### Executando o projeto:
 
@@ -27,7 +27,7 @@ $ react-native run-ios
 O diretório ./src contém o núcleo do aplicativo onde ficam os principais arquivos de construção do aplicativo.
 
 * /assets: guarda as imagens e animações utilizadas;
-* /components: recebe todos os index.js e os styles.js de cada componente;
+* /components: recebe os index.js e os styles.js de cada componente;
 * /config: configuração da ferramenta de debug Reactotron;
 * /globalComponents: componentes globais que são utilizados com frequência;
 * /pages: páginas que são exibidas no aplicativo;
@@ -122,12 +122,12 @@ O diretório ./src contém o núcleo do aplicativo onde ficam os principais arqu
   <img width="250" 420 src=./imagens_doc/app(5).jpg>
 </p>
 
-* StepPage: Selec
+* StepPage: Página que engloba os chamados steps que são conjuntos de componentes.
 <p align="center">
   <img width="250" 420 src=./imagens_doc/app(6).jpg>
 </p>
 
-* StepList: 
+* StepList: Página dentro de cada step onde se encontram os componentes que serão preenchidos com os dados de interesse.
 <p align="center">
   <img width="250" 420 src=./imagens_doc/app(7).jpg>
 </p>
