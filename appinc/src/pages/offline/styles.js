@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     status:{
 
         height: 20,
-        color: 'yellow',
+        color: '#002F7F',
         fontFamily: 'Roboto',
         fontSize: 16,
         fontWeight: '500',

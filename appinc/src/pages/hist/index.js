@@ -105,7 +105,7 @@ class Hist extends Component {
               <Text style={styles.status1}> Status :</Text>
               <Text style={styles.status}> Finalizado</Text>
            </View>
-           <Text style={styles.status1}> Última modificação : 29/09/1999</Text>
+           <Text style={styles.status1}> Última modificação : 07/02/2019</Text>
          </TouchableOpacity>
       </View>
       </View>
