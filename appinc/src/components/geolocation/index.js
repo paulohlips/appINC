@@ -106,7 +106,7 @@ class GeoLocation extends Component {
       }
     } else {
       for (var key in form.step) {
-        if ( key === data.data_name) {
+        if ( key === data.data_name && data.data_name === false) {
           const form = {};
           form[data.data_name] = { key: data.data_name, value: '', filled: false, position: null };
           //console.tron.log(['formsavecampo', form])

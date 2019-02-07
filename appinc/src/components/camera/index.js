@@ -199,7 +199,7 @@ class Camera extends React.Component {
     if ( imagePath ) {
       //console.tron.log('entrei no if');
       for (var key in form.step) { 
-        if ( key === data.data_name) {
+        if (key === data.data_name) {
           const form = {};
           form[data.data_name] = { key: data.data_name, value: { uri: imagePath, type:'image/jpeg', name: `${data.data_name}.jpg` }, data: image, filled: true };
           //console.tron.log(['formsavecampo', form]) 
