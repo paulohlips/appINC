@@ -31,7 +31,7 @@ class Camera extends React.Component {
     for (var key in form.step) { 
       if ( key === data.data_name) {
         if(form.step[key].filled === true) {
-          this.setState({ image: form.step[key].data });
+          this.setState({ image: form.step[key].data, imagePath: form.step[key].data.value.uri });
         }
       }  
     }
@@ -208,7 +208,7 @@ class Camera extends React.Component {
       }
     } else {
       for (var key in form.step) { 
-        if ( key === data.data_name) {
+        if (key === data.data_name && data.data_name.filled === false) {
           const form = {};
           form[data.data_name] = { key: data.data_name, value: { uri: '', type: '', name: '' }, data: image, filled: false };
           //console.tron.log(['formsavecampo', form]) 
