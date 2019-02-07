@@ -71,20 +71,15 @@ class StepList extends Component {
           'Accept': 'application/json'
         }}
       })
-      .then(response => {
-          this.setState({ viewError: false, load: false });
-          console.tron.log(['errop', response]);
+      .then(function (response) {
           AsyncStorage.setItem('@IDlaudo', response.data.number);
-          const resp = JSON.stringify(response);
-          Alert.alert('ID do laudo','O número do seu laudo é ' + response.data.number);
-          console.tron.log(['errop', response]);
-
+          Alert.alert('ID do laudo','O número do seu laudo é '+response.data.number);
           //console.tron.log(['elemente forech', response]);
       })
-      .catch(response => {
-          this.setState({ viewError: false, load: false });
-          this.errorMessage();
-          console.tron.log(['error', response]);
+      .catch(function (response) {
+          //handle error
+          console.log(response);
+          alert(response);
       });
   }
 
@@ -127,14 +122,10 @@ class StepList extends Component {
           />
           <View style={styles.container}>
             <TouchableOpacity style={styles.enviarbutton} onPress={() => this.enviaForm()}>
-            { load ?
-              <ActivityIndicator size={35} color='#FFF' />
-              : <Text style={styles.buttonText}>
+
+              <Text style={styles.buttonText}>
                   Enviar
-                </Text>
-          }
-
-
+              </Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.salvarbutton} onPress={() => this.saveForm()}>

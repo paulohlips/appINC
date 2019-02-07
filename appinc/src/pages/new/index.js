@@ -131,7 +131,7 @@ class New extends Component {
               >
                 <Picker.Item label='Selecione a perícia' />
                 <Picker.Item label='Veículos' value='30' />
-                <Picker.Item label='Incêndio' value='19' />
+                <Picker.Item label='Incêndio' value='32' />
                 <Picker.Item label='Arrombamento de Caixa' value='6' />
                 <Picker.Item label='Exemplo' value='1' />
               </Picker>
