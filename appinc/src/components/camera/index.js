@@ -31,7 +31,7 @@ class Camera extends React.Component {
     for (var key in form.step) { 
       if ( key === data.data_name) {
         if(form.step[key].filled === true) {
-          this.setState({ image: form.step[key].data, imagePath: form.step[key].data.value.uri });
+          this.setState({ image: form.step[key].data });
         }
       }  
     }
