@@ -23,6 +23,21 @@ const styles = StyleSheet.create({
     color: 'white',
   },
 
+  saved: {
+    width: responsividade.largura_tela,
+    height: 30,
+    position: 'relative',
+    backgroundColor: 'green',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  messagesaved: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    color: 'white',
+  },
+
   salvarbutton: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -33,7 +48,7 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     fontWeight: 'bold',
     borderColor: 'green',
-        marginBottom: 30,
+    marginBottom: 30,
   },
 
   enviarbutton: {

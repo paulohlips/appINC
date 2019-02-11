@@ -8,6 +8,7 @@ import {
   Text,
   Alert,
   ActivityIndicator,
+  Animated
 } from 'react-native';
 import styles from './styles';
 import StepBox from './components/StepBox';
@@ -28,6 +29,7 @@ class StepList extends Component {
     showAlert: false,
     formRedux: true,
     viewError: false,
+    saved: false,
 
   }
 
@@ -35,10 +37,18 @@ class StepList extends Component {
     this.props.navigation.goBack();
   }
 
+  saved() {
+    this.setState({ saved: true })
+    let that = this;
+    setTimeout(function(){that.setState( { saved: false }); }, 4000);
+
+  }
+
   saveForm = () => {
     const { reference, saveForm, setSaveContentForm, form } = this.props;
     //console.tron.log(['saveformstep', reference]);
     saveForm(reference);
+    this.saved(); 
   }
 
   resetAsync = () => {
@@ -47,6 +57,8 @@ class StepList extends Component {
 
   errorMessage = () => {
     this.setState({ viewError: true });
+    let that = this;
+    setTimeout(function(){that.setState({viewError: false})}, 4000);
   }
 
   enviaForm = async () => {
@@ -95,7 +107,7 @@ class StepList extends Component {
     //console.tron.log(['form', form]);
     const { navigation } = this.props;
     //const { steps } = this.props;
-    const { viewError, load } = this.state;
+    const { viewError, load , saved } = this.state;
     //console.tron.log('FORMEEE',form);
     //const { steps, form_name } = form;
 
@@ -115,12 +127,21 @@ class StepList extends Component {
             </View>
           )
         }
+
+{
+          saved && (
+            <View style={styles.saved }>
+              <Text style={styles.messagesaved}>Salvo</Text>
+            </View>
+          )
+        }
         <ScrollView>
           <FlatList
             data={form.steps}
             renderItem={item => <StepBox steps={item} form={form} />}
           />
           <View style={styles.container}>
+        
             <TouchableOpacity style={styles.enviarbutton} onPress={() => this.enviaForm()}>
 
               <Text style={styles.buttonText}>
@@ -128,7 +149,7 @@ class StepList extends Component {
               </Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.salvarbutton} onPress={() => this.saveForm()}>
+            <TouchableOpacity style={styles.salvarbutton} onPress={() => this.saveForm() /*this.saved();*/ }>
               <Text style={styles.buttonTextsalvar}>
                 Salvar
               </Text>
