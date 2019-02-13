@@ -28,6 +28,7 @@ class StepList extends Component {
     showAlert: false,
     formRedux: true,
     viewError: false,
+    matriculaAsync: ''
 
   }
 
@@ -50,6 +51,8 @@ class StepList extends Component {
   }
 
   enviaForm = async () => {
+    const { matriculaAsync } = this.state;
+
     this.setState({ load: true });
     //console.tron.log('entrei')
     const { formulario } = this.props;
@@ -61,16 +64,22 @@ class StepList extends Component {
       //console.tron.log(['elemente forech', formulario.step[key]])
     }
 
+    const matricula = AsyncStorage.getItem('@AppInc:matricula');
+    console.tron.log(["MATRICULA", matriculaAsync]);
+    
+
+    this.setState({ matriculaAsync: matricula });
+
     axios({
       method: 'post',
       url: 'http://35.231.239.168/api/pericia/formulario/envio',
       data: data,
-      config: {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          'Accept': 'application/json'
-        }}
-      })
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        'Accept': 'application/json',
+        'matricula' : {matriculaAsync},
+        
+      }})
       .then(function (response) {
           AsyncStorage.setItem('@IDlaudo', response.data.number);
           Alert.alert('ID do laudo','O número do seu laudo é '+response.data.number);

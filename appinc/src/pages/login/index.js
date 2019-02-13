@@ -77,10 +77,15 @@ class Login extends Component {
       method: 'post',
       url: 'http://35.231.239.168/api/pericia/usuario/login',
       data: { matricula: inputSave, pass: password },
+      headers:{
+        'matricula': 'oi',
+      }
     })
     .then((resp) => {
       if (resp.status === 200) {
         this.navigateToLogged();
+        AsyncStorage.setItem('@AppInc:matricula', inputSave);
+        console.tron.log(['PAULO', resp])
       } else {
         this.setState({ viewModal: true, messageRequest: resp.data.mensagem });
         //Alert.alert(resp.data.mensagem);
