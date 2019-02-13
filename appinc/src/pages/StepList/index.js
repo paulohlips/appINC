@@ -106,7 +106,7 @@ class StepList extends Component {
       .then(function (response) {
           AsyncStorage.setItem('@IDlaudo', response.data.number);
           Alert.alert('ID do laudo','O número do seu laudo é '+ response.data.number);
-          sendForm();
+         // sendForm();
           //console.tron.log(['elemente forech', response]);
       })
       .catch(error => { 

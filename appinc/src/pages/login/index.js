@@ -32,7 +32,8 @@ class Login extends Component {
     btt: null,
     inputSave: null,
     password: null,
-    nome : null,
+    nome: null,
+    name: null,
     idUser: null,
     currentPosition: 0,
     viewModal: false,
@@ -74,7 +75,7 @@ class Login extends Component {
   }
 
   confereCadastro = () => {
-    const { password, inputSave , name } = this.state;
+    const { password, inputSave, nome } = this.state;
     axios({
       method: 'post',
       url: 'http://35.231.239.168/api/pericia/usuario/login',
@@ -83,9 +84,10 @@ class Login extends Component {
     .then((resp) => {
       if (resp.status === 200) {
         this.setState({ nome: resp.data.nome });
+        AsyncStorage.setItem('@AppInc:nome', this.state.nome);
         this.navigateToLogged();
         AsyncStorage.setItem('@AppInc:matricula', inputSave);
-        console.tron.log(['PAULO', resp])
+        console.tron.log(['PAULO', resp]);
       } else {
         this.setState({ viewModal: true, messageRequest: resp.data.mensagem});
       }
