@@ -207,6 +207,54 @@ Este componente permite integrar o aplicativo a APIs e BDs externos, com auxíli
 
 ### Componentes Globais
 
+Componentes criados a partir de outros componentes nativos do próprio framework, com o objetivo de suprir necessidades específicas da aplicação, que aparecem com frequência.
+
+##### 1. Header
+
+O Header é um componente de navegação criado para mostrar informações e habilitar ações relacionadas à página atual. É possível apresentar: O título da página atual, botão de voltar , botão que leva ao menu e botão de informações adicionais (info) por meio das propriedades.
+
+##### Uso
+
+title : string -- habilita título da página atual
+
+
+showMenu : bool -- Botão que leva ao menu lateral genérico
+
+
+showExit : bool -- Botão para logout
+
+
+showInfo : bool -- Botão que apresenta informações adicionais
+
+
+showArrow : bool -- Botão que habilita seta de volta
+
+
+showClear : bool -- botão que habilita edição de itens
+
+
+##### 2. Info
+
+Componente criado para exibir informações adicionais por meio de um modal. O botão de informações adicionais é apresentado dentro de outro componente global , o  Header, e pode ser habilitado por meio de uma propriedade. O conteúdo do modal vem do banco de dados.
+
+
+##### 3. Menu
+
+O menu disponibiliza uma lista de opções por meio de uma tela temporária, facilitando a navegação entre telas. Os links de navegação disponibilizados no menu lateral são: Nova Perícia, Renovar Token, Sair (logout) e Minhas Perícias. O botão de acesso ao menu é apresentado dentro de outro componente global , o  Header, e pode ser habilitado por meio de uma propriedade.
+
+##### 4. Modal
+
+Tela temporária que apresenta mensagens de erro e sucesso ao usuário. O formato deste componente é padronizado, mas é necessário definir por meio de propriedades a animação e mensagem que serão apresentadas, que podem ser referentes à um erro ou ao sucesso de determinado processo.
+
+##### Uso
+
+sucess: bool -- Apresenta a animação e mensagem de sucesso
+
+
+failure: bool -- Apresenta a animação e mensagem de erro
+
+
+  
 ### Adicionando Novos Documentos
 
 Para adicionar novos componentes alguns passos simples devem ser seguidos:
