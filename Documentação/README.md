@@ -5,6 +5,7 @@
 #### Introdução
 O appINC é uma solução composta de um aplicativo para dispositivos móveis e o correspondente servidor de processamento, customização e armazenamento de POPs (Procedimento Operacional Padrão) dando suporte ao usuário durante a coleta de vestígios e a confecção dos laudos em docx editável.
 
+
 #### Executando o projeto:
 
 Para executar o projeto devem ser seguidos os seguintes passos:
@@ -24,7 +25,7 @@ $ react-native run-ios
 ```
 #### Árvore de diretórios
 
-O diretório ./src contém o núcleo do aplicativo e é o local onde ficam os principais arquivos de construção do aplicativo.
+O diretório ./src contém o núcleo do aplicativo onde ficam os principais arquivos de construção do aplicativo.
 
 * /assets: guarda as imagens e animações utilizadas;
 * /components: recebe os index.js e os styles.js de cada componente;
@@ -144,7 +145,7 @@ O conceito de componenetização é amplamente utilizado no aplicativo, desta fo
 
 #### A) Estrutura dos componentes
 A instalação dos componentes, mesmo daqueles que possuem documentação no site do NPM, como dito anteriormente, utiliza o gerenciador de pacotes [Yarn](https://yarnpkg.com/pt-BR/). 
-Em casos de manuteção, adição de novos componentes ou outras modificações usar ,***sem excessão, Yarn***. 
+Em casos de manuteção, adição de novos componentes ou outras modificações usar ***sem excessão Yarn***. 
 
 O diretório do componente contém dois arquivos padrões, sendo o primeiro deles *index.js*, que inclui todo o código que constroi e executa as funções do componente, e um segundo, o *styles.js* responsável pela estilização e customização. 
 
@@ -207,6 +208,7 @@ Este componente permite integrar o aplicativo a APIs e BDs externos, com auxíli
 
 ### Componentes Globais
 
+
 Componentes criados a partir de outros componentes nativos do próprio framework, com o objetivo de suprir necessidades específicas da aplicação, que aparecem com frequência.
 
 ##### 1. Header
@@ -254,7 +256,6 @@ sucess: bool -- Apresenta a animação e mensagem de sucesso
 failure: bool -- Apresenta a animação e mensagem de erro
 
 
-  
 ### Adicionando Novos Documentos
 
 Para adicionar novos componentes alguns passos simples devem ser seguidos:
@@ -298,9 +299,10 @@ $ react-native bundle --platform android --dev false --entry-file index.js --bun
 #### 2) Dentro da pasta .Android:
 ```
 $ gradlew assembleRelease
-```
+
 #### 3) Diretório da APK:
 ```
 $ ../diretorio_do_projeto/android/app/build/outputs/apk/release
 ```
 ###### O procedimento oficial para gerar uma .apk pode ser encontrado na [Documetação oficial](https://facebook.github.io/react-native/docs/signed-apk-android) do React Native. 
+
