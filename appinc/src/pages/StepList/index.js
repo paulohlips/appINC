@@ -53,7 +53,13 @@ class StepList extends Component {
   enviaForm = async () => {
     const { matriculaAsync } = this.state;
 
-    this.setState({ load: true });
+    const matriculaProv = await AsyncStorage.getItem('@AppInc:matricula');
+    const matricula = JSON.stringify(matriculaProv);
+
+
+    console.tron.log(["MATRICULAASYNC", matricula]);
+
+    //this.setState({ load: true });
     //console.tron.log('entrei')
     const { formulario } = this.props;
     const data = new FormData();
@@ -64,11 +70,9 @@ class StepList extends Component {
       //console.tron.log(['elemente forech', formulario.step[key]])
     }
 
-    const matricula = AsyncStorage.getItem('@AppInc:matricula');
-    console.tron.log(["MATRICULA", matriculaAsync]);
-    
-
     this.setState({ matriculaAsync: matricula });
+
+    console.tron.log(["MATRICULA", matriculaAsync]);
 
     axios({
       method: 'post',
@@ -77,7 +81,7 @@ class StepList extends Component {
       headers: {
         'Content-Type': 'multipart/form-data',
         'Accept': 'application/json',
-        'matricula' : {matriculaAsync},
+        'matricula' : matricula,
         
       }})
       .then(function (response) {
