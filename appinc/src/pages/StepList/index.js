@@ -29,7 +29,7 @@ class StepList extends Component {
     showAlert: false,
     formRedux: true,
     viewError: false,
-    matriculaAsync: ''
+    matriculaAsync: '',
     saved: false,
     error: false,
   }
