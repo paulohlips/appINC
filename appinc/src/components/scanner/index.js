@@ -39,7 +39,7 @@ class Scanner extends Component {
     const { form, getSaveStateForm, startControlArray } = this.props;
 
    // console.tron.log(form.step);
-    if ( inputSave ) {
+    if ( data ) {
       for (var key in form.step) {
         if ( key === dataScanner.data_name) {
           const form = {};
