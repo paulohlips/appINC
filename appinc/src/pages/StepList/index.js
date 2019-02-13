@@ -8,6 +8,7 @@ import {
   Text,
   Alert,
   ActivityIndicator,
+  Animated
 } from 'react-native';
 import styles from './styles';
 import StepBox from './components/StepBox';
@@ -28,6 +29,8 @@ class StepList extends Component {
     showAlert: false,
     formRedux: true,
     viewError: false,
+    saved: false,
+    error: false,
 
   }
 
@@ -35,10 +38,18 @@ class StepList extends Component {
     this.props.navigation.goBack();
   }
 
+  saved() {
+    this.setState({ saved: true })
+    let that = this;
+    setTimeout(function(){that.setState( { saved: false }); }, 4000);
+
+  }
+
   saveForm = () => {
     const { reference, saveForm, setSaveContentForm, form } = this.props;
     //console.tron.log(['saveformstep', reference]);
     saveForm(reference);
+    this.saved(); 
   }
 
   resetAsync = () => {
@@ -47,12 +58,21 @@ class StepList extends Component {
 
   errorMessage = () => {
     this.setState({ viewError: true });
+    let that = this;
+    setTimeout(function(){that.setState({viewError: false})}, 4000);
   }
+
+  error = () => {
+    this.setState({ error: true });
+    let that = this;
+    setTimeout(function(){that.setState({error: false})}, 4000);
+  }
+
 
   enviaForm = async () => {
     this.setState({ load: true });
     //console.tron.log('entrei')
-    const { formulario } = this.props;
+    const { formulario, sendForm } = this.props;
     const data = new FormData();
     data.append('form_name', formulario.form.form_name);
 
@@ -73,13 +93,12 @@ class StepList extends Component {
       })
       .then(function (response) {
           AsyncStorage.setItem('@IDlaudo', response.data.number);
-          Alert.alert('ID do laudo','O número do seu laudo é '+response.data.number);
+          Alert.alert('ID do laudo','O número do seu laudo é '+ response.data.number);
+          sendForm();
           //console.tron.log(['elemente forech', response]);
       })
-      .catch(function (response) {
-          //handle error
-          console.log(response);
-          alert(response);
+      .catch(error => { 
+       this.errorMessage();
       });
   }
 
@@ -95,7 +114,7 @@ class StepList extends Component {
     //console.tron.log(['form', form]);
     const { navigation } = this.props;
     //const { steps } = this.props;
-    const { viewError, load } = this.state;
+    const { viewError, load , saved } = this.state;
     //console.tron.log('FORMEEE',form);
     //const { steps, form_name } = form;
 
@@ -111,7 +130,15 @@ class StepList extends Component {
         {
           viewError && (
             <View style={styles.message}>
-              <Text style={styles.messageError}>Sem conexão</Text>
+              <Text style={styles.messageError}>Sem conexão!</Text>
+            </View>
+          )
+        }
+
+{
+          saved && (
+            <View style={styles.saved }>
+              <Text style={styles.messagesaved}>Salvo!</Text>
             </View>
           )
         }
@@ -121,6 +148,7 @@ class StepList extends Component {
             renderItem={item => <StepBox steps={item} form={form} />}
           />
           <View style={styles.container}>
+        
             <TouchableOpacity style={styles.enviarbutton} onPress={() => this.enviaForm()}>
 
               <Text style={styles.buttonText}>
@@ -128,7 +156,7 @@ class StepList extends Component {
               </Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.salvarbutton} onPress={() => this.saveForm()}>
+            <TouchableOpacity style={styles.salvarbutton} onPress={() => this.saveForm() /*this.saved();*/ }>
               <Text style={styles.buttonTextsalvar}>
                 Salvar
               </Text>

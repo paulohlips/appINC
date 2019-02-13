@@ -72,6 +72,7 @@ class Main extends Component {
   render() {
     const { navigation } = this.props;
     //console.tron.log(navigation);
+    const name = navigation.getParam('nome', 'Nome não cadastrado');
 
     return (
       <View style={styles.container}>
@@ -99,7 +100,7 @@ class Main extends Component {
 
 
             <View style={styles.name_view}>
-              <Text style={styles.name}>Nome Sobrenome</Text>
+              <Text style={styles.name}>{name}</Text>
             </View>
 
             <TouchableOpacity onPress={this.navigateToScreen('NewMenu')}>

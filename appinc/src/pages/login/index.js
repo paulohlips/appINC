@@ -14,6 +14,7 @@ import {
   AsyncStorage,
   Alert
 } from 'react-native';
+
 import LottieView from 'lottie-react-native';
 import axios from 'axios';
 
@@ -31,6 +32,7 @@ class Login extends Component {
     btt: null,
     inputSave: null,
     password: null,
+    nome : null,
     idUser: null,
     currentPosition: 0,
     viewModal: false,
@@ -49,7 +51,7 @@ class Login extends Component {
       index: 0,
       actions: [
         // Logged
-        NavigationActions.navigate({ routeName: 'Logged' }),
+        NavigationActions.navigate({ routeName: 'Logged' , params: { nome: this.state.nome }}),
       ]
     });
     this.props.navigation.dispatch(resetAction);
@@ -72,18 +74,20 @@ class Login extends Component {
   }
 
   confereCadastro = () => {
-    const { password, inputSave } = this.state;
+    const { password, inputSave , name } = this.state;
     axios({
       method: 'post',
       url: 'http://35.231.239.168/api/pericia/usuario/login',
       data: { matricula: inputSave, pass: password },
-    })
+    }
+    )
+    
     .then((resp) => {
       if (resp.status === 200) {
+        this.setState({ nome: resp.data.nome });
         this.navigateToLogged();
       } else {
-        this.setState({ viewModal: true, messageRequest: resp.data.mensagem });
-        //Alert.alert(resp.data.mensagem);
+        this.setState({ viewModal: true, messageRequest: resp.data.mensagem});
       }
     }).catch(err => {
       this.setState({ viewModal: true });
