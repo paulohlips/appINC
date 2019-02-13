@@ -10,17 +10,32 @@ const styles = StyleSheet.create({
 
   message: {
     width: responsividade.largura_tela,
-    height: 20,
+    height: 30,
     position: 'relative',
-    backgroundColor: 'red',
+    backgroundColor: '#FFBABA',
     alignItems: 'center',
     justifyContent: 'center',
   },
 
   messageError: {
-    fontSize: 10,
+    fontSize: 15,
     fontWeight: 'bold',
-    color: 'white',
+    color: '#D8000C',
+  },
+
+  saved: {
+    width: responsividade.largura_tela,
+    height: 30,
+    position: 'relative',
+    backgroundColor: '#DFF2BF',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  messagesaved: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    color: '#4F8A10',
   },
 
   salvarbutton: {
@@ -33,7 +48,7 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     fontWeight: 'bold',
     borderColor: 'green',
-        marginBottom: 30,
+    marginBottom: 30,
   },
 
   enviarbutton: {
