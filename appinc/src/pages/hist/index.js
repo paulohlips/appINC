@@ -74,7 +74,7 @@ class Hist extends Component {
   async componentWillMount(){
    // console.tron.log(['OK']);
       const id = await AsyncStorage.getItem('@IDlaudo');
-      this.setState({ IDLaudo: id });
+      this.setState({ IDLaudo: id, ...this.state.IDLaudo });
      // this.setState({ IDLaudo: [...this.state.IDLaudo, id] });
      // console.tron.log(['NUM IDS', this.state.IDLaudo]);
       //const numIds = marcas.map(item => id);
@@ -105,12 +105,9 @@ class Hist extends Component {
               <Text style={styles.status1}> Status :</Text>
               <Text style={styles.status}> Finalizado</Text>
            </View>
-           <Text style={styles.status1}> Última modificação : 29/09/1999</Text>
+           <Text style={styles.status1}> Última modificação : 07/02/2019</Text>
          </TouchableOpacity>
-
       </View>
-
-
       </View>
 
     );

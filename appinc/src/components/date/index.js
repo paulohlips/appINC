@@ -7,14 +7,19 @@ import styles from './styles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Creators as FormActions } from '../../store/ducks/form';
+import moment from 'moment';
 
 
 class MyDatePicker extends Component {
 
   state = {
-    date: '',
-    dataAtual: '2019-01-21'
+    date: null,
+    formattedDate: null,
+    dataAtual: '2019-01-21',
+    showDate: false,
+    call: true,
   }
+
 
   componentDidMount() {
     const { form, data } = this.props;
@@ -26,6 +31,19 @@ class MyDatePicker extends Component {
         }
       }
     }
+    
+  }
+
+  getNewDate = () => {
+    const oldDate = new Date(this.state.date);
+    const newDate = moment.utc(oldDate).format("DD/MM/YYYY");
+    
+    if( this.state.call ){
+      console.tron.log(['VRAU', newDate]);
+      this.state.formattedDate = newDate;
+      this.setState({ formattedDate: newDate, call: false })
+      console.tron.log(['DAAAAAAAAAATA', this.state.formattedDate]);
+    } 
   }
 
   saveFormInput = data => {
@@ -57,27 +75,28 @@ class MyDatePicker extends Component {
 
   
   render() {
-    const { data_name, label, hint, default_value, newState} = this.props.data;
+    const { data_name, label, hint, default_value, newState} = this.props.data
     const { saveStep } = this.props.form;
+    const { showDate } = this.state;
     //console.tron.log(['redux date', this.props]); 
     
     if (saveStep) {
       this.saveFormInput({data_name, default_value});
     }
-    return (
+    return (     
       <View style={styles.container}>
         <Text style={styles.titulo}>{label}:</Text>
         <View style={styles.direcao}>
           <DatePicker
             style={styles.dataPicker}
             mode="date"
-            placeholder="selecionar"
+            placeholder="Calendário"
             format="YYYY-MM-DD"
             minDate="2018-01-01"
             maxDate="2100-01-01"
             confirmBtnText="Confirm"
             cancelBtnText="Cancel"
-            onDateChange={(date) => { this.props.submitDATE({ date }); this.setState({ date }); }}
+            onDateChange={(date) => { this.props.submitDATE({ date }); this.setState({ date, call: true });}}
             customStyles={{
               dateIcon: {
                 position: 'relative',
@@ -91,18 +110,24 @@ class MyDatePicker extends Component {
                 borderWidth:0,
                 borderRadius: 10,
                 backgroundColor: 'transparent',
-
               },
             }}
-            onDateChange={(date) => { this.setState({ date }); this.getDate(); }}
-           
+            onDateChange={(date) => { this.setState({ date, showDate: true, call: true }); this.getDate(); }}
+         
           />
 
-          <View style={styles.datecontainer}>
-            <Text style={styles.date}>{this.state.date}</Text>
-          </View>
-        </View>
+          { 
+            this.state.date && (
+              
+            <View style={styles.datecontainer}>
+            { this.getNewDate()}
+              <Text style={styles.date}>{this.state.formattedDate}</Text>
+            </View>
+           
+            )
+          }
 
+        </View>
       </View>
     );
   }

@@ -1,11 +1,22 @@
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TouchableOpacity, AsyncStorage } from 'react-native';
 import { NavigationActions, withNavigation } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import styles from './style';
 
 const pathImage = '../../assents/imgs/perfil.png';
 class Menu extends Component {
+    state= {
+        nome: '',
+    }
+
+    async componentWillMount() {
+        const name = await AsyncStorage.getItem('@AppInc:nome');
+        this.setState({
+            nome: name
+        });
+    }
+
     navigateToScreen = (route) => () => {
         const navigateAction = NavigationActions.navigate({
           routeName: route
@@ -14,12 +25,14 @@ class Menu extends Component {
       }
 
     render() {
+        const { nome } = this.state;
+
         return(
             <View style={styles.container}>
             <TouchableOpacity onPress={this.navigateToScreen('Main')}>
                 <View style={styles.profile}>
                     <Image source={require(pathImage)} style={styles.profileImage} />
-                    <Text style={styles.profileName}>Bruce Waynne</Text>
+                    <Text style={styles.profileName}>{ nome }</Text>
                 </View>
                 </TouchableOpacity>
                 <View style={styles.buttonsView}>

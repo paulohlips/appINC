@@ -80,7 +80,7 @@ class ModalCheck extends Component {
                 </View>
                 <Text style={styles.texterro}>Algo deu errado!</Text>
                 <Text style={styles.erro}>{message}</Text>
-                <TouchableOpacity style={styles.oke} onPress={ () => this.navigateToLogin() }>
+                <TouchableOpacity style={styles.oke} onPress={() => (onClose ? onClose() : this.navigateToLogin())}>
                   <Text style={styles.okterro}>
                     Ok!
                    </Text>

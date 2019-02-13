@@ -2,10 +2,10 @@ import { StyleSheet } from 'react-native';
 import { colors } from '../../styles';
 const styles = StyleSheet.create({
     container: { 
-        flex: 1,      
+        flex: 1,    
     },
-    main: {            
-             
+    main: {
+        padding: 10,     
     },
     card: {
         marginHorizontal: 20,
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
         backgroundColor: colors.darkTransparent,
         padding: 15,
     },
-    buttonContainer: {
+    buttonContainer: { 
         width: 300,
         alignItems: 'flex-end',        
         backgroundColor: "#67382643",
@@ -42,20 +42,45 @@ const styles = StyleSheet.create({
     iconClose: {
         color: colors.white,
     },
-    box: {
-        flex: 1,  
-        padding: 15,
-        marginTop: 10,
-        backgroundColor: colors.white,
-        borderRadius: 15,
-        justifyContent: 'flex-start',
-        alignItems: 'flex-start',
-    },
+    box:{
+        backgroundColor: 'white',
+        borderRadius: 5,
+        margin: 5,
+        // justifyContent: "flex-start",
+        // alignItems: "center",
+        padding: 20,
+    
+      },
     text: {
         color: colors.black,
         fontSize: 16,
         textAlign: 'justify',
-    }
+    },
+    status:{
+
+        height: 20,
+        color: '#002F7F',
+        fontFamily: 'Roboto',
+        fontSize: 16,
+        fontWeight: '500',
+        lineHeight: 21,
+        opacity: 0.6,
+        marginTop: 3,
+    
+      },
+      status1: {     
+        height: 20,
+        fontFamily: 'Roboto',
+        fontSize: 16,
+        fontWeight: '500',
+        lineHeight: 21,
+        // opacity: 0.6,
+        marginTop: 3,
+    
+      },    
+      row: {
+        flexDirection: "row",
+      }
 
 });
 

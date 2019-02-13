@@ -58,7 +58,13 @@ export default function formState(state = initialState, action) {
     case Types.FINISH_UPDATE_PROGRESS:
       return { ...state, updateProgress: false };
     case Types.RESTORE_FORM:
-      return { ...state, step: action.payload.form.step, form: action.payload.form.form, formEdit: action.payload.form.formEdit };
+      return { 
+        ...state, 
+        step: action.payload.form.step, 
+        form: action.payload.form.form, 
+        formEdit: action.payload.form.formEdit, 
+        ref: action.payload.form.ref,
+      };
     case Types.RESET_EDIT_FORM:
       return { ...state, formEdit: false };
     default:

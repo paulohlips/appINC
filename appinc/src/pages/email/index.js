@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StackActions, NavigationActions } from 'react-navigation';
 import HideWithKeyboard from 'react-native-hide-with-keyboard';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import { ModalCheck } from '../../globalComponents';
 import {
   View,
@@ -104,7 +105,9 @@ class Login extends Component {
       <View style={styles.container}>
       <StatusBar backgroundColor="rgba(45, 45, 45, 0.8)" />
         <View style={styles.mainContainer}>
-        <Text style={styles.step}>01</Text>
+        <View style={styles.icon}>
+          <Icon name="fingerprint" size={60} color="#fff" style={styles.icon} />
+        </View>
           <Text style={styles.descript}>Por favor digite seu ID</Text>
             <View style={styles.forms}>
               <TextInput
@@ -133,7 +136,6 @@ class Login extends Component {
           />
         </View>
         </HideWithKeyboard>
-
         {
           viewModal && (
             <ModalCheck
