@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { colors, metrics,responsividade } from '../../styles';
+import { bold } from 'ansi-colors';
 
 const styles = StyleSheet.create({
   container: {
@@ -55,7 +56,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: metrics.basePadding,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 40,
+    marginBottom: 10,
   },
   info: {
     alignItems: 'center',
@@ -142,6 +143,25 @@ hint_title:{
   flexDirection: 'row',
 
 },
+
+erro: {
+  color: "#B83E3E",
+  fontSize: 'bold',
+  fontSize: 14,
+  margin: 10,
+},
+
+errov: {
+  height: responsividade.ALTURABOX*0.4,
+  width: responsividade.LARGURABOX,
+  borderRadius: 4,
+  //paddingLeft: 20,
+  fontSize: 16,
+  justifyContent: 'center',
+  alignItems: 'flex-start',
+  marginBottom: 5,
+ 
+}
 
 
 });
