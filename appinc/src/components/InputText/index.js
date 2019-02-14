@@ -73,6 +73,7 @@ class InputText extends Component {
           placeholder={"Digite aqui..."}
           maxLength={255}
           underlineColorAndroid="rgba(0,0,0,0)"
+          autoCapitalize = 'sentences'
           onChangeText={inputSave => this.setState({ inputSave})}
           value={this.state.inputSave}
         />

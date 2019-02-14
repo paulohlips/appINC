@@ -76,7 +76,7 @@ class StepList extends Component {
     const matricula = JSON.stringify(matriculaProv);
 
 
-    console.tron.log(["MATRICULAASYNC", matricula]);
+    //console.tron.log(["MATRICULAASYNC", matricula]);
 
     //this.setState({ load: true });
     //console.tron.log('entrei')
@@ -91,7 +91,7 @@ class StepList extends Component {
 
     this.setState({ matriculaAsync: matricula });
 
-    console.tron.log(["MATRICULA", matriculaAsync]);
+    //console.tron.log(["MATRICULA", matriculaAsync]);
 
     axios({
       method: 'post',

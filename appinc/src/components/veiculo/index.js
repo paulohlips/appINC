@@ -321,9 +321,9 @@ saveFormVeiculo = data => {
                   style={styles.input}
                   autoCapitalize="none"
                   autoCorrect={false}
-                  multiline
                   placeholder={hint}
                   maxLength={72}
+                  autoCapitalize="characters"
                   underlineColorAndroid="rgba(0,0,0,0)"
                   onChangeText={(placa) => this.setState({ placa })}
               />

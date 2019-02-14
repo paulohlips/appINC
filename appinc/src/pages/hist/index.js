@@ -44,10 +44,7 @@ class Historico extends Component {
         })
           .then((resp) => {
               const data = JSON.stringify(resp.data);
-              console.tron.log('OOOI', data);
-              this.setState({ arrayEnviados: resp.data });
-              console.tron.log('OOOI', this.state.arrayEnviados);
-            
+              this.setState({ arrayEnviados: resp.data });           
           }).catch(err => {
 
           });

@@ -87,7 +87,7 @@ class Login extends Component {
         AsyncStorage.setItem('@AppInc:nome', this.state.nome);
         this.navigateToLogged();
         AsyncStorage.setItem('@AppInc:matricula', inputSave);
-        console.tron.log(['PAULO', resp]);
+        //console.tron.log(['PAULO', resp]);
       } else {
         this.setState({ viewModal: true, messageRequest: resp.data.mensagem});
       }

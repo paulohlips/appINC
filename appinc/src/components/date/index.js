@@ -39,10 +39,10 @@ class MyDatePicker extends Component {
     const newDate = moment.utc(oldDate).format("DD/MM/YYYY");
     
     if( this.state.call ){
-      console.tron.log(['VRAU', newDate]);
+      //console.tron.log(['VRAU', newDate]);
       this.state.formattedDate = newDate;
       this.setState({ formattedDate: newDate, call: false })
-      console.tron.log(['DAAAAAAAAAATA', this.state.formattedDate]);
+      //console.tron.log(['DAAAAAAAAAATA', this.state.formattedDate]);
     } 
   }
 
