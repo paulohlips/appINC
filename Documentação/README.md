@@ -305,5 +305,5 @@ $ gradlew assembleRelease
 ```
 $ ../diretorio_do_projeto/android/app/build/outputs/apk/release
 ```
-##### O procedimento oficial para gerar uma .apk pode ser encontrado na [Documetação oficial](https://facebook.github.io/react-native/docs/signed-apk-android) do React Native. 
+##### O procedimento para gerar uma .apk pode ser encontrado na [Documetação oficial](https://facebook.github.io/react-native/docs/signed-apk-android) do React Native. 
 
