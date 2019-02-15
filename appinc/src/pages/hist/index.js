@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, AsyncStorage, TouchableOpacity, Modal, ScrollView } from 'react-native';
+import { View, Text, AsyncStorage, TouchableOpacity, Modal, ScrollView, Linking } from 'react-native';
 import { Header } from '../../globalComponents';
 import { NavigationActions, withNavigation } from 'react-navigation';
 import styles from './styles';
@@ -80,7 +80,7 @@ class Historico extends Component {
 
   renderEnviados = item => {
     return (
-        <TouchableOpacity style ={styles.box} onPress={() => {}}>
+        <TouchableOpacity style ={styles.box} onPress={() => { Linking.openURL('http://35.231.239.168/pericia/links.php?id_pericia=' + item.matricula) }}>
             <Text style={styles.status1}>{" Minha Perícia" + " - " + item.matricula }</Text>
                 <View style = {styles.row}>
                     <Text style={styles.status1}> Status :</Text>
@@ -130,14 +130,16 @@ class Historico extends Component {
         <View style={styles.main}>
           <ScrollView>
             {
-              arrayRef && (
+              arrayRef ? (
                   arrayRef.map(item => this.renderOffline(item))
               )
+              :null
             }
             {
-                arrayEnviados && (
+                arrayEnviados ? (
                     arrayEnviados.map(item => this.renderEnviados(item))
-                ) 
+                )
+             : null 
             }
           </ScrollView>
         </View>
