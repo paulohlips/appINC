@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, AsyncStorage, TouchableOpacity, Modal, ScrollView, Linking } from 'react-native';
 import { Header } from '../../globalComponents';
-import { NavigationActions, withNavigation } from 'react-navigation';
+import { NavigationActions, withNavigation, StackActions } from 'react-navigation';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/Ionicons';
 import axios from 'axios';
@@ -23,10 +23,8 @@ class Historico extends Component {
     async componentWillMount() {
         const arrayRef = await AsyncStorage.getItem('arrayRef');
         const id = await AsyncStorage.getItem('@AppInc:matricula');
-        const array = JSON.parse(arrayRef);
-       
-        this.setState({ arrayRef: array, idUser: id });
-        
+        const array = JSON.parse(arrayRef);      
+        this.setState({ arrayRef: array, idUser: id });        
         this.requestFroms();
         // console.tron.log(['arrayRef', JSON.parse(arrayRef)]);
         //console.tron.log(this.props);
@@ -44,9 +42,9 @@ class Historico extends Component {
         })
           .then((resp) => {
               const data = JSON.stringify(resp.data);
-              console.tron.log('OOOI', data);
+              //console.tron.log('OOOI', data);
               this.setState({ arrayEnviados: resp.data });
-              console.tron.log('OOOI', this.state.arrayEnviados);
+              //console.tron.log('OOOI', this.state.arrayEnviados);
             
           }).catch(err => {
 
@@ -88,6 +86,21 @@ class Historico extends Component {
                 </View>
         </TouchableOpacity>
     );
+  }
+
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.navigateToScreen);
+  }
+
+  navigateToScreen = () => {
+    const resetAction = StackActions.reset({
+      index: 0,
+      actions: [
+        // Logged
+        NavigationActions.navigate({ routeName: 'Logged' }),
+      ]
+    });
+    this.props.navigation.dispatch(resetAction);
   }
 
 
