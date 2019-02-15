@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, TouchableOpacity, AsyncStorage, Image, ScrollView, Picker} from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, AsyncStorage, Image, ScrollView, Picker , ActivityIndicator} from 'react-native';
 import styles from './styles';
 import axios from 'axios';
 
@@ -26,6 +26,10 @@ class Veiculos extends Component {
      renderPickerAno: false,
      renderPicker: false,
      ano: '',
+     consulta: true,
+     loading: false,
+     erroconsulta: false,
+     naoexiste : false,
    }
 
   async componentWillMount() {
@@ -47,15 +51,35 @@ class Veiculos extends Component {
     }
  }
 
+ loading () {
+
+   this.setState({consulta: false});
+   this.setState({loading : true});
+ }
+
  consultaPlaca = async() => {
     this.setState({
-      viewDenatran: true,
+      consulta: false,
+      loading: true,
+      //viewDenatran: true,
+      erroconsulta: false,
+      naoexiste : false,
     });
       axios.get('http://35.231.239.168/api/pericia/denatran/' +this.state.placa)
       .then((resp) => {
-        AsyncStorage.setItem('@InfoPlaca', JSON.stringify(resp.data));
-        this.getDadosPlaca(resp.data);
-      }).catch(err => {});
+      if( resp.data.placa !== null)
+      {
+          //AsyncStorage.setItem('@InfoPlaca', JSON.stringify(resp.data));
+          const dadossinesp = resp.data;
+          this.getDadosPlaca(resp.data);
+          this.setState({consulta: true, loading: false, viewDenatran: true });
+      } 
+      else {
+        this.setState({ naoexiste: true, loading: false, consulta: true, viewDenatran: false });
+       }
+    }).catch(err => {
+        this.setState({ erroconsulta: true, loading: false, consulta: true, viewDenatran: false });
+      });
   }
 
   async getDadosPlaca(data) {
@@ -316,6 +340,21 @@ saveFormVeiculo = data => {
             </View>
           </View>
           <View style={styles.cabecalho} >
+          {
+              this.state.erroconsulta && (
+                <View style={styles.errov}>
+                   <Text style={styles.erro}>Consulta falhou.Tente novamente!</Text>
+                </View>
+              )
+            }
+
+{
+              this.state.naoexiste && (
+                <View style={styles.errov}>
+                   <Text style={styles.erro}>Veículo não encontrado</Text>
+                </View>
+              )
+            }
               <View style ={styles.texto_geo}>
                 <TextInput
                   style={styles.input}
@@ -331,8 +370,21 @@ saveFormVeiculo = data => {
           </View>
         <View styles={styles.main}>
           <TouchableOpacity onPress={this.consultaPlaca} style={styles.button}>
-            <Text style={styles.button_text}>Consultar "DENATRAN"</Text>
+            
+            {
+              this.state.consulta && (
+          
+                <Text style={styles.button_text}>Consultar "DENATRAN"</Text>
+              )
+            }
+            {
+              this.state.loading && (
+              <ActivityIndicator size="large" color="#fff" />
+              )
+            }
+            
           </TouchableOpacity>
+
         </View>
         {
           this.state.error && (
