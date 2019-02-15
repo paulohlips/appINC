@@ -1,8 +1,8 @@
 # Principais funções
 
-1. REcebendo o FOrmulario
+1. Recebendo o Formulario
 2. Construindo um Formulario
-3. Slavando Dados Coletados Offline
+3. Salavando Dados Coletados Offline
 4. Apresentando Dados Coletados
 5. Enviado Dados Coletados
 
@@ -51,3 +51,20 @@ A tarefa 1 varre todo o objeto ``step`` do reducer no form.js e quando a chave d
 A tarefa 2 também varre todo o objeto mas só substitui quando as chaves são iguai e filled é **false**.
 
 Esse processo faz com que a chamada da função ``saveFormInput()`` seja chamada recursivamente infinitas vezes, então surgi a necessidade de ter uma condição de parada que seria depois de varrer todo o objeto ``step``. Isso se dá através da action *``startControlArray()``* que pega o tamanho do array e decrementa a medida que cada elemento já foi visto ou alterado.
+
+## 4. ProgressBar
+
+Quando inicia o processo de criação de formulario pela função ``createFormSave()`` no componet StepBox, simultaneamente cria-se um objeto chamado **arrayProgress** contendo:
+```js
+ {
+      name: steps.item.step_name,
+      array: [],
+      length: 0,
+  }
+```
+<p align="center">
+  <img width="800" 420 src=./imagens_doc/progressBar.png>
+</p>
+
+na qual o arrayProgress.array constrói um array contendo os elementos do Step.
+Quando é feito a açao de salvar o os dados do form no formStat a flag **showProgres** passada como parâmetro para o header é tru e chama a action *``startUpdateProgress()``* que seta a flag **updateProgress** no state formState que garante quando o componente StepBox renderizar chame a função ``compareProgress()`` presente no componente StepBox que irá calcular o percentual do step preenchido varrendo o arrayProgress e vendo quantos dos elementos foram preenchidos pela flag **filled** e a quantidade total de elementos. Nessa mesma função chama a action ``finishUpdateProgress()`` no ducks form.js  que serve para setar a flag **updateProgres**s para false e garantir que não chame uma função após termina o processo.
