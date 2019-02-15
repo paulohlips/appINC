@@ -7,8 +7,9 @@ import {
   ScrollView, 
   AsyncStorage, 
   TextInput, 
-  Animated 
+  Animated
 } from 'react-native';
+import { StackActions, NavigationActions } from 'react-navigation';
 import { Header, ModalCheck } from '../../globalComponents';
 import styles from './styles';
 
