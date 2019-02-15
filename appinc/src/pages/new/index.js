@@ -7,8 +7,10 @@ import {
   ScrollView, 
   AsyncStorage, 
   TextInput, 
-  Animated 
+  Animated,
+  BackHandler
 } from 'react-native';
+import { StackActions, NavigationActions } from 'react-navigation';
 import { Header, ModalCheck } from '../../globalComponents';
 import styles from './styles';
 
@@ -58,6 +60,22 @@ class New extends Component {
     this.setState({ formQuerry: formQuerryLocal});
     //console.tron.log(["Query",this.state.formQuerry]);
     this.incrementarFuncao();
+  }
+
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.navigateToMain);
+  }
+
+  navigateToMain = async () => {
+    console.tron.log('oi entrei');
+    const resetAction = StackActions.reset({
+      index: 0,
+      actions: [
+        // Logged
+        NavigationActions.navigate({ routeName: 'Logged' }),
+      ]
+    });
+    this.props.navigation.dispatch(resetAction);
   }
 
   onPressButton = () => {

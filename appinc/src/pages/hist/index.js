@@ -23,15 +23,28 @@ class Historico extends Component {
     async componentWillMount() {
         const arrayRef = await AsyncStorage.getItem('arrayRef');
         const id = await AsyncStorage.getItem('@AppInc:matricula');
-        const array = JSON.parse(arrayRef);
-
-        BackHandler.removeEventListener('hardwareBackPress', this.navigateToScreen);
-       
-        this.setState({ arrayRef: array, idUser: id });
-        
+        const array = JSON.parse(arrayRef);      
+        this.setState({ arrayRef: array, idUser: id });        
         this.requestFroms();
         // console.tron.log(['arrayRef', JSON.parse(arrayRef)]);
         //console.tron.log(this.props);
+    }
+
+    componentDidMount() {
+      console.tron.log('oizinho');
+      BackHandler.addEventListener('hardwareBackPress', this.navigateToMain);
+    }
+  
+    navigateToMain = async () => {
+      console.tron.log('oi entrei');
+      const resetAction = StackActions.reset({
+        index: 0,
+        actions: [
+          // Logged
+          NavigationActions.navigate({ routeName: 'Main' }),
+        ]
+      });
+      this.props.navigation.dispatch(resetAction);
     }
 
     requestFroms = () => {
@@ -46,9 +59,9 @@ class Historico extends Component {
         })
           .then((resp) => {
               const data = JSON.stringify(resp.data);
-              console.tron.log('OOOI', data);
+              //console.tron.log('OOOI', data);
               this.setState({ arrayEnviados: resp.data });
-              console.tron.log('OOOI', this.state.arrayEnviados);
+              //console.tron.log('OOOI', this.state.arrayEnviados);
             
           }).catch(err => {
 

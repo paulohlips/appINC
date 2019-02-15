@@ -13,7 +13,8 @@ import {
   Animated,
   Easing,
   AsyncStorage,
-  Alert
+  Alert,
+  BackHandler
 } from 'react-native';
 import { ModalCheck } from '../../globalComponents';
 import StepIndicator from 'react-native-step-indicator';
@@ -74,6 +75,21 @@ class Login extends Component {
     this.setState({ pinRegistro: pinRegistro });
     const id = await AsyncStorage.getItem('@IdProv');
     this.setState({ id: id });
+  }
+
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.navigateToEmail);
+  }
+
+  navigateToEmail = async () => {
+    const resetAction = StackActions.reset({
+      index: 0,
+      actions: [
+        // Logged
+        NavigationActions.navigate({ routeName: 'Login' }),
+      ]
+    });
+    this.props.navigation.dispatch(resetAction);
   }
 
 
