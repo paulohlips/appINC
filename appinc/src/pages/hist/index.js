@@ -88,22 +88,6 @@ class Historico extends Component {
     );
   }
 
-  componentDidMount() {
-    BackHandler.addEventListener('hardwareBackPress', this.navigateToScreen);
-  }
-
-  navigateToScreen = () => {
-    const resetAction = StackActions.reset({
-      index: 0,
-      actions: [
-        // Logged
-        NavigationActions.navigate({ routeName: 'Logged' }),
-      ]
-    });
-    this.props.navigation.dispatch(resetAction);
-  }
-
-
   render() {
     const { arrayRef, modalVisible, form, arrayEnviados } = this.state;
     const { navigation } = this.props;
