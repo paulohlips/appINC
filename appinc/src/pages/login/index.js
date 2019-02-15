@@ -52,7 +52,7 @@ class Login extends Component {
       index: 0,
       actions: [
         // Logged
-        NavigationActions.navigate({ routeName: 'Logged' , params: { nome: this.state.nome }}),
+        NavigationActions.navigate({ routeName: 'Logged' }),
       ]
     });
     this.props.navigation.dispatch(resetAction);

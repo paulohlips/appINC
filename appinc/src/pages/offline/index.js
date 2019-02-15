@@ -21,6 +21,7 @@ class Offline extends Component {
         const arrayRef = await AsyncStorage.getItem('arrayRef');
         const array = JSON.parse(arrayRef);
         this.setState({ arrayRef: array });
+        console.log.tron('to aqui');
         // console.tron.log(['arrayRef', JSON.parse(arrayRef)]);
         //console.tron.log(this.props);
     }
