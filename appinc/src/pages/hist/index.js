@@ -130,14 +130,16 @@ class Historico extends Component {
         <View style={styles.main}>
           <ScrollView>
             {
-              arrayRef && (
+              arrayRef ? (
                   arrayRef.map(item => this.renderOffline(item))
               )
+              :null
             }
             {
-                arrayEnviados && (
+                arrayEnviados ? (
                     arrayEnviados.map(item => this.renderEnviados(item))
-                ) 
+                )
+             : null 
             }
           </ScrollView>
         </View>
