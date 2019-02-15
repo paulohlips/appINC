@@ -3,9 +3,11 @@ import { colors } from '../../styles';
 const styles = StyleSheet.create({
     container: { 
         flex: 1,    
+        paddingBottom: 50,
     },
     main: {
-        padding: 10,     
+        padding: 10,    
+        paddingBottom: 10,
     },
     card: {
         marginHorizontal: 20,
@@ -46,6 +48,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderRadius: 5,
         margin: 5,
+        marginBottom: 10,
         // justifyContent: "flex-start",
         // alignItems: "center",
         padding: 20,

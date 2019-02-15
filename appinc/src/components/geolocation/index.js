@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Image, ScrollView, AsyncStorage } from 'react-native';
+import { View, Text, TouchableOpacity, Image, ScrollView, AsyncStorage, ActivityIndicator} from 'react-native';
 import styles from './styles';
 
 import { connect } from 'react-redux';
@@ -18,6 +18,7 @@ class GeoLocation extends Component {
      acuracia: null,
      error: null,
      view: null,
+     loading: false,
    }
 
    componentDidMount() {
@@ -79,11 +80,13 @@ class GeoLocation extends Component {
           altitude: position.coords.altitude,
           error: null,
         });
+
+
       },
       (error) => this.setState({ 
         error: error.message, 
         dataGeo: 'GPS indísponivel',
-        view: null,           
+        view: false,           
       }),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
     );    
@@ -143,7 +146,7 @@ class GeoLocation extends Component {
         {
           this.state.error && (
             <View style={styles.input}>
-                <Text style={styles.info_text}>Error: {this.state.error}</Text>
+                <Text style={styles.info_text}>Erro: {this.state.error}</Text>
               </View>
           )
         }
