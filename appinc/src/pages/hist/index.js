@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, AsyncStorage, TouchableOpacity, Modal, ScrollView } from 'react-native';
+import { View, Text, AsyncStorage, TouchableOpacity, Modal, ScrollView, BackHandler } from 'react-native';
 import { Header } from '../../globalComponents';
-import { NavigationActions, withNavigation } from 'react-navigation';
+import { NavigationActions, withNavigation, StackActions } from 'react-navigation';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/Ionicons';
 import axios from 'axios';
@@ -24,6 +24,8 @@ class Historico extends Component {
         const arrayRef = await AsyncStorage.getItem('arrayRef');
         const id = await AsyncStorage.getItem('@AppInc:matricula');
         const array = JSON.parse(arrayRef);
+
+        BackHandler.removeEventListener('hardwareBackPress', this.navigateToScreen);
        
         this.setState({ arrayRef: array, idUser: id });
         
@@ -88,6 +90,21 @@ class Historico extends Component {
                 </View>
         </TouchableOpacity>
     );
+  }
+
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.navigateToScreen);
+  }
+
+  navigateToScreen = () => {
+    const resetAction = StackActions.reset({
+      index: 0,
+      actions: [
+        // Logged
+        NavigationActions.navigate({ routeName: 'Logged' }),
+      ]
+    });
+    this.props.navigation.dispatch(resetAction);
   }
 
 
