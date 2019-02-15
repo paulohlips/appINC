@@ -2,7 +2,8 @@ import { StyleSheet } from 'react-native';
 import { colors } from '../../styles';
 const styles = StyleSheet.create({
     container: { 
-        flex: 1,    
+        flex: 1,   
+        paddingBottom: 60, 
     },
     main: {
         padding: 10,     

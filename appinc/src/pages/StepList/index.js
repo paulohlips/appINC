@@ -8,7 +8,8 @@ import {
   Text,
   Alert,
   ActivityIndicator,
-  Animated
+  Animated,
+  BackHandler
 } from 'react-native';
 import styles from './styles';
 import StepBox from './components/StepBox';
@@ -32,6 +33,10 @@ class StepList extends Component {
     matriculaAsync: '',
     saved: false,
     error: false,
+  }
+
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.saveForm);
   }
 
   cancel() {

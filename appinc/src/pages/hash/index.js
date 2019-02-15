@@ -15,7 +15,8 @@ import {
   Animated,
   Easing,
   AsyncStorage,
-  Alert
+  Alert,
+  BackHandler
 } from 'react-native';
 import LottieView from 'lottie-react-native';
 import StepIndicator from 'react-native-step-indicator';
@@ -67,6 +68,23 @@ class Login extends Component {
   async componentWillMount() {
     const idRegistro = await AsyncStorage.getItem('@IdRegistro');
     this.setState({ idRegistro: idRegistro });
+  }
+
+  componentDidMount() {
+    console.tron.log('Entrei');
+    BackHandler.addEventListener('hardwareBackPress', this.navigateToLogin);
+  }
+
+  navigateToLogin = async () => {
+    await console.tron.log('Entrei');
+    const resetAction = StackActions.reset({
+      index: 0,
+      actions: [
+        // Logged
+        NavigationActions.navigate({ routeName: 'Login' }),
+      ]
+    });
+    this.props.navigation.dispatch(resetAction);
   }
 
   navigateToPassword = () => {
