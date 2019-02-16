@@ -1,10 +1,10 @@
 import { StyleSheet } from 'react-native';
-import { colors, metrics,responsividade } from '../../styles';
+import { colors, metrics, responsividade } from '../../styles';
+import { bold } from 'ansi-colors';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: 'pink',
     width: responsividade.largura_tela,
     padding: 20,
     paddingBottom: 40,
@@ -40,15 +40,35 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
   },
-
-  hint:{
-
+  button_text: {
+    color: 'white',
+    fontSize: 15,
+    fontWeight: 'bold',
+    marginLeft: 5,
+  },
+  hint: {
     fontSize: 14,
     fontWeight: 'bold',
     color: 'black',
     opacity: 0.3,
     paddingVertical: 10,
-
+  },
+  codecontainer: {
+    width: (responsividade.LARGURABOX),
+    height:  (responsividade.ALTURABOX),
+    borderRadius: 10,
+    backgroundColor: 'white',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft: 10
+  },
+  code: {
+    color: '#000000',
+    fontFamily: 'Roboto',
+    fontWeight: 'bold',
+    fontSize: 18,
+    //fontWeight: '400',
+    lineHeight: 21,
   }
 
 });
