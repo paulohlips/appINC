@@ -1,137 +1,156 @@
 import React, { Component } from 'react';
-import {View, Text, TouchableOpacity, StatusBar, ListView, AsyncStorage, Linking} from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
-
-import styles from './styles';
-import axios from 'axios';
+import { View, Text, AsyncStorage, TouchableOpacity, Modal, ScrollView, Linking } from 'react-native';
 import { Header } from '../../globalComponents';
+import { NavigationActions, withNavigation, StackActions } from 'react-navigation';
+import styles from './styles';
+import Icon from 'react-native-vector-icons/Ionicons';
+import axios from 'axios';
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Creators as FormActions } from '../../store/ducks/form';
+import { Creators as NewActions } from '../../store/ducks/new';
 
+class Historico extends Component {
 
-import { NavigationActions, withNavigation } from 'react-navigation';
-
- 
-const dias = 23;
-class Hist extends Component {
-  
-  constructor(props) {
-    super(props);
-    this.state = {
-        IDLaudo: [],
-    };
-}
-
-
-  navigateToScreen = (route) => () => {
-      const navigateAction = NavigationActions.navigate({
-        routeName: route
-      });
-      this.props.navigation.dispatch(navigateAction);
+    state = {
+        arrayEnviados: null,
+        arrayRef: null,
+        modalVisible: false,
+        form: null,
+        idUser: null,
+    }
+    async componentWillMount() {
+        const arrayRef = await AsyncStorage.getItem('arrayRef');
+        const id = await AsyncStorage.getItem('@AppInc:matricula');
+        const array = JSON.parse(arrayRef);      
+        this.setState({ arrayRef: array, idUser: id });        
+        this.requestFroms();
+        // console.tron.log(['arrayRef', JSON.parse(arrayRef)]);
+        //console.tron.log(this.props);
     }
 
+    requestFroms = () => {
+        const idMatricula = this.state.idUser;
+        
+        axios({
+          method: 'post',
+          url: 'http://35.231.239.168/api/pericia/formulario/recebidos',
+          data: {
+            matricula: idMatricula,
+          } 
+        })
+          .then((resp) => {
+              const data = JSON.stringify(resp.data);
+              //console.tron.log('OOOI', data);
+              this.setState({ arrayEnviados: resp.data });
+              //console.tron.log('OOOI', this.state.arrayEnviados);
+            
+          }).catch(err => {
 
-  static navigationOptions = {
-    header: null,
-  }
-
-  openDrawer = () => {
-    const { drawerStatus } = this.state;
-
-    if  (drawerStatus === true) {
-      //this.props.navigation.toggleDrawer();
-    }
-  }
-
-  requestFroms = () => {
-    axios.get('http://35.231.239.168/api/pericia/formularios/1')
-      .then((resp) => {
-        //console.tron.log(['Requisição', resp.data]);
-        AsyncStorage.setItem('@Form', JSON.stringify(resp.data));
-      }).catch(err => {
-        //console.tron.log(err);
-      });
-  }
-
-  requestQuerry = () => {
-    axios.get('http://35.243.140.44/api/query')
-    .then((resp) => {
-      AsyncStorage.setItem('@Querry', JSON.stringify(resp.data));
-    }).catch(err => {
-      //console.tron.log(err);
-    });
-  }
-  state ={
-    drawerStatus: null,
-  }
-  componentWillMount() {
-    this.requestFroms();
-    this.requestQuerry();
-    //console.tron.log(this.props);
-  }
-
-  renderSketch = () => {};
-
-  async componentWillMount(){
-   // console.tron.log(['OK']);
-      const id = await AsyncStorage.getItem('@IDlaudo');
-      this.setState({ IDLaudo: id });
-     // this.setState({ IDLaudo: [...this.state.IDLaudo, id] });
-     // console.tron.log(['NUM IDS', this.state.IDLaudo]);
-      //const numIds = marcas.map(item => id);
-      //console.tron.log(['NUM IDS', numIds]);
-      
-       //this.setState({ renderPicker:true })
-    
+          });
       }
 
-  render() {
-    const { navigation } = this.props;
-    //console.tron.log(navigation);
+    restoreForm = async name => {
+        //console.tron.log(['props1', this.props]);
+        const { navigation, restoreFormState, setForm } = this.props;
+        const formAsync = await AsyncStorage.getItem(name);
+        const form = JSON.parse(formAsync);
+        //console.tron.log(['fomr', form]);
+        await setForm(form.form);
+        await restoreFormState(form);
+        navigation.navigate('StepList');
+        //console.tron.log(['props', this.props]);
+        //this.setState({ modalVisible: true, form: formAsync });
+    }
 
+  renderOffline = item => {
+    return (
+        <TouchableOpacity style ={styles.box} onPress={() => this.restoreForm(item)}>
+            <Text style={styles.status1}>{" Minha Perícia" + " - " + item }</Text>
+                <View style = {styles.row}>
+                    <Text style={styles.status1} > Status :</Text>
+                    <Text style={styles.status}> Em andamento</Text>
+                </View>
+        </TouchableOpacity>
+    );
+  }
+
+  renderEnviados = item => {
+    return (
+        <TouchableOpacity style ={styles.box} onPress={() => { Linking.openURL('http://35.231.239.168/pericia/links.php?id_pericia=' + item.matricula) }}>
+            <Text style={styles.status1}>{" Minha Perícia" + " - " + item.matricula }</Text>
+                <View style = {styles.row}>
+                    <Text style={styles.status1}> Status :</Text>
+                    <Text style={styles.statusEnviado}> Enviado  </Text>
+                </View>
+        </TouchableOpacity>
+    );
+  }
+
+  render() {
+    const { arrayRef, modalVisible, form, arrayEnviados } = this.state;
+    const { navigation } = this.props;
+    //console.tron.log(['arrayRefrender',arrayRef]);
     return (
       <View style={styles.container}>
         <Header
           showMenu
-          showExit
+          showClear
           openMenu={navigation.toggleDrawer}
           title='Minhas Perícias'
         />
-       
-       <View style={styles.container}>
+        <Modal
+                animationType="slide"
+                transparent={false}
+                visible={modalVisible}
+                onRequestClose={() => {}}
+            >
+                <View style={styles.containerModal}>
+                    <View style={styles.buttonContainer}>
+                        <TouchableOpacity onPress={() => this.setState({ modalVisible: false})}>
+                            <Icon name="md-close" size={28} style={styles.iconClose} />
+                        </TouchableOpacity>
+                    </View>
+                    <ScrollView>
+                        <View style={styles.box}>
+                        {
+                            form && (
+                                <Text style={styles.text}>{form}</Text>
+                            )
+                        }
 
- 
-     <View style ={styles.box}>
-
-     
-     <TouchableOpacity onPress={() => {Linking.openURL('http://35.231.239.168/pericia/links.php?id_pericia='+this.state.IDLaudo)}}>
-          <View style={styles.card_titulo}>
-          <Text style={styles.titulo}>Referência</Text>
-           
-          </View>
-          <View style={styles.card_descricao}>
-          <Text style={styles.num}>Acessar Laudo nº    
-            {' '+this.state.IDLaudo}</Text>
-          </View>
-
-          
-
-        </TouchableOpacity>
-
-          
-
-
-     </View>
-
-          
-    
-
+                        </View>
+                    </ScrollView>
+                </View>
+            </Modal>
+        <View style={styles.main}>
+          <ScrollView>
+            {
+              arrayRef ? (
+                  arrayRef.map(item => this.renderOffline(item))
+              )
+              :null
+            }
+            {
+                arrayEnviados ? (
+                    arrayEnviados.map(item => this.renderEnviados(item))
+                )
+             : null 
+            }
+          </ScrollView>
+        </View>
       </View>
-    
-
-      </View>
-
     );
   }
 }
 
-export default Hist;
+
+const mapStateToProps = state => ({
+    form: state.formState,
+});
+
+const mapDispatchToProps = dispatch =>
+bindActionCreators({ ...FormActions, ...NewActions }, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Historico);

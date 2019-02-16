@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
   iconMenu: {
     color: colors.white,
     alignSelf: 'flex-start',
+    margin: 5,
   },
   iconExit: {
     color: colors.regular,

@@ -1,6 +1,13 @@
 
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Image, ScrollView, AsyncStorage } from 'react-native';
+import { 
+  View, 
+  Text, 
+  TouchableOpacity, 
+  Image, 
+  AsyncStorage, 
+  ActivityIndicator,
+} from 'react-native';
 import styles from './styles';
 
 import { connect } from 'react-redux';
@@ -18,6 +25,7 @@ class GeoLocation extends Component {
      acuracia: null,
      error: null,
      view: null,
+     load: null,
    }
 
    componentDidMount() {
@@ -27,6 +35,7 @@ class GeoLocation extends Component {
       if ( key === data.data_name) {        
         if(form.step[key].filled === true) {          
           if(form.step[key].position !== null) {
+            const value = JSON.stringify(form.step[key].value)
             this.setState({
               position: form.step[key].position,
               latitude: form.step[key].position.coords.latitude,
@@ -34,9 +43,10 @@ class GeoLocation extends Component {
               acuracia: form.step[key].position.coords.accuracy,
               altitude: form.step[key].position.coords.altitude,
               error: null,
+              view: true,
             });
           } else {
-            this.setState({ error: true });
+            this.setState({ error: form.step[key].value });
           }        
         }
       }
@@ -49,21 +59,9 @@ class GeoLocation extends Component {
        longitude: null,
        acuracia: null,
        error: null,
-       view: true,
+       view: null,
+       load: true,
      });
-  // método navigator.geolocation ( nativo do react native)
-  // usando função getCurrentLocation, que retorna uma mensagem JSON com campos :
-  /** {
-     "timestamp": 1484669056399.49,
-     "coords": {
-       "accuracy": 5,
-       "altitude": 0,
-       "altitudeAccuracy": -1,
-       "heading": -1,
-       "latitude": 37.785834,
-       "longitude": -122.406417,
-       "speed": -1
-    } **/
      navigator.geolocation.getCurrentPosition(
        // acessando os campos retornados na mensagem JSON e atribuindo a variavel de estado correspondente
       (position) => {
@@ -78,21 +76,30 @@ class GeoLocation extends Component {
           acuracia: position.coords.accuracy,
           altitude: position.coords.altitude,
           error: null,
+          view: true,
+          load: false,
         });
       },
       (error) => this.setState({ 
         error: error.message, 
         dataGeo: 'GPS indísponivel',
-        view: null,           
+        view: null,
+        load: false,                 
       }),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
     );    
    };
 
    saveFormGeoloc = data => {
-    const { position, dataGeo } = this.state;
+    const { position, dataGeo, error } = this.state;
     const { form, getSaveStateForm, startControlArray } = this.props;
-    const dg = JSON.stringify(dataGeo.coords);
+    let dg;
+    if (error) {
+      dg = dataGeo;
+    } else {
+      dg = JSON.stringify(dataGeo.coords);
+    }
+    
 
     // console.tron.log(['geoloc', dataGeo, dg]);
     if ( position || dataGeo ) {
@@ -106,7 +113,7 @@ class GeoLocation extends Component {
       }
     } else {
       for (var key in form.step) {
-        if ( key === data.data_name) {
+        if ( key === data.data_name && data.data_name === false) {
           const form = {};
           form[data.data_name] = { key: data.data_name, value: '', filled: false, position: null };
           //console.tron.log(['formsavecampo', form])
@@ -118,10 +125,21 @@ class GeoLocation extends Component {
   }
  
   render() {
-    const { data_name, label, hint, default_value, newState} = this.props.data;
-    const { saveStep, step } = this.props.form;
-    //console.tron.log(['props', this.props]);
-    // this.props.startControlArray();
+    const { 
+      data_name, 
+      label, 
+      hint, 
+      default_value, 
+      newState
+    } = this.props.data;
+    const { 
+      saveStep, 
+      step } = this.props.form;
+   const { 
+     load,
+     error,
+     view,
+    } = this.state;
 
     if (saveStep) {
       this.saveFormGeoloc({data_name, default_value});
@@ -137,18 +155,22 @@ class GeoLocation extends Component {
           </View>
         <View styles={styles.main}>
           <TouchableOpacity onPress={this.refresh} style={styles.button}>
-            <Text style={styles.button_text}>Verificar localização</Text>
+            {
+              load 
+                ? <ActivityIndicator size="small" color="#FFF" />
+                : <Text style={styles.button_text}>Verificar localização</Text>
+            }            
           </TouchableOpacity>
         </View>
         {
-          this.state.error && (
+          error && (
             <View style={styles.input}>
                 <Text style={styles.info_text}>Error: {this.state.error}</Text>
               </View>
           )
         }
         {
-          this.state.view && (
+          view && (
             <View style={styles.info}>
                 <View style={styles.input}>
                   <Text style={styles.info_text}>Latitude: {this.state.latitude}</Text>

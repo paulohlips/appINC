@@ -5,7 +5,8 @@ import {
   View,
   TouchableOpacity,
   Text,
-  Modal
+  Modal,
+  Picker
 } from 'react-native';
 
 import styles from './styles';
@@ -23,20 +24,18 @@ export default class Sketch extends Component {
     this.state = {
       showScanner: false,
       showButton: true,
-      showButton2: false
+      fundo: '',
     };
   }
 
 
   render() {
-    const { showScanner, showButton, showButton2 } = this.state;
-    const { closeModalInfo, modalVisible, textInfo } = this.props;
-  
+    const { showScanner, showButton } = this.state;
     return (
       <View style={{justifyContent: 'center', alignItem: 'center'}}>
       {
         showButton && (
-          <TouchableOpacity onPress={() => this.setState({ showScanner: true, showButton: false})} style={styles.button}>
+          <TouchableOpacity onPress={() => this.setState({ showScanner: true, showButton: false })} style={styles.button}>
             <Text style={styles.button_text}>Fazer Croqui</Text>
           </TouchableOpacity>
         )}
@@ -50,16 +49,26 @@ export default class Sketch extends Component {
               visible={showScanner}
               onRequestClose={() => {}}
             >
-              <View style={styles.container}>
-              <RNSketchCanvas
-            containerStyle={{ backgroundColor: 'transparent', height: 50 ,flex: 1 }}
-            canvasStyle={{ backgroundColor: 'transparent',  flex: 1 }}
+ <View style={styles.container}>
+        <View style={{ flex: 1, flexDirection: 'row' }}>
+          <RNSketchCanvas
+            containerStyle={{ backgroundColor: 'transparent', flex: 1 }}
+            canvasStyle={{ backgroundColor: 'transparent', flex: 1 }}
             defaultStrokeIndex={0}
             defaultStrokeWidth={5}
+            changeImg={<View style={styles.functionButton}>
+              <Picker
+                selectedValue={this.state.fundo}
+                style={{height: 50, width: 50}}
+                onValueChange={(value => this.setState({ fundo: value }) )}>
 
+                <Picker.Item label="Croqui" value= 'croqui.png' />                
+                <Picker.Item label="Vítima" value='img.jpg' />
+
+              </Picker>
+            </View>}
             closeComponent={<View style={styles.functionButton}><Text onPress={() => this.setState({ showScanner: false, showButton: true }) } style={{color: 'red', fontWeight: 'bold'}}>Fechar</Text></View>}
             saveComponent={<View style={styles.functionButton}><Text  style={{color: 'green', fontWeight: 'bold'}}>Salvar</Text></View>}
-
             undoComponent={<View style={styles.functionButton}><Text style={{color: 'white'}}>Desfazer</Text></View>}
             clearComponent={<View style={styles.functionButton}><Text style={{color: 'white'}}>Limpar</Text></View>}
             eraseComponent={<View style={styles.functionButton}><Text style={{color: 'white'}}>Apagar</Text></View>}
@@ -79,7 +88,13 @@ export default class Sketch extends Component {
                 }} />
               </View>
             )}}
-            
+            localSourceImage={
+              {
+                filename: this.state.fundo,  
+                directory: 'android/app/src/main/res/drawable',
+                mode: 'AspectFill'
+              }
+            }
             savePreference={() => {
               return {
                 folder: 'Croqui',
@@ -87,10 +102,11 @@ export default class Sketch extends Component {
                 transparent: false,
                 imageType: 'png'
               }
-
             }}
           />
-              </View>
+        </View>
+      </View>
+             
            </Modal>
         
        </View>
@@ -100,11 +116,3 @@ export default class Sketch extends Component {
     );
   }
 }
- 
-
-
-
-
-
-
-

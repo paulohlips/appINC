@@ -3,17 +3,22 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Creators as FormActions } from '../../store/ducks/form';
-import {Header} from '../../globalComponents';
+import { Header } from '../../globalComponents';
 
 // styles
-import { View, FlatList, ScrollView, TouchableOpacity, Text,ProgressBarAndroid  } from 'react-native';
+import { View, FlatList, ScrollView, TouchableOpacity, Text, ProgressBarAndroid, BackHandler } from 'react-native';
 import styles from './styles';
 import ComponentList from './components/ComponentsList';
 
 
 class StepPage extends Component {
 
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.saveStep);
+  }
+
   saveStep = () => {
+    this.props.startUpdateProgress();
     this.props.saveStepState();
   }
 

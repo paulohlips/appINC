@@ -23,6 +23,11 @@ class Main extends Component {
     header: null,
   }
 
+  state = {
+    nome: '',
+  }
+
+
   openDrawer = () => {
     const { drawerStatus } = this.state;
 
@@ -58,6 +63,10 @@ class Main extends Component {
     this.requestFroms();
     this.requestQuerry();
     const arrayRef = await AsyncStorage.getItem('teste2');
+    const name = await AsyncStorage.getItem('@AppInc:nome');
+        this.setState({
+            nome: name
+        });
     // console.tron.log(['arrayRef',arrayRef]);
     //console.tron.log(this.props);
   }
@@ -71,7 +80,9 @@ class Main extends Component {
 
   render() {
     const { navigation } = this.props;
+    const { nome } = this.state
     //console.tron.log(navigation);
+    const name = navigation.getParam('nome', 'Nome não cadastrado');
 
     return (
       <View style={styles.container}>
@@ -99,7 +110,7 @@ class Main extends Component {
 
 
             <View style={styles.name_view}>
-              <Text style={styles.name}>Nome Sobrenome</Text>
+              <Text style={styles.name}>{nome}</Text>
             </View>
 
             <TouchableOpacity onPress={this.navigateToScreen('NewMenu')}>

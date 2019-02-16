@@ -12,23 +12,28 @@ const styles = StyleSheet.create({
 
   },
 
-  container: {
-    flex: 1,
-    // backgroundColor: colors.lighter,
-    backgroundColor: 'rgba(45, 45, 45, 0.8)',
-  },
 
-  indicadorContainer: { 
-    backgroundColor: 'rgba(45, 45, 45, 0.8)',
-    paddingBottom: 40,
-  },
+    step:{
+      color: 'white',
+      fontSize : 58,
+    },
+    container: {
+      flex: 1,
+      // backgroundColor: colors.lighter,
+      backgroundColor: 'rgba(45, 45, 45, 0.8)',
+    },
 
-  mainContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(45, 45, 45, 0.8)',
-  },
+    indicadorContainer: {
+      backgroundColor: 'rgba(45, 45, 45, 0.8)',
+      paddingBottom: 40,
+    },
+
+    mainContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: 'rgba(45, 45, 45, 0.8)',
+    },
 
   image: {
     marginBottom: metrics.baseMargin * 6,
@@ -96,6 +101,13 @@ const styles = StyleSheet.create({
      borderRadius: metrics.baseRadius,
      marginTop: metrics.baseMargin / 3,
      backgroundColor: colors.whiteTransparent
+   },
+
+   icon:{
+      padding: 10,
+      borderRadius: 100,
+      justifyContent: 'center',
+      alignItems: 'center',
    },
 });
 

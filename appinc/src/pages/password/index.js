@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { StackActions, NavigationActions } from 'react-navigation';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import HideWithKeyboard from 'react-native-hide-with-keyboard';
 import {
   View,
   Text,
@@ -10,14 +12,20 @@ import {
   ImageBackground,
   Animated,
   Easing,
-  AsyncStorage
+  AsyncStorage,
+  Alert,
+  BackHandler
 } from 'react-native';
-import LottieView from 'lottie-react-native';
+import { ModalCheck } from '../../globalComponents';
 import StepIndicator from 'react-native-step-indicator';
+import Axios from 'axios';
+
+const imageCheck = require('../../assents/lottie/warning.json');
+const imageCheck2 = require('../../assents/lottie/check.json');
 
 import styles from './styles';
 
-const labels = ["ID","Captcha","Senha"];
+const labels = ["ID","PIN","Senha"];
 const customStyles = {
   stepIndicatorSize: 45,
   currentStepIndicatorSize:45,
@@ -51,10 +59,29 @@ class Login extends Component {
   state = {
     progress: new Animated.Value(0),
     currentPosition: 2,
+    idRegistro: null,
+    pinRegistro: null,
+    inputSave1: null,
+    inputSave2: null,
     id: null,
+    viewModals: false,
+    messageRequest: '',
   }
 
-  navigateToLogin = () => {
+  async componentWillMount() {
+    const idRegistro = await AsyncStorage.getItem('@IdRegistro');
+    this.setState({ idRegistro: idRegistro });
+    const pinRegistro = await AsyncStorage.getItem('@PinRegistro');
+    this.setState({ pinRegistro: pinRegistro });
+    const id = await AsyncStorage.getItem('@IdProv');
+    this.setState({ id: id });
+  }
+
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.navigateToEmail);
+  }
+
+  navigateToEmail = async () => {
     const resetAction = StackActions.reset({
       index: 0,
       actions: [
@@ -65,15 +92,32 @@ class Login extends Component {
     this.props.navigation.dispatch(resetAction);
   }
 
-   salvarId = async () => {
-     try{
-      const idProv = await AsyncStorage.getItem('@IdProv');
-      console.tron.log(['Teste',idProv]);
-     }
-     catch(err){{console.tron.log('Erro 2');}}
- 
-    AsyncStorage.setItem('@Id','Paolo');
-    console.tron.log('Vem chacoalhando');
+
+   salvarId = () => {
+    const { id, idRegistro, pinRegistro, inputSave1, inputSave2 } = this.state;
+    if (inputSave1 == inputSave2){
+      Axios({
+        method: 'post',
+        url: 'http://35.231.239.168/api/pericia/usuario/geraSenha',
+        data: { matricula: idRegistro, pin: pinRegistro, pass: inputSave2 },
+      })
+      .then((resp) => {
+        if (resp.status === 200) {
+          this.setState({ viewModals: true })
+        } else {
+          Alert.alert(resp.data.mensagem);
+        }
+      }).catch(err => {
+        this.setState({ viewModal: true , messageRequest: 'Erro de conexão' });
+      });
+    } else {
+      this.setState({ viewModal: true , messageRequest: 'Senhas diferentes' });
+    }
+    AsyncStorage.setItem('@Id', id);
+  }
+
+  closeModal = () => {
+    this.props.navigation.navigate('Password');
   }
 
   onPressAnimated = async () => {
@@ -81,34 +125,46 @@ class Login extends Component {
   }
 
   render() {
+    const { viewModal, messageRequest , viewModals} = this.state;
     return (
       <View style={styles.container}>
       <StatusBar backgroundColor="rgba(45, 45, 45, 0.8)" />
         <View style={styles.mainContainer}>
-          <Text style={styles.descript}>Por favor digite o código de verificação</Text>
+        <View style={styles.icon}>
+        <Icon name="vpn-key" size={60} color="#fff" style={styles.icon} />
+        </View>
+        
+          <Text style={styles.descript}>Escolha uma senha</Text>
             <View style={styles.forms}>
               <TextInput
                   style={styles.input}
                   autoCapitalize="none"
                   autoCorrect={false}
-                  placeholder="Defina senha "
+                  placeholder="Senha"
+                  secureTextEntry={true}
                   underlineColorAndroid="rgba(0,0,0,0)"
+                  onChangeText={inputSave1 => this.setState({ inputSave1 })}
+                  value={this.state.inputSave1}
             />
             <TextInput
                   style={styles.input}
                   autoCapitalize="none"
                   autoCorrect={false}
-                  placeholder="Confirmar senha"
+                  placeholder="Senha"
+                  secureTextEntry={true}
                   underlineColorAndroid="rgba(0,0,0,0)"
+                  onChangeText={inputSave2 => this.setState({ inputSave2 })}
+                  value={this.state.inputSave2}
             />
 
-            <TouchableOpacity style={styles.testebutton} onPress={() => {this.navigateToLogin(); this.salvarId();}}>
+            <TouchableOpacity style={styles.testebutton} onPress={() => { this.salvarId(); }}>
               <Text style={styles.buttonText}>
                 Cadastrar
                </Text>
              </TouchableOpacity>
            </View>
         </View>
+        <HideWithKeyboard>
         <View style={styles.indicadorContainer}>
           <StepIndicator
             customStyles={customStyles}
@@ -117,11 +173,33 @@ class Login extends Component {
             stepCount={3}
           />
         </View>
+        </HideWithKeyboard>
+        {
+          viewModals && (
+            <ModalCheck
+              message={messageRequest}
+              viewModal
+              success
+              sourceImage={imageCheck2}
+            />
+          )
+        }
+        {
+          viewModal && (
+            <ModalCheck
+              message={messageRequest}
+              viewModal
+              failure
+              sourceImage={imageCheck}
+              onClose={this.closeModal}
+            />
+          )
+        }
       </View>
     );
   }
   onPageChange(position){
-    this.setState({currentPosition: position});
+    this.setState({ currentPosition: position });
   }
 }
 
