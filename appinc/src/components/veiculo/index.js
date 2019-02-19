@@ -407,10 +407,10 @@ saveFormVeiculo = data => {
                 <Text style={styles.info_text}>Modelo: {dadosVeiculo.modelo} </Text>
               </View>
               <View style={styles.input_o}>
-                <Text style={styles.info_text}>Procedência: {dadosVeiculo.procedencia} </Text>
+                <Text style={styles.info_text}>Cor: {dadosVeiculo.cor} </Text>
               </View>
               <View style={styles.input_o}>
-                <Text style={styles.info_text}>Cor: {dadosVeiculo.cor} </Text>
+                <Text style={styles.info_text}>Procedência: {dadosVeiculo.procedencia} </Text>
               </View>
               <View style={styles.input_o}>
                 <Text style={styles.info_text}>Ano Fabricação: {dadosVeiculo.ano_fab}</Text>
@@ -419,12 +419,18 @@ saveFormVeiculo = data => {
                 <Text style={styles.info_text}>Ano Modelo: {dadosVeiculo.ano_mod}</Text>
               </View>
               <View style={styles.input_o}>
-                <Text style={styles.info_text}>Situação: {dadosVeiculo.situacao} </Text>
+                <Text style={styles.info_text}>Combustível: {dadosVeiculo.combustivel} </Text>
               </View>
               <View style={styles.input_o}>
-                <Text style={styles.info_text}>Chassi: {dadosVeiculo.chassi} </Text>
+                <Text style={styles.info_text}>Chassi: ***{dadosVeiculo.chassi} </Text>
               </View>
-             </View>
+              <View style={styles.input_o}>
+                <Text style={styles.info_text}>Número Motor: {dadosVeiculo.numero_motor} </Text>
+              </View>
+              <View style={styles.input_o}>
+                <Text style={styles.info_text}>Etiquetas: {dadosVeiculo.etiquetas} </Text>
+              </View>
+            </View>
           )
         }
       </View>
