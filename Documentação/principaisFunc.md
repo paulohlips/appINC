@@ -72,6 +72,8 @@ na qual o arrayProgress.array constrói um array contendo os elementos do Step. 
 
 O envio do formulário acontece na página StepList ao pressionar o botão *Enviar*, na qual chama a função ``**enviaForm**``. Nela recuperamos a matrícula do usuário que está logado e o os dados do formulário preenchido e salvos no objeto ``step`` no estado da aplicação *formState* através da chave formulário.
 
-[imagem]
+<p align="center">
+  <img width="800" 420 src=./imagens_doc/envio.png>
+</p>
 
 após recuperamos esses dados construimos um formData varrendo o objeto ``step`` e damos incio a requisição do tipo *POST* passando o formData no corpo da requisição e a matricula no cabeçalho. Se a requisição for bem sucedida recebe como reposta o Id da prerícia no servidor caso contrario uma mensagem de erro ou de que não ha conexão.
