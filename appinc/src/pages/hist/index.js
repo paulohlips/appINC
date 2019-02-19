@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, AsyncStorage, TouchableOpacity, Modal, ScrollView, Linking } from 'react-native';
+import { View, Text, AsyncStorage, TouchableOpacity, Modal, ScrollView, Linking, BackHandler } from 'react-native';
 import { Header } from '../../globalComponents';
 import { NavigationActions, withNavigation, StackActions } from 'react-navigation';
 import styles from './styles';
@@ -20,15 +20,28 @@ class Historico extends Component {
         form: null,
         idUser: null,
     }
+
+    componentDidMount() {
+      BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+    }
+
     async componentWillMount() {
         const arrayRef = await AsyncStorage.getItem('arrayRef');
         const id = await AsyncStorage.getItem('@AppInc:matricula');
         const array = JSON.parse(arrayRef);      
         this.setState({ arrayRef: array, idUser: id });        
         this.requestFroms();
-        // console.tron.log(['arrayRef', JSON.parse(arrayRef)]);
-        //console.tron.log(this.props);
-    }
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+  }
+
+  handleBackButton() {
+    return true;
+  }
+
 
     requestFroms = () => {
         const idMatricula = this.state.idUser;

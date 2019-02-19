@@ -35,8 +35,16 @@ class StepList extends Component {
     error: false,
   }
 
+  componentWillMount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.saveForm);
+  }
+
   componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.saveForm);
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.saveForm);
   }
 
   cancel() {
@@ -55,6 +63,8 @@ class StepList extends Component {
     //console.tron.log(['saveformstep', reference]);
     saveForm(reference);
     this.saved(); 
+    this.props.navigation.goBack();
+    return true;
   }
 
   resetAsync = () => {
@@ -79,10 +89,6 @@ class StepList extends Component {
 
     const matriculaProv = await AsyncStorage.getItem('@AppInc:matricula');
     const matricula = JSON.stringify(matriculaProv);
-
-
-    //console.tron.log(["MATRICULAASYNC", matricula]);
-
     //this.setState({ load: true });
     //console.tron.log('entrei')
     const { formulario, sendForm } = this.props;
@@ -95,9 +101,6 @@ class StepList extends Component {
     }
 
     this.setState({ matriculaAsync: matricula });
-
-    //console.tron.log(["MATRICULA", matriculaAsync]);
-
     axios({
       method: 'post',
       url: 'http://35.231.239.168/api/pericia/formulario/envio',
