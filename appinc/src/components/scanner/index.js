@@ -14,7 +14,8 @@ class Scanner extends Component {
     data: '',
     showScanner: false,
     showButton: true,
-    showButton2: false
+    showButton2: false,
+    showCode: false,
   }
 
   componentDidMount() {
@@ -83,24 +84,29 @@ class Scanner extends Component {
 
       {
           showScanner && (
-            <View style={{width:330, height: 250, rigth:50}}>
+            <View style={{alignItems: 'center', height: 250 }}>
               <BarcodeScanner
-                  style={{width:330, height: 250, rigth:50}}
-                  onBarcodeRead={({data}) => {
-                    const { vetor } = this.state;
+                  style={{ width: 330, height: 250, rigth: 50 }}
+                  onBarcodeRead={({ data }) => {
                     this.setState({ data }); //Guarda o valor de todos os códigos lidos.
-                    this.setState({ showScanner: false, showButton2: true});
-                    console.log(vetor);
+                    this.setState({ showScanner: false, showButton2: true, showCode: true });
+                    
       }}
               />
            </View>
            
           )}
+          {
+            this.state.showCode && (
+            <View style={styles.codecontainer}>
+              <Text style={styles.code}> Código: {this.state.data} </Text>
+            </View>
+            )
+          }
 
-            <Text style={styles.input}> Código:{this.state.data} </Text>
         {
         showButton2 && (
-          <TouchableOpacity onPress={() => this.setState({ showScanner: true})} style={styles.button}>
+          <TouchableOpacity onPress={() => this.setState({ showScanner: true, showCode: false })} style={styles.button}>
             <Text style={styles.button_text}>Escanear código</Text>
           </TouchableOpacity>
         )}
