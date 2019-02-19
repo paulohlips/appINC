@@ -256,7 +256,7 @@ sucess: bool -- Apresenta a animação e mensagem de sucesso
 failure: bool -- Apresenta a animação e mensagem de erro
 
 
-### Adicionando Novos Documentos
+### Adicionando Novos Componentes
 
 Para adicionar novos componentes alguns passos simples devem ser seguidos:
 

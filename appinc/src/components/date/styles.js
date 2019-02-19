@@ -4,7 +4,6 @@ import { metrics, colors, responsividade } from '../../styles';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: 'pink',
     width: responsividade.largura_tela,
     padding: 20,
     paddingBottom: 40,
@@ -25,24 +24,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   datecontainer: {
-    // elevation: 1,
     width: (responsividade.LARGURABOX*0.46),
     height:  (responsividade.ALTURABOX*0.9),
     borderRadius: 10,
-    // borderColor: '#000000',
-    // borderStyle: 'solid',
-    // borderWidth: 1,
     backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
     marginLeft: 10
   },
-
-  // dataPicker:{
-  //   justifyContent: 'flex-start',
-  //   alignItems: 'flex-start',
-  //
-  // },
   date: {
     color: '#000000',
     fontFamily: 'Roboto',

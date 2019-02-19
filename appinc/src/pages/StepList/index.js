@@ -89,7 +89,6 @@ class StepList extends Component {
 
     const matriculaProv = await AsyncStorage.getItem('@AppInc:matricula');
     const matricula = JSON.stringify(matriculaProv);
-
     //this.setState({ load: true });
     //console.tron.log('entrei')
     const { formulario, sendForm } = this.props;
@@ -102,7 +101,6 @@ class StepList extends Component {
     }
 
     this.setState({ matriculaAsync: matricula });
-
     axios({
       method: 'post',
       url: 'http://35.231.239.168/api/pericia/formulario/envio',
