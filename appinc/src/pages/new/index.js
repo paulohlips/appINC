@@ -7,7 +7,8 @@ import {
   ScrollView, 
   AsyncStorage, 
   TextInput, 
-  Animated
+  Animated,
+  BackHandler
 } from 'react-native';
 import { StackActions, NavigationActions } from 'react-navigation';
 import { Header, ModalCheck } from '../../globalComponents';
@@ -49,16 +50,27 @@ class New extends Component {
     viewError: false,
   }
 
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+  }
+
   async componentWillMount() {
     const valueForm = await AsyncStorage.getItem('@Form');
     const formLocal = JSON.parse(valueForm);
     this.setState({ form: formLocal});
-    //console.tron.log(["Form:",this.state.form]);
     const valueQuerry = await AsyncStorage.getItem('@Querry');
     const formQuerryLocal = JSON.parse(valueQuerry);
     this.setState({ formQuerry: formQuerryLocal});
-    //console.tron.log(["Query",this.state.formQuerry]);
     this.incrementarFuncao();
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+  }
+
+  handleBackButton() {
+    return true;
   }
 
   onPressButton = () => {

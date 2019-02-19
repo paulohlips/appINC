@@ -17,15 +17,24 @@ class StepPage extends Component {
     BackHandler.addEventListener('hardwareBackPress', this.saveStep);
   }
 
+  componentWillMount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.saveStep);
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.saveStep);
+  }
+
   saveStep = () => {
-    this.props.startUpdateProgress();
     this.props.saveStepState();
+    this.props.startUpdateProgress();
+    this.props.navigation.navigate('StepList');
+    return true;
   }
 
   render() {
     const { navigation } = this.props;
     const step = navigation.getParam('step');
-    //console.tron.log(this.props);
 
     return (
       <View style={styles.container}>
