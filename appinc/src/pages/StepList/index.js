@@ -36,15 +36,15 @@ class StepList extends Component {
   }
 
   componentWillMount() {
-    BackHandler.removeEventListener('hardwareBackPress', this.saveForm);
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
   }
 
   componentDidMount() {
-    BackHandler.addEventListener('hardwareBackPress', this.saveForm);
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
   }
 
   componentWillUnmount() {
-    BackHandler.removeEventListener('hardwareBackPress', this.saveForm);
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
   }
 
   cancel() {
@@ -62,7 +62,11 @@ class StepList extends Component {
     const { reference, saveForm, setSaveContentForm, form } = this.props;
     //console.tron.log(['saveformstep', reference]);
     saveForm(reference);
-    this.saved(); 
+    this.saved();    
+  }
+
+  handleBackButton = async () => {
+    await this.saveForm();
     this.props.navigation.goBack();
     return true;
   }

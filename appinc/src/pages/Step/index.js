@@ -25,9 +25,9 @@ class StepPage extends Component {
     BackHandler.removeEventListener('hardwareBackPress', this.saveStep);
   }
 
-  saveStep = () => {
-    this.props.saveStepState();
-    this.props.startUpdateProgress();
+  saveStep = async () => {
+    await this.props.saveStepState();
+    await this.props.startUpdateProgress();
     this.props.navigation.navigate('StepList');
     return true;
   }

@@ -130,7 +130,8 @@ class Camera extends React.Component {
       console.log('received image', image);
       this.setState({
         image: {uri: image.path, width: image.width, height: image.height, mime: image.mime},
-        images: null
+        images: null,
+        imagePath: image.path,
       });
     }).catch(e => {
       console.log(e);

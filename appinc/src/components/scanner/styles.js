@@ -23,11 +23,18 @@ const styles = StyleSheet.create({
    },
 
   input: {
-     backgroundColor: 'white',
-     height: responsividade.ALTURABOX,
-     borderRadius: 4,
-     paddingLeft: 20,
-     fontSize: 16,
+    backgroundColor: 'white',
+    height: responsividade.ALTURABOX,
+    width: responsividade.LARGURABOX,
+    margin: 5,
+    borderRadius: 4,
+    paddingLeft: 20,
+    fontSize: 16,
+    alignItems: 'flex-start',
+    color: '#000000',
+    fontFamily: 'Roboto',
+    fontWeight: 'bold',
+    lineHeight: 21,
   },
   button: {
     backgroundColor: "#B83E3E",
@@ -55,7 +62,7 @@ const styles = StyleSheet.create({
   },
   codecontainer: {
     width: (responsividade.LARGURABOX),
-    height:  (responsividade.ALTURABOX),
+    height: (responsividade.ALTURABOX),
     borderRadius: 10,
     backgroundColor: 'white',
     alignItems: 'center',
