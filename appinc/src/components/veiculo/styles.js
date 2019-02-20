@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { colors, metrics,responsividade } from '../../styles';
+import { colors, metrics, responsividade } from '../../styles';
 import { bold } from 'ansi-colors';
 
 const styles = StyleSheet.create({
@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
-   Name: {
+  Name: {
     width: responsividade.LARGURABOX,
     height: 30,
     backgroundColor: colors.transparent,
@@ -23,30 +23,30 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '400',
     lineHeight: 21,
-   },
+  },
 
   input: {
-     backgroundColor: 'white',
-     height: responsividade.ALTURABOX,
-     width: responsividade.LARGURABOX,
-     margin: 5,
-     borderRadius: 4,
-     paddingLeft: 20,
-     fontSize: 16,
+    backgroundColor: 'white',
+    height: responsividade.ALTURABOX,
+    width: responsividade.LARGURABOX,
+    margin: 5,
+    borderRadius: 4,
+    paddingLeft: 20,
+    fontSize: 16,
   },
 
   input_o: {
-     backgroundColor: 'white',
-     height: responsividade.ALTURABOX,
-     width: responsividade.LARGURABOX,
-     margin: 5,
-     borderRadius: 4,
-     paddingLeft: 20,
-     fontSize: 16,
-     justifyContent: 'center',
-     alignItems: 'flex-start',
+    backgroundColor: 'white',
+    height: responsividade.ALTURABOX,
+    width: responsividade.LARGURABOX,
+    margin: 5,
+    borderRadius: 4,
+    paddingLeft: 20,
+    fontSize: 16,
+    justifyContent: 'center',
+    alignItems: 'flex-start',
   }
-,
+  ,
   button: {
     backgroundColor: "#B83E3E",
     borderRadius: 50,
@@ -82,86 +82,86 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
 
-   main:
-   {
-     justifyContent: 'center',
-     alignItems: 'center',
-   },
+  main:
+  {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 
-   Picker: {
-     backgroundColor: 'white',
-     height: responsividade.ALTURABOX,
-     width: responsividade.LARGURABOX,
-     margin: 5,
-     borderRadius: 4,
-     paddingLeft: 20,
-     fontSize: 16,
+  Picker: {
+    backgroundColor: 'white',
+    height: responsividade.ALTURABOX,
+    width: responsividade.LARGURABOX,
+    margin: 5,
+    borderRadius: 4,
+    paddingLeft: 20,
+    fontSize: 16,
 
-   },
+  },
 
-   estiloPicker: {
-     backgroundColor: colors.white,
-     borderRadius: 5,
-     fontSize: 15,
-     alignItems: 'center',
-     justifyContent: 'center',
-     color: "black",
-     opacity: 0.5,
-   },
+  estiloPicker: {
+    backgroundColor: colors.white,
+    borderRadius: 5,
+    fontSize: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: "black",
+    opacity: 0.5,
+  },
 
-hintview:{
-  margin: 10,
-  marginTop: 20,
-},
+  hintview: {
+    margin: 10,
+    marginTop: 20,
+  },
 
-hint:{
-  fontSize: 14,
-  fontWeight: 'bold',
-},
+  hint: {
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
 
-numberType: {
-  alignItems: 'center',
-  justifyContent: 'center',
-  fontSize: 13,
-  color: 'black',
-  fontWeight: 'bold',
-},
-miniball: {
-  alignItems: 'center',
-  justifyContent: 'center',
-  padding: 10,
-  borderRadius: 30,
-  width: responsividade.LARGURABOLA*0.73,
-  height: responsividade.LARGURABOLA*0.73,
-  backgroundColor: '#F9AA33',
-  marginLeft: 20
-},
+  numberType: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: 13,
+    color: 'black',
+    fontWeight: 'bold',
+  },
+  miniball: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 10,
+    borderRadius: 30,
+    width: responsividade.LARGURABOLA * 0.73,
+    height: responsividade.LARGURABOLA * 0.73,
+    backgroundColor: '#F9AA33',
+    marginLeft: 20
+  },
 
 
-hint_title:{
-  alignItems: 'center',
-  flexDirection: 'row',
+  hint_title: {
+    alignItems: 'center',
+    flexDirection: 'row',
 
-},
+  },
 
-erro: {
-  color: "#B83E3E",
-  fontSize: 'bold',
-  fontSize: 14,
-  margin: 10,
-},
+  erro: {
+    color: "#B83E3E",
+    fontSize: 'bold',
+    fontSize: 14,
+    margin: 10,
+  },
 
-errov: {
-  height: responsividade.ALTURABOX*0.4,
-  width: responsividade.LARGURABOX,
-  borderRadius: 4,
-  //paddingLeft: 20,
-  fontSize: 16,
-  justifyContent: 'center',
-  alignItems: 'flex-start',
-  marginBottom: 5,
- 
-}
+  errov: {
+    height: responsividade.ALTURABOX * 0.4,
+    width: responsividade.LARGURABOX,
+    borderRadius: 4,
+    //paddingLeft: 20,
+    fontSize: 16,
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    marginBottom: 5,
+
+  }
 
 
 });

@@ -39,14 +39,12 @@ export default function formState(state = initialState, action) {
     case Types.START_CONTROL_ARRAY: {
       const status = controlArraySte(state);
       if (!state.controlArraySize) {
-        // console.tron.log(['statusIf', status]);
+
         return { ...state, controlArraySize: status };
       }
       if (!status) {
-        // console.tron.log(['status', status]);
-        return { ...state, saveStep: status, controlArraySize: null  };
+        return { ...state, saveStep: status, controlArraySize: null };
       }
-      // console.tron.log(['status', status]);
       return { ...state, controlArraySize: status };
     }
     case Types.SAVE_FORM: {
@@ -58,11 +56,11 @@ export default function formState(state = initialState, action) {
     case Types.FINISH_UPDATE_PROGRESS:
       return { ...state, updateProgress: false };
     case Types.RESTORE_FORM:
-      return { 
-        ...state, 
-        step: action.payload.form.step, 
-        form: action.payload.form.form, 
-        formEdit: action.payload.form.formEdit, 
+      return {
+        ...state,
+        step: action.payload.form.step,
+        form: action.payload.form.form,
+        formEdit: action.payload.form.formEdit,
         ref: action.payload.form.ref,
       };
     case Types.RESET_EDIT_FORM:
@@ -79,8 +77,8 @@ export const Creators = {
     payload: { data }
   }),
   setSaveContentForm: form => ({
-      type: Types.SAVE_CONTENT_FORM,
-      payload: { form }
+    type: Types.SAVE_CONTENT_FORM,
+    payload: { form }
   }),
   // inicial o processo de savar os valores recolhidos no step
   saveStepState: () => ({
@@ -121,7 +119,6 @@ export const Creators = {
 // controla o tamano do array step
 const controlArraySte = state => {
   const arraySize = state.controlArraySize;
-  // console.tron.log(['arraySize', arraySize]);
   // caso seja null ele pega o tamnho do arra step e retorna
   if (!arraySize) {
     const step = state.step;
