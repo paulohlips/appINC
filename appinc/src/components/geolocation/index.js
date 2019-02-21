@@ -147,6 +147,13 @@ class GeoLocation extends Component {
     return (
       <View style={styles.container}>
       <View>
+      {
+          error && (
+            <View style={styles.errov}>
+                <Text style={styles.erro}>Local não encontrado. Tente ir para um ambiente mais aberto</Text>
+              </View>
+          )
+        }
           <View style={styles.cabecalho}>
             <Image source={require('../../assents/imgs/point.png')} style={styles.image} />
               <View style ={styles.texto_geo}>
@@ -162,13 +169,7 @@ class GeoLocation extends Component {
             }            
           </TouchableOpacity>
         </View>
-        {
-          error && (
-            <View style={styles.input}>
-                <Text style={styles.info_text}>Error: {this.state.error}</Text>
-              </View>
-          )
-        }
+
         {
           view && (
             <View style={styles.info}>
