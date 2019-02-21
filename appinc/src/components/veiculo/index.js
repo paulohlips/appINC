@@ -87,11 +87,14 @@ class Veiculos extends Component {
     const urlFipe = 'http://fipeapi.appspot.com/api/1/' + this.state.tipo + '/veiculo/' + this.state.marca + '/' + this.state.modelo + '/' + this.state.anos + '.json';
     axios.get(urlFipe)
       .then(async resp => {
-        const dadosPuro = resp.data;
-        await this.setState({ dadosFipe: dadosPuro, viewFipe: true, });
-
+        if (resp.status === 200) {
+          const dadosPuro = resp.data;
+          await this.setState({ erroFipeAPI: false, dadosFipe: dadosPuro, viewFipe: true, });
+        } else if (resp.status === 0) {
+          this.setState({ erroFipeAPI: true })
+        }
       }).catch(err => {
-
+        this.setState({ erroFipeAPI: true })
       });
   }
 
@@ -102,6 +105,8 @@ class Veiculos extends Component {
         if (resp.status === 200) {
           this.getMarcas(resp.data);
           this.setState({ erroFipeAPI: false })
+        } else if (resp.state === 0) {
+          this.setState({ erroFipeAPI: true });
         }
       }).catch(err => {
         this.setState({ erroFipeAPI: true })
@@ -124,7 +129,7 @@ class Veiculos extends Component {
           this.setState({ erroFipeAPI: false })
         }
       }).catch(err => {
-        this.setState({ erroFipeAPI: true })
+        //this.setState({ erroFipeAPI: true })
       });
   }
 
@@ -144,7 +149,7 @@ class Veiculos extends Component {
           this.setState({ erroFipeAPI: false })
         }
       }).catch(err => {
-        this.setState({ erroFipeAPI: true })
+        //this.setState({ erroFipeAPI: true })
       });
   }
 
