@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { 
-  View, 
-  Text, 
-  Picker, 
-  TouchableOpacity, 
-  ScrollView, 
-  AsyncStorage, 
-  TextInput, 
+import {
+  View,
+  Text,
+  Picker,
+  TouchableOpacity,
+  ScrollView,
+  AsyncStorage,
+  TextInput,
   Animated,
   BackHandler
 } from 'react-native';
@@ -17,7 +17,7 @@ import styles from './styles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Creators as NewActions } from '../../store/ducks/new';
-import { Creators as FormActios } from '../../store/ducks/form'; 
+import { Creators as FormActios } from '../../store/ducks/form';
 
 const imageCheck = require('../../assents/lottie/warning.json');
 
@@ -26,7 +26,7 @@ class New extends Component {
     title: 'Nova Pericia',
   }
 
-  state ={
+  state = {
     tipo: null,
     subtipo: null,
     ssubtipo: null,
@@ -57,10 +57,10 @@ class New extends Component {
   async componentWillMount() {
     const valueForm = await AsyncStorage.getItem('@Form');
     const formLocal = JSON.parse(valueForm);
-    this.setState({ form: formLocal});
+    this.setState({ form: formLocal });
     const valueQuerry = await AsyncStorage.getItem('@Querry');
     const formQuerryLocal = JSON.parse(valueQuerry);
-    this.setState({ formQuerry: formQuerryLocal});
+    this.setState({ formQuerry: formQuerryLocal });
     this.incrementarFuncao();
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
   }
@@ -102,7 +102,7 @@ class New extends Component {
 
   closeModal = () => {
     this.setState({ showRef: false });
-    this.props.closeModalError();    
+    this.props.closeModalError();
   };
 
   render() {
@@ -113,7 +113,7 @@ class New extends Component {
       messageRequest,
     } = this.state;
     const { navigation, newState } = this.props;
-   
+
     return (
       <View style={styles.container}>
         <Header
@@ -122,20 +122,20 @@ class New extends Component {
           openMenu={navigation.toggleDrawer}
         />
         <ScrollView>
-        {
-          viewError && (
-            <View style={styles.message}>
-              <Text style={styles.messageError}>Sem conexão</Text>
+          {
+            viewError && (
+              <View style={styles.message}>
+                <Text style={styles.messageError}>Sem conexão</Text>
+              </View>
+            )
+          }
+          <View style={styles.forms1}>
+            <View style={styles.title}>
+              <View style={styles.ball}>
+                <Text style={styles.numberType}>1</Text>
+              </View>
+              <Text style={styles.textType}> Perícia: </Text>
             </View>
-          )
-        }
-        <View style={styles.forms1}>
-          <View style={styles.title}>
-            <View style={styles.ball}>
-            <Text style={styles.numberType}>1</Text>
-            </View>
-            <Text style={styles.textType}> Perícia: </Text>
-          </View>
             <View style={styles.Picker}>
               <Picker
                 style={styles.estiloPicker}
@@ -145,55 +145,56 @@ class New extends Component {
                 <Picker.Item label='Selecione a perícia' />
                 <Picker.Item label='Veículos' value='30' />
                 <Picker.Item label='Incêndio' value='32' />
+                <Picker.Item label='Genética Forense' value='33' />
                 <Picker.Item label='Arrombamento de Caixa' value='6' />
                 <Picker.Item label='Catálogo de Componentes' value='1' />
               </Picker>
 
             </View>
-        </View>
+          </View>
 
-        {
-          showRef && (
-            <Animated.View
-              style={{ ...this.props.style, opacity: fadeAnim_ref }}>
-              {this.props.children}
-                    <View style={styles.forms}>
-                    <View style={styles.title}>
-                        <View style={styles.ball}><Text style={styles.numberType}> 2 </Text></View>
-                        <Text style={styles.textType}> Referência: </Text>
-                    </View>
-                    <TextInput
-                      style={styles.input}
-                      autoCapitalize="none"
-                      autoCorrect={false}
-                      maxLength={72}
-                      underlineColorAndroid="rgba(0,0,0,0)"
-                      onChangeText={inputSave => this.setState({ inputSave })}
-                    />
+          {
+            showRef && (
+              <Animated.View
+                style={{ ...this.props.style, opacity: fadeAnim_ref }}>
+                {this.props.children}
+                <View style={styles.forms}>
+                  <View style={styles.title}>
+                    <View style={styles.ball}><Text style={styles.numberType}> 2 </Text></View>
+                    <Text style={styles.textType}> Referência: </Text>
                   </View>
+                  <TextInput
+                    style={styles.input}
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    maxLength={72}
+                    underlineColorAndroid="rgba(0,0,0,0)"
+                    onChangeText={inputSave => this.setState({ inputSave })}
+                  />
+                </View>
               </Animated.View>
-          )
-        }
-        {
-          newState.showButton && (
-            <TouchableOpacity style={styles.button} onPress={() => this.onPressButton()}>
-              <Text style={styles.buttonText}>
-                Continuar
+            )
+          }
+          {
+            newState.showButton && (
+              <TouchableOpacity style={styles.button} onPress={() => this.onPressButton()}>
+                <Text style={styles.buttonText}>
+                  Continuar
               </Text>
-            </TouchableOpacity>
-          )
-        }
-        {
-          newState.erro && (
-            <ModalCheck
-              message={messageRequest}
-              viewModal
-              failure
-              sourceImage={imageCheck}
-              onClose={this.closeModal}
-            />
-          )
-        }
+              </TouchableOpacity>
+            )
+          }
+          {
+            newState.erro && (
+              <ModalCheck
+                message={messageRequest}
+                viewModal
+                failure
+                sourceImage={imageCheck}
+                onClose={this.closeModal}
+              />
+            )
+          }
         </ScrollView>
       </View>
 
@@ -205,9 +206,9 @@ const mapStateToProps = state => ({
   newState: state.newState
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ 
-  ...NewActions, 
-  ...FormActios 
+const mapDispatchToProps = dispatch => bindActionCreators({
+  ...NewActions,
+  ...FormActios
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(New);
