@@ -31,18 +31,18 @@ import StepList from './pages/StepList';
 
 const Routes = StackNavigator(
   {
-    Login: { screen: Login },
-    Main: { screen: Main},
-    SignUp: {screen: Singup},
-    Hash: {screen: Hash},
-    Password: {screen: Password},
+    Login: { screen: New },
+    Main: { screen: Main },
+    SignUp: { screen: Singup },
+    Hash: { screen: Hash },
+    Password: { screen: Password },
     StepPage: { screen: StepPage },
     Logged: createDrawerNavigator(
       {
         Main: { screen: Main },
         NewMenu: { screen: New },
         Hist: { screen: Hist },
-        Offline: { screen: Offline},
+        Offline: { screen: Offline },
         Exit: { screen: Login },
       },
       {

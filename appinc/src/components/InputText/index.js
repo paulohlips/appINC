@@ -18,8 +18,8 @@ class InputText extends Component {
     const { form, data } = this.props;
 
     for (var key in form.step) {
-      if ( key === data.data_name) {        
-        if(form.step[key].filled === true) {
+      if (key === data.data_name) {
+        if (form.step[key].filled === true) {
           this.setState({ inputSave: form.step[key].value });
         }
       }
@@ -30,42 +30,37 @@ class InputText extends Component {
     const { inputSave } = this.state;
     const { form, getSaveStateForm, startControlArray } = this.props;
 
-   // console.tron.log(form.step);
-    if ( inputSave ) {
+    if (inputSave) {
       for (var key in form.step) {
-        if ( key === data.data_name) {
+        if (key === data.data_name) {
           const form = {};
           form[data.data_name] = { key: data.data_name, value: inputSave, filled: true };
-         // console.tron.log(['formsavecampo', form])
           getSaveStateForm(form);
         }
       }
     } else {
       for (var key in form.step) {
-        if ( key === data.data_name) {
+        if (key === data.data_name) {
           const form = {};
           form[data.data_name] = { key: data.data_name, value: inputSave, filled: false };
-         // console.tron.log(['formsavecampo', form])
           getSaveStateForm(form);
         }
       }
     }
-    
+
     startControlArray();
   }
 
   render() {
-    const { data_name, label, hint, default_value, newState} = this.props.data;
+    const { data_name, label, hint, default_value, newState } = this.props.data;
     const { saveStep, step } = this.props.form;
-    //console.tron.log(['props', this.props]);
-    // this.props.startControlArray();
 
     if (saveStep) {
-      this.saveFormInput({data_name, default_value});
+      this.saveFormInput({ data_name, default_value });
     }
     return (
       <View style={styles.container}>
-      <Text style = {styles.hint}>{hint}</Text>
+        <Text style={styles.hint}>{hint}</Text>
         <TextInput
           style={styles.input}
           autoCapitalize="sentences"
@@ -73,7 +68,7 @@ class InputText extends Component {
           placeholder={"Digite aqui..."}
           maxLength={255}
           underlineColorAndroid="rgba(0,0,0,0)"
-          onChangeText={inputSave => this.setState({ inputSave})}
+          onChangeText={inputSave => this.setState({ inputSave })}
           value={this.state.inputSave}
         />
 
