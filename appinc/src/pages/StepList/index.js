@@ -125,10 +125,8 @@ class StepList extends Component {
       this.props.setSaveContentForm(form);
       this.setState({ formRedux: false });
     }
-
     const { navigation } = this.props;
     const { viewError, load, saved } = this.state;
-
 
     return (
       <View style={styles.container}>
@@ -137,7 +135,7 @@ class StepList extends Component {
           showArrow
           showInfo
           info={form.info_form}
-          goBack={this.props.navigation.goBack}
+          goBack={this.saveForm}
         />
         {
           viewError && (
@@ -147,7 +145,7 @@ class StepList extends Component {
           )
         }
 
-        {
+{
           saved && (
             <View style={styles.saved}>
               <Text style={styles.messagesaved}>Salvo!</Text>
