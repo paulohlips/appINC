@@ -31,28 +31,43 @@ class Veiculos extends Component {
     naoexiste: false,
     tipo: '',
     erroFipeAPI: false,
+
+    dadosEnvio: {
+      id: '',
+      placa: '',
+      marca: '',
+      modelo: '',
+      procedencia: '',
+      ano_fab: '',
+      ano_mod: '',
+      combustivel: '',
+      chassi: '',
+      numero_motor: '',
+      etiquetas: '',
+      referencia: '',
+      preco: '',
+      veiculo: '',
+    }
   }
 
   async componentWillMount() {
     const { form, data } = this.props;
 
-    for (var key in form.step) {
+    for (let key in form.step) {
       if (key === data.data_name) {
-
         if (form.step[key].filled === true) {
           await this.setState({
             dadosVeiculo: form.step[key].dadosVeiculo,
             dadosFipe: form.step[key].dadosFipe,
             viewDenatran: true,
             viewFipe: true,
-          })
+          });
         }
       }
     }
   }
 
   loading() {
-
     this.setState({ consulta: false });
     this.setState({ loading: true });
   }
@@ -64,14 +79,13 @@ class Veiculos extends Component {
       erroconsulta: false,
       naoexiste: false,
     });
-    axios.get('http://35.231.239.168/api/pericia/denatran/' + this.state.placa)
+    axios.get(`http://35.231.239.168/api/pericia/denatran/${  this.state.placa}`)
       .then((resp) => {
         if (resp.data.placa !== null) {
           const dadossinesp = resp.data;
           this.getDadosPlaca(resp.data);
           this.setState({ consulta: true, loading: false, viewDenatran: true });
-        }
-        else {
+        }        else {
           this.setState({ naoexiste: true, loading: false, consulta: true, viewDenatran: false });
         }
       }).catch(err => {
@@ -84,32 +98,32 @@ class Veiculos extends Component {
   }
 
   consultaFipe = async () => {
-    const urlFipe = 'http://fipeapi.appspot.com/api/1/' + this.state.tipo + '/veiculo/' + this.state.marca + '/' + this.state.modelo + '/' + this.state.anos + '.json';
+    const urlFipe = `http://fipeapi.appspot.com/api/1/${  this.state.tipo  }/veiculo/${  this.state.marca  }/${  this.state.modelo  }/${  this.state.anos  }.json`;
     axios.get(urlFipe)
       .then(async resp => {
         if (resp.status === 200) {
           const dadosPuro = resp.data;
           await this.setState({ erroFipeAPI: false, dadosFipe: dadosPuro, viewFipe: true, });
         } else if (resp.status === 0) {
-          this.setState({ erroFipeAPI: true })
+          this.setState({ erroFipeAPI: true });
         }
       }).catch(err => {
-        this.setState({ erroFipeAPI: true })
+        this.setState({ erroFipeAPI: true });
       });
   }
 
   consultaMarcas = (value) => {
     this.setState({ tipo: value });
-    axios.get('http://fipeapi.appspot.com/api/1/' + value + '/marcas.json')
+    axios.get(`http://fipeapi.appspot.com/api/1/${  value  }/marcas.json`)
       .then((resp) => {
         if (resp.status === 200) {
           this.getMarcas(resp.data);
-          this.setState({ erroFipeAPI: false })
+          this.setState({ erroFipeAPI: false });
         } else if (resp.state === 0) {
           this.setState({ erroFipeAPI: true });
         }
       }).catch(err => {
-        this.setState({ erroFipeAPI: true })
+        this.setState({ erroFipeAPI: true });
       });
   }
 
@@ -122,11 +136,11 @@ class Veiculos extends Component {
 
   pegaModelos = (value) => {
     this.setState({ marca: value });
-    axios.get('http://fipeapi.appspot.com/api/1/' + this.state.tipo + '/veiculos/' + value + '.json')
+    axios.get(`http://fipeapi.appspot.com/api/1/${  this.state.tipo  }/veiculos/${  value  }.json`)
       .then((resp) => {
         if (resp.status === 200) {
           this.getModelos(resp.data);
-          this.setState({ erroFipeAPI: false })
+          this.setState({ erroFipeAPI: false });
         }
       }).catch(err => {
         //this.setState({ erroFipeAPI: true })
@@ -142,11 +156,11 @@ class Veiculos extends Component {
 
   pegaAno = value => {
     this.setState({ modelo: value });
-    axios.get('http://fipeapi.appspot.com/api/1/' + this.state.tipo + '/veiculo/' + this.state.marca + '/' + value + '.json')
+    axios.get(`http://fipeapi.appspot.com/api/1/${  this.state.tipo  }/veiculo/${  this.state.marca  }/${  value  }.json`)
       .then((resp) => {
         if (resp.status === 200) {
           this.getAno(resp.data);
-          this.setState({ erroFipeAPI: false })
+          this.setState({ erroFipeAPI: false });
         }
       }).catch(err => {
         //this.setState({ erroFipeAPI: true })
@@ -161,16 +175,35 @@ class Veiculos extends Component {
   }
 
   saveFormVeiculo = data => {
-    const { dadosVeiculo, dadosFipe } = this.state;
+    const { dadosVeiculo, dadosFipe, dadosEnvio } = this.state;
     const { form, getSaveStateForm, startControlArray } = this.props;
-    const dados = { dadosVeiculo, dadosFipe }
+    let dados = dadosEnvio;
+
+    console.tron.log(dadosFipe);
+    Object.keys(dados).map(key => {
+      if (dadosVeiculo) {
+        Object.keys(dadosVeiculo).map(key1 => {
+          if (key === key1) {
+            dados[key] = dadosVeiculo[key1];
+          }
+        });
+      }
+      if (dadosFipe) {
+        Object.keys(dadosFipe).map(key2 => {
+          if (key === key2) {
+            dados[key] = dadosFipe[key2];
+          }
+        });
+      }      
+    });
+
     const dv = JSON.stringify(dados);
 
-    if (dadosVeiculo) {
+    if (dadosVeiculo || dadosFipe) {
       for (var key in form.step) {
         if (key === data.data_name) {
           const form = {};
-          form[data.data_name] = { key: data.data_name, value: dv, dadosVeiculo: dadosVeiculo, dadosFipe: dadosFipe, filled: true };
+          form[data.data_name] = { key: data.data_name, value: dv, dadosVeiculo, dadosFipe, filled: true };
           getSaveStateForm(form);
         }
       }
@@ -178,7 +211,7 @@ class Veiculos extends Component {
       for (var key in form.step) {
         if (key === data.data_name) {
           const form = {};
-          form[data.data_name] = { key: data.data_name, value: '', dadosVeiculo: null, dadosFipe: null, filled: false };
+          form[data.data_name] = { key: data.data_name, value: dadosEnvio, dadosVeiculo: null, dadosFipe: null, filled: false };
           getSaveStateForm(form);
         }
       }
@@ -228,7 +261,7 @@ class Veiculos extends Component {
               style={styles.estiloPicker}
               onValueChange={(tipo => this.setState({ tipo }), this.consultaMarcas)}
               selectedValue={this.state.tipo}
-              collapsable={true}
+              collapsable
             >
               <Picker.Item label='Tipo do veículo' />
               <Picker.Item label='Carro' value='carro' />
@@ -243,11 +276,11 @@ class Veiculos extends Component {
                   style={styles.estiloPicker}
                   onValueChange={(marca => this.setState({ marca }), this.pegaModelos)}
                   selectedValue={this.state.marca}
-                  collapsable={true}
+                  collapsable
                 >
                   <Picker.Item label='Fabricante' />
                   {
-                    dadosMarcas.map(item => <Picker.Item label={item.name} value={item.id}></Picker.Item>)
+                    dadosMarcas.map(item => <Picker.Item label={item.name} value={item.id} />)
                   }
                 </Picker>
               </View>
@@ -263,7 +296,7 @@ class Veiculos extends Component {
                 >
                   <Picker.Item label='Modelo' />
                   {
-                    dadosModelos.map(item => <Picker.Item label={item.name} value={item.id}></Picker.Item>)
+                    dadosModelos.map(item => <Picker.Item label={item.name} value={item.id} />)
                   }
                 </Picker>
               </View>
@@ -279,7 +312,7 @@ class Veiculos extends Component {
                 >
                   <Picker.Item label='Ano' />
                   {
-                    dadosAno.map(item => <Picker.Item label={item.id} value={item.id}></Picker.Item>)
+                    dadosAno.map(item => <Picker.Item label={item.id} value={item.id} />)
                   }
                 </Picker>
               </View>
@@ -288,8 +321,7 @@ class Veiculos extends Component {
         </View>
 
         <View>
-          <View style={styles.cabecalho}>
-          </View>
+          <View style={styles.cabecalho} />
 
           {
             this.state.error && (
