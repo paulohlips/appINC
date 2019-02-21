@@ -419,16 +419,7 @@ class Veiculos extends Component {
                 <Text style={styles.info_text}>Ano Modelo: {dadosVeiculo.ano_mod}</Text>
               </View>
               <View style={styles.input_o}>
-                <Text style={styles.info_text}>Combustível: {dadosVeiculo.combustivel} </Text>
-              </View>
-              <View style={styles.input_o}>
                 <Text style={styles.info_text}>Chassi: ***{dadosVeiculo.chassi} </Text>
-              </View>
-              <View style={styles.input_o}>
-                <Text style={styles.info_text}>Número Motor: {dadosVeiculo.numero_motor} </Text>
-              </View>
-              <View style={styles.input_o}>
-                <Text style={styles.info_text}>Etiquetas: {dadosVeiculo.etiquetas} </Text>
               </View>
             </View>
           )

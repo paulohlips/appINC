@@ -31,7 +31,7 @@ class Historico extends Component {
         const arrayRef = await AsyncStorage.getItem('arrayRef');
         const id = await AsyncStorage.getItem('@AppInc:matricula');
         const array = JSON.parse(arrayRef);
-        this.setState({ arrayRef: array, idUser: id , errorview: false });
+        this.setState({ arrayRef: array, idUser: id, errorview: false });
         this.requestFroms();
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     }
@@ -40,11 +40,11 @@ class Historico extends Component {
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     }
 
-    
-  loading() {
 
-    this.setState({ loading: false });
-  }
+    loading() {
+
+        this.setState({ loading: false });
+    }
 
 
     handleBackButton() {
@@ -67,7 +67,7 @@ class Historico extends Component {
                 this.setState({ arrayEnviados: resp.data });
                 this.loading();
             }).catch(err => {
-                this.setState({loading: false , errorview: true});
+                this.setState({ loading: false, errorview: true });
 
             });
     }
@@ -151,24 +151,24 @@ class Historico extends Component {
                         }
 
                         {
-                                    this.state.loading && (
-                                        <View style={styles.loading} >
-                                         <ActivityIndicator size="large" color="#fff" />
-                                        </View>
-                                       
-                                    )
-                                    }
+                            this.state.loading && (
+                                <View style={styles.loading} >
+                                    <ActivityIndicator size="large" color="#fff" />
+                                </View>
+
+                            )
+                        }
 
                         {
-                                    this.state.errorview && (
-                                        
-                                        <View style={styles.erro} >
-                                             <Text style={styles.errot}>Não foi possível recuperar as perícias enviadas</Text>
-                                        </View>
-                                       
-                                       
-                                    )
-                                    }
+                            this.state.errorview && (
+
+                                <View style={styles.erro} >
+                                    <Text style={styles.errot}>Não foi possível recuperar as perícias enviadas</Text>
+                                </View>
+
+
+                            )
+                        }
 
                         {
                             arrayEnviados ? (
