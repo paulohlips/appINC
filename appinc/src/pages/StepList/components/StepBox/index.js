@@ -22,7 +22,6 @@ class StepBoxComponent extends Component {
   }
 
   componentWillMount() {
-    //console.tron.log(this.props);
   }
 
   createFormsSave = async () => {
@@ -35,56 +34,33 @@ class StepBoxComponent extends Component {
       length: 0,
     };
 
-    //console.tron.log(['fromedit', formState.formEdit, arrayProgress]);
     if (formState.formEdit) {
-      //console.tron.log(['fromedit2', arrayProgress]);
       steps.item.components.forEach(component => {
-        // console.tron.log(component);
-
-        //console.tron.log(['fromedit3', component]);
 
         const form = {};
         if (component.component_type === 'date') {
 
-          for(var key1 in formState.step) {
-            //console.tron.log(['fromedit5', key1]);
+          for (var key1 in formState.step) {
             if (component.data_name === key1.key) {
               form[component.data_name] = key1;
             }
           }
 
-          /* formState.step.forEach(item => {
-            console.tron.log(['fromedit5', item]);
-            if (component.data_name === item.key) {
-              form[component.data_name] = item;
-            }
-          });*/
         } else {
-          //console.tron.log(['fromedit6', formState.step]);
-          for(var key in formState.step) {
-            //console.tron.log(['fromedit5', key]);
+          for (var key in formState.step) {
             if (component.data_name === key.key) {
               form[component.data_name] = key;
             }
           }
-
-          /* formState.step.forEach(item => {
-            console.tron.log(['fromedit5', item]);
-            if (component.data_name === item.key) {
-              form[component.data_name] = item;
-            }
-          });*/
         }
         getCreateForm(form);
         arrayProgress.array.push(component.data_name);
         const lengthArray = arrayProgress.array.length;
         arrayProgress.length = lengthArray;
         this.setState({ arrayProgress, callFunction: true });
-        //console.tron.log(['fromedit4', arrayProgress]);
       });
     } else {
       steps.item.components.forEach(component => {
-        //console.tron.log(['nao entrei aqui', component]);
         const form = {};
         if (component.component_type === 'date') {
           form[component.data_name] = { key: component.data_name, value: '1980-01-21', filled: null };
@@ -98,7 +74,6 @@ class StepBoxComponent extends Component {
         this.setState({ arrayProgress, callFunction: true });
       });
     }
-    //console.tron.log(['arrayprogresstest', arrayProgress]);
   }
 
   compareProgress = async () => {
@@ -108,42 +83,33 @@ class StepBoxComponent extends Component {
     const { arrayProgress } = this.state;
     var progress = 0;
     var countProgress = 0;
-    //console.tron.log(['finish', arrayProgress, step, this.props]);
 
-    if( arrayProgress.length > 0) {
-      //console.tron.log(['teste ', key, arrayProgress]);
-      for(var key in step) {
-        //console.tron.log(['teste oiureewtrt', key, arrayProgress]);
+    if (arrayProgress.length > 0) {
+      for (var key in step) {
         arrayProgress.array.map(item => {
-          if(item === key && step[key].filled === true) {
-            //console.tron.log([' if 1', progress, countProgress])
+          if (item === key && step[key].filled === true) {
             countProgress++;
           }
         })
       }
     }
     progress = countProgress / arrayProgress.length;
-    //console.tron.log(['teste conut progress', progress, countProgress, arrayProgress.length])
     this.setState({ progress });
   }
 
   render() {
-    // console.tron.log(this.props);
     const { steps, form, formState } = this.props;
     const { createdForms, arrayProgress, callFunction, progress } = this.state;
     const { item } = steps;
-    //console.tron.log(['teste no rende', arrayProgress, callFunction, progress]);
     if (!createdForms) {
       this.createFormsSave();
-      //console.tron.log('createFormSave');
     }
     if (callFunction || formState.updateProgress) {
       this.compareProgress();
-      //console.tron.log(['avenida', arrayProgress]);
     }
 
     return (
-       <View style={styles.container}>
+      <View style={styles.container}>
         <TouchableOpacity onPress={() => this.props.navigation.navigate('StepPage', { step: item })}>
           <View style={styles.card_titulo}>
             <Text style={styles.titulo}>{item.step_name}</Text>
@@ -153,11 +119,11 @@ class StepBoxComponent extends Component {
           </View>
 
           <View style={styles.bar}>
-          <ProgressBarAndroid
-            styleAttr="Horizontal"
-            indeterminate={false}
-            progress={progress}
-          />
+            <ProgressBarAndroid
+              styleAttr="Horizontal"
+              indeterminate={false}
+              progress={progress}
+            />
           </View>
 
         </TouchableOpacity>

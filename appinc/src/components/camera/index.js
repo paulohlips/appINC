@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   View, Text, StyleSheet, ScrollView, Alert,
   Image, TouchableOpacity, NativeModules, Dimensions, TextInput, AsyncStorage
@@ -25,15 +25,15 @@ class Camera extends React.Component {
   };
 
 
-  componentWillMount() {    
+  componentWillMount() {
     const { form, data } = this.props;
 
-    for (var key in form.step) { 
-      if ( key === data.data_name) {
-        if(form.step[key].filled === true) {
+    for (var key in form.step) {
+      if (key === data.data_name) {
+        if (form.step[key].filled === true) {
           this.setState({ image: form.step[key].data });
         }
-      }  
+      }
     }
 
   }
@@ -48,11 +48,10 @@ class Camera extends React.Component {
     }).then(image => {
 
       this.setState({
-        image: {uri: image.path, width: image.width, height: image.height},
+        image: { uri: image.path, width: image.width, height: image.height },
         images: null,
         imagePath: image.path
       });
-    //console.tron.log('received image', image.path);
 
     }).catch();
   }
@@ -69,7 +68,7 @@ class Camera extends React.Component {
     }).then(image => {
       console.log('received base64 image');
       this.setState({
-        image: {uri: `data:${image.mime};base64,`+ image.data, width: image.width, height: image.height},
+        image: { uri: `data:${image.mime};base64,` + image.data, width: image.width, height: image.height },
         images: null
       });
     }).catch();
@@ -106,16 +105,16 @@ class Camera extends React.Component {
     }).then(image => {
       console.log('received cropped image', image);
       this.setState({
-        image: {uri: image.path, width: image.width, height: image.height, mime: image.mime},
+        image: { uri: image.path, width: image.width, height: image.height, mime: image.mime },
         images: null
       });
     }).catch(e => {
       console.log(e);
-     // Alert.alert(e.message ? e.message : e);
+      // Alert.alert(e.message ? e.message : e);
     });
   }
 
-  pickSingle(cropit, circular=false) {
+  pickSingle(cropit, circular = false) {
     ImagePicker.openPicker({
       width: 300,
       height: 300,
@@ -129,7 +128,7 @@ class Camera extends React.Component {
     }).then(image => {
       console.log('received image', image);
       this.setState({
-        image: {uri: image.path, width: image.width, height: image.height, mime: image.mime},
+        image: { uri: image.path, width: image.width, height: image.height, mime: image.mime },
         images: null
       });
     }).catch(e => {
@@ -149,7 +148,7 @@ class Camera extends React.Component {
         image: null,
         images: images.map(i => {
           console.log('received image', i);
-          return {uri: i.path, width: i.width, height: i.height, mime: i.mime};
+          return { uri: i.path, width: i.width, height: i.height, mime: i.mime };
         })
       });
     });//.catch(e => alert(e));
@@ -160,27 +159,28 @@ class Camera extends React.Component {
   }
 
   renderVideo(video) {
-    return (<View style={{height: 300, width: 300}}>
-      <Video source={{uri: video.uri, type: video.mime}}
-         style={{position: 'absolute',
-            top: 0,
-            left: 0,
-            bottom: 0,
-            right: 0
-          }}
-         rate={1}
-         paused={false}
-         volume={1}
-         muted={false}
-         resizeMode={'cover'}
-         onError={e => console.log(e)}
-         onLoad={load => console.log(load)}
-         repeat={true} />
-     </View>);
+    return (<View style={{ height: 300, width: 300 }}>
+      <Video source={{ uri: video.uri, type: video.mime }}
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          bottom: 0,
+          right: 0
+        }}
+        rate={1}
+        paused={false}
+        volume={1}
+        muted={false}
+        resizeMode={'cover'}
+        onError={e => console.log(e)}
+        onLoad={load => console.log(load)}
+        repeat={true} />
+    </View>);
   }
 
   renderImage(image) {
-    return <Image style={{width: 300, height: 300, resizeMode: 'contain'}} source={image} />
+    return <Image style={{ width: 300, height: 300, resizeMode: 'contain' }} source={image} />
   }
 
   renderAsset(image) {
@@ -195,36 +195,32 @@ class Camera extends React.Component {
     const { imageData, imagePath, image } = this.state;
     const { form, getSaveStateForm, startControlArray } = this.props;
 
-     //console.tron.log([' nao entrei no if', imagePath]);
-    if ( imagePath ) {
-      //console.tron.log('entrei no if');
-      for (var key in form.step) { 
+    if (imagePath) {
+      for (var key in form.step) {
         if (key === data.data_name) {
           const form = {};
-          form[data.data_name] = { key: data.data_name, value: { uri: imagePath, type:'image/jpeg', name: `${data.data_name}.jpg` }, data: image, filled: true };
-          //console.tron.log(['formsavecampo', form]) 
+          form[data.data_name] = { key: data.data_name, value: { uri: imagePath, type: 'image/jpeg', name: `${data.data_name}.jpg` }, data: image, filled: true };
           getSaveStateForm(form);
-        }  
+        }
       }
     } else {
-      for (var key in form.step) { 
+      for (var key in form.step) {
         if (key === data.data_name && data.data_name.filled === false) {
           const form = {};
           form[data.data_name] = { key: data.data_name, value: { uri: '', type: '', name: '' }, data: image, filled: false };
-          //console.tron.log(['formsavecampo', form]) 
           getSaveStateForm(form);
-        }  
+        }
       }
     }
     startControlArray();
   }
 
   render() {
-    const { data_name, label, hint, default_value, newState} = this.props.data;
+    const { data_name, label, hint, default_value, newState } = this.props.data;
     const { saveStep } = this.props.form;
 
     if (saveStep) {
-      this.saveFormInput({data_name, default_value});
+      this.saveFormInput({ data_name, default_value });
     }
     return (
       <View style={styles.container}>
@@ -235,20 +231,20 @@ class Camera extends React.Component {
         </ScrollView>
 
         <TouchableOpacity onPress={() => this.pickSingleWithCamera(true)}>
-          <View style = {styles.avatarContainer}>
-            <View style = {styles.avatarContainer2}><Icon name="add-a-photo" size={30} style={styles.icon} />
-              <View style = {styles.text_foto}>
-                <Text style = {styles.text}>Tirar uma foto</Text>
+          <View style={styles.avatarContainer}>
+            <View style={styles.avatarContainer2}><Icon name="add-a-photo" size={30} style={styles.icon} />
+              <View style={styles.text_foto}>
+                <Text style={styles.text}>Tirar uma foto</Text>
               </View>
-            </View>          
+            </View>
           </View>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => this.pickSingle(false)} style={styles.button}>
-          <View style = {styles.avatarContainer}>
-            <View style = {styles.avatarContainer2}><Icon name="photo-library" size={30} style={styles.icon} />
-              <View style = {styles.text_foto}>
-                <Text style = {styles.text}>Selecionar da galeria</Text>
+          <View style={styles.avatarContainer}>
+            <View style={styles.avatarContainer2}><Icon name="photo-library" size={30} style={styles.icon} />
+              <View style={styles.text_foto}>
+                <Text style={styles.text}>Selecionar da galeria</Text>
               </View>
             </View>
           </View>
@@ -265,7 +261,7 @@ class Camera extends React.Component {
             underlineColorAndroid="rgba(0,0,0,0)"
             onChangeText={inputSave => this.setState({ inputSave })}
           />
-      </View>
+        </View>
 
       </View>
     );

@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { colors } from '../../styles';
+import { colors, responsividade } from '../../styles';
 const styles = StyleSheet.create({
     container: { 
         flex: 1,   
@@ -93,7 +93,33 @@ const styles = StyleSheet.create({
       },    
       row: {
         flexDirection: "row",
-      }
+      },
+
+      loading: {
+
+        paddingBottom: 100,
+      },
+
+      erro : {
+
+        padding: 10,
+        width: responsividade.LARGURABOX,
+        height: responsividade.ALTURABOX*0.8,
+        //backgroundColor: '#FE3636',
+        borderRadius: 4,
+        marginTop: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+
+
+
+      },
+
+      errot: {
+        fontFamily: 'Roboto',
+        //fontWeight: 'bold',
+        color: "#B83E3E",
+      },
 
 });
 
