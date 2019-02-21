@@ -21,86 +21,78 @@ class Offline extends Component {
         const arrayRef = await AsyncStorage.getItem('arrayRef');
         const array = JSON.parse(arrayRef);
         this.setState({ arrayRef: array });
-        console.log.tron('to aqui');
-        // console.tron.log(['arrayRef', JSON.parse(arrayRef)]);
-        //console.tron.log(this.props);
     }
 
     restoreForm = async name => {
-        //console.tron.log(['props1', this.props]);
         const { navigation, restoreFormState, setForm } = this.props;
         const formAsync = await AsyncStorage.getItem(name);
         const form = JSON.parse(formAsync);
-        //console.tron.log(['fomr', form]);
         await setForm(form.form);
         await restoreFormState(form);
         navigation.navigate('StepList');
-        //console.tron.log(['props', this.props]);
-        //this.setState({ modalVisible: true, form: formAsync });
     }
 
-  renderCard = item => {
-    return (
-        <TouchableOpacity style ={styles.box} onPress={() => this.restoreForm(item)}>
-            <Text style={styles.status1}>{" Minha Perícia" + " - " + item }</Text>
-                <View style = {styles.row}>
+    renderCard = item => {
+        return (
+            <TouchableOpacity style={styles.box} onPress={() => this.restoreForm(item)}>
+                <Text style={styles.status1}>{" Minha Perícia" + " - " + item}</Text>
+                <View style={styles.row}>
                     <Text style={styles.status1}> Status :</Text>
                     <Text style={styles.status}> Em andamento</Text>
                 </View>
-            <Text style={styles.status1}> Última modificação : 07/02/2019</Text>
-        </TouchableOpacity>
-    );
-  }
+                <Text style={styles.status1}> Última modificação : 07/02/2019</Text>
+            </TouchableOpacity>
+        );
+    }
 
 
-  render() {
-    const { arrayRef, modalVisible, form } = this.state;
-    const { navigation } = this.props;
-    //console.tron.log(['arrayRefrender',arrayRef]);
-    return (
-      <View style={styles.container}>
-        <Header
-          showMenu
-          showClear
-          openMenu={navigation.toggleDrawer}
-          title='Minhas Perícias Offline'
-        />
-        <Modal
-                animationType="slide"
-                transparent={false}
-                visible={modalVisible}
-                onRequestClose={() => {}}
-            >
-                <View style={styles.containerModal}>
-                    <View style={styles.buttonContainer}>
-                        <TouchableOpacity onPress={() => this.setState({ modalVisible: false})}>
-                            <Icon name="md-close" size={28} style={styles.iconClose} />
-                        </TouchableOpacity>
+    render() {
+        const { arrayRef, modalVisible, form } = this.state;
+        const { navigation } = this.props;
+        return (
+            <View style={styles.container}>
+                <Header
+                    showMenu
+                    showClear
+                    openMenu={navigation.toggleDrawer}
+                    title='Minhas Perícias Offline'
+                />
+                <Modal
+                    animationType="slide"
+                    transparent={false}
+                    visible={modalVisible}
+                    onRequestClose={() => { }}
+                >
+                    <View style={styles.containerModal}>
+                        <View style={styles.buttonContainer}>
+                            <TouchableOpacity onPress={() => this.setState({ modalVisible: false })}>
+                                <Icon name="md-close" size={28} style={styles.iconClose} />
+                            </TouchableOpacity>
+                        </View>
+                        <ScrollView>
+                            <View style={styles.box}>
+                                {
+                                    form && (
+                                        <Text style={styles.text}>{form}</Text>
+                                    )
+                                }
+
+                            </View>
+                        </ScrollView>
                     </View>
+                </Modal>
+                <View style={styles.main}>
                     <ScrollView>
-                        <View style={styles.box}>
                         {
-                            form && (
-                                <Text style={styles.text}>{form}</Text>
+                            arrayRef && (
+                                arrayRef.map(item => this.renderCard(item))
                             )
                         }
-
-                        </View>
                     </ScrollView>
                 </View>
-            </Modal>
-        <View style={styles.main}>
-          <ScrollView>
-            {
-              arrayRef && (
-                  arrayRef.map(item => this.renderCard(item))
-              )
-            }
-          </ScrollView>
-        </View>
-      </View>
-    );
-  }
+            </View>
+        );
+    }
 }
 
 
@@ -109,6 +101,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch =>
-bindActionCreators({ ...FormActions, ...NewActions }, dispatch);
+    bindActionCreators({ ...FormActions, ...NewActions }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Offline);

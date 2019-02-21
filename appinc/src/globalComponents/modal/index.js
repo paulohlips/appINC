@@ -41,34 +41,32 @@ class ModalCheck extends Component {
   async componentWillReceiveProps() {
     if (this.state.progress > 0.99) {
       this.props.navigation.navigate('Login');
-      //console.tron.log(['bar', this.state.progress]);
     }
   }
 
 
   render() {
     const { viewModal, onClose, sourceImage, success, failure, message } = this.props;
-    //console.tron.log(this.state.progress);
     return (
       <Modal
         animationType="slide"
         transparent
         visible={viewModal}
-        onRequestClose={() => {}}
+        onRequestClose={() => { }}
       >
         <View style={styles.container}>
           {
             success && (
               <View style={styles.box}>
                 <View style={styles.lottie}>
-                  <LottieView source={sourceImage} progress={this.state.progress}/>
+                  <LottieView source={sourceImage} progress={this.state.progress} />
                 </View>
                 <Text style={styles.text}>Cadastro realizado com sucesso!</Text>
                 <TouchableOpacity style={styles.ok} onPress={() => this.navigateToLogin()}>
                   <Text style={styles.okt}>
                     Ok!
                    </Text>
-                 </TouchableOpacity>
+                </TouchableOpacity>
               </View>
             )
           }
@@ -76,7 +74,7 @@ class ModalCheck extends Component {
             failure && (
               <View style={styles.box}>
                 <View style={styles.lottie}>
-                  <LottieView source={sourceImage} progress={this.state.progress}/>
+                  <LottieView source={sourceImage} progress={this.state.progress} />
                 </View>
                 <Text style={styles.texterro}>Algo deu errado!</Text>
                 <Text style={styles.erro}>{message}</Text>
@@ -84,7 +82,7 @@ class ModalCheck extends Component {
                   <Text style={styles.okterro}>
                     Ok!
                    </Text>
-                 </TouchableOpacity>
+                </TouchableOpacity>
               </View>
             )
           }

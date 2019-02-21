@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View, Text, TouchableOpacity, StatusBar, Image, AsyncStorage } from 'react-native';
+import { View, Text, TouchableOpacity, StatusBar, Image, AsyncStorage } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
 import axios from 'axios';
@@ -12,11 +12,11 @@ const dias = 23;
 class Main extends Component {
 
   navigateToScreen = (route) => () => {
-      const navigateAction = NavigationActions.navigate({
-        routeName: route
-      });
-      this.props.navigation.dispatch(navigateAction);
-    }
+    const navigateAction = NavigationActions.navigate({
+      routeName: route
+    });
+    this.props.navigation.dispatch(navigateAction);
+  }
 
 
   static navigationOptions = {
@@ -31,31 +31,27 @@ class Main extends Component {
   openDrawer = () => {
     const { drawerStatus } = this.state;
 
-    if  (drawerStatus === true) {
-      //this.props.navigation.toggleDrawer();
+    if (drawerStatus === true) {
     }
   }
 
   requestFroms = () => {
     axios.get('http://35.231.239.168/api/pericia/formularios/4')
       .then((resp) => {
-        //console.tron.log(['Requisição', resp.data]);
         AsyncStorage.setItem('@Form', JSON.stringify(resp.data));
       }).catch(err => {
-       // console.tron.log(err);
       });
   }
 
   requestQuerry = () => {
     axios.get('http://35.243.140.44/api/query')
-    .then((resp) => {
-      AsyncStorage.setItem('@Querry', JSON.stringify(resp.data));
-    }).catch(err => {
-      //console.tron.log(err);
-    });
+      .then((resp) => {
+        AsyncStorage.setItem('@Querry', JSON.stringify(resp.data));
+      }).catch(err => {
+      });
   }
 
-  state ={
+  state = {
     drawerStatus: null,
   }
 
@@ -64,24 +60,20 @@ class Main extends Component {
     this.requestQuerry();
     const arrayRef = await AsyncStorage.getItem('teste2');
     const name = await AsyncStorage.getItem('@AppInc:nome');
-        this.setState({
-            nome: name
-        });
-    // console.tron.log(['arrayRef',arrayRef]);
-    //console.tron.log(this.props);
+    this.setState({
+      nome: name
+    });
   }
 
   componentDidMount() {
 
-    //const drawer = this.props.navigation.setParams({ drawer: 'drawer' });
   }
 
-  renderSketch = () => {};
+  renderSketch = () => { };
 
   render() {
     const { navigation } = this.props;
     const { nome } = this.state
-    //console.tron.log(navigation);
     const name = navigation.getParam('nome', 'Nome não cadastrado');
 
     return (
@@ -125,7 +117,7 @@ class Main extends Component {
               </View>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => {}}>
+            <TouchableOpacity onPress={() => { }}>
               <View style={styles.button2}>
                 <Text style={styles.button_text2}>Renovar Token</Text>
               </View>

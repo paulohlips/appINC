@@ -26,10 +26,10 @@ import styles from './styles';
 import { red } from 'ansi-colors';
 import Axios from 'axios';
 
-const labels = ["ID","PIN","Senha"];
+const labels = ["ID", "PIN", "Senha"];
 const customStyles = {
   stepIndicatorSize: 45,
-  currentStepIndicatorSize:45,
+  currentStepIndicatorSize: 45,
   separatorStrokeWidth: 2,
   currentStepStrokeWidth: 3,
   stepStrokeCurrentColor: 'rgb(225, 200, 133)',
@@ -96,21 +96,20 @@ class Login extends Component {
 
   confereID = () => {
     const { inputSave } = this.state;
-    //console.tron.log('Teste ID', inputSave);
     Axios({
       method: 'post',
       url: 'http://35.231.239.168/api/pericia/usuario/cadastro',
       data: { matricula: inputSave },
     })
-    .then((resp) => {
-      if (resp.status === 200) {
-        this.navigateToHash();
-      } else {
-          this.setState({ viewModal: true , messageRequest: resp.data.mensagem });
-      }
-    }).catch(err => {
-      this.setState({ viewModal: true, messageRequest: resp.data.mensagem });
-    });
+      .then((resp) => {
+        if (resp.status === 200) {
+          this.navigateToHash();
+        } else {
+          this.setState({ viewModal: true, messageRequest: resp.data.mensagem });
+        }
+      }).catch(err => {
+        this.setState({ viewModal: true, messageRequest: resp.data.mensagem });
+      });
     AsyncStorage.setItem('@IdRegistro', inputSave);
   }
 
@@ -119,42 +118,42 @@ class Login extends Component {
   }
 
   render() {
-    const { viewModal, messageRequest} = this.state;
+    const { viewModal, messageRequest } = this.state;
     return (
 
       <View style={styles.container}>
-      <StatusBar backgroundColor="rgba(45, 45, 45, 0.8)" />
+        <StatusBar backgroundColor="rgba(45, 45, 45, 0.8)" />
         <View style={styles.mainContainer}>
-        <View style={styles.icon}>
-          <Icon name="fingerprint" size={60} color="#fff" style={styles.icon} />
-        </View>
+          <View style={styles.icon}>
+            <Icon name="fingerprint" size={60} color="#fff" style={styles.icon} />
+          </View>
           <Text style={styles.descript}>Por favor digite seu ID</Text>
-            <View style={styles.forms}>
-              <TextInput
-                  style={styles.input}
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  placeholder="Digite seu ID "
-                  underlineColorAndroid="rgba(0,0,0,0)"
-                  onChangeText={inputSave => this.setState({ inputSave })}
-                  value={this.state.inputSave}
-              />
-              <TouchableOpacity style={styles.testebutton} onPress={() => { this.confereID(); }}>
-                <Text style={styles.buttonText}>
-                  Continuar
+          <View style={styles.forms}>
+            <TextInput
+              style={styles.input}
+              autoCapitalize="none"
+              autoCorrect={false}
+              placeholder="Digite seu ID "
+              underlineColorAndroid="rgba(0,0,0,0)"
+              onChangeText={inputSave => this.setState({ inputSave })}
+              value={this.state.inputSave}
+            />
+            <TouchableOpacity style={styles.testebutton} onPress={() => { this.confereID(); }}>
+              <Text style={styles.buttonText}>
+                Continuar
                 </Text>
-              </TouchableOpacity>
-           </View>
+            </TouchableOpacity>
+          </View>
         </View>
         <HideWithKeyboard>
-        <View style={styles.indicadorContainer}>
-          <StepIndicator
-            customStyles={customStyles}
-            currentPosition={this.state.currentPosition}
-            labels={labels}
-            stepCount={3}
-          />
-        </View>
+          <View style={styles.indicadorContainer}>
+            <StepIndicator
+              customStyles={customStyles}
+              currentPosition={this.state.currentPosition}
+              labels={labels}
+              stepCount={3}
+            />
+          </View>
         </HideWithKeyboard>
         {
           viewModal && (
@@ -169,8 +168,8 @@ class Login extends Component {
       </View>
     );
   }
-  onPageChange(position){
-    this.setState({currentPosition: position});
+  onPageChange(position) {
+    this.setState({ currentPosition: position });
   }
 }
 
