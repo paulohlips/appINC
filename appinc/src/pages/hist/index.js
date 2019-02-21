@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, AsyncStorage, TouchableOpacity, Modal, ScrollView, Linking, BackHandler } from 'react-native';
+import { View, Text, AsyncStorage, TouchableOpacity, Modal, ScrollView, Linking, BackHandler, ActivityIndicator } from 'react-native';
 import { Header } from '../../globalComponents';
 import { NavigationActions, withNavigation, StackActions } from 'react-navigation';
 import styles from './styles';
@@ -19,6 +19,8 @@ class Historico extends Component {
         modalVisible: false,
         form: null,
         idUser: null,
+        loading: true,
+        errorview: false,
     }
 
     componentDidMount() {
@@ -29,7 +31,7 @@ class Historico extends Component {
         const arrayRef = await AsyncStorage.getItem('arrayRef');
         const id = await AsyncStorage.getItem('@AppInc:matricula');
         const array = JSON.parse(arrayRef);
-        this.setState({ arrayRef: array, idUser: id });
+        this.setState({ arrayRef: array, idUser: id , errorview: false });
         this.requestFroms();
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     }
@@ -37,6 +39,13 @@ class Historico extends Component {
     componentWillUnmount() {
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     }
+
+    
+  loading() {
+
+    this.setState({ loading: false });
+  }
+
 
     handleBackButton() {
         return true;
@@ -56,7 +65,9 @@ class Historico extends Component {
             .then((resp) => {
                 const data = JSON.stringify(resp.data);
                 this.setState({ arrayEnviados: resp.data });
+                this.loading();
             }).catch(err => {
+                this.setState({loading: false , errorview: true});
 
             });
     }
@@ -138,6 +149,27 @@ class Historico extends Component {
                             )
                                 : null
                         }
+
+                        {
+                                    this.state.loading && (
+                                        <View style={styles.loading} >
+                                         <ActivityIndicator size="large" color="#fff" />
+                                        </View>
+                                       
+                                    )
+                                    }
+
+                        {
+                                    this.state.errorview && (
+                                        
+                                        <View style={styles.erro} >
+                                             <Text style={styles.errot}>Não foi possível recuperar as perícias enviadas</Text>
+                                        </View>
+                                       
+                                       
+                                    )
+                                    }
+
                         {
                             arrayEnviados ? (
                                 arrayEnviados.map(item => this.renderEnviados(item))
