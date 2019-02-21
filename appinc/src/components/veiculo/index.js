@@ -218,8 +218,8 @@ class Veiculos extends Component {
           </View>
           {
             erroFipeAPI && (
-              <View>
-                <Text style={styles.erro}>API FIPE não response. Tente mais tarde.</Text>
+              <View style={styles.errov}>
+                <Text style={styles.erro}>API FIPE não responde. Tente mais tarde.</Text>
               </View>
             )
           }
