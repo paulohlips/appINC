@@ -144,32 +144,35 @@ class GeoLocation extends Component {
     }
     return (
       <View style={styles.container}>
-        <View>
+      <View>
+      {
+          error && (
+            <View style={styles.errov}>
+                <Text style={styles.erro}>Local não encontrado. Tente ir para um ambiente mais aberto</Text>
+              </View>
+          )
+        }
+
           <View style={styles.cabecalho}>
             <Image source={require('../../assents/imgs/point.png')} style={styles.image} />
             <View style={styles.texto_geo}>
               <Text style={styles.label}>{label}</Text>
             </View>
           </View>
-          <View styles={styles.main}>
-            <TouchableOpacity onPress={this.refresh} style={styles.button}>
-              {
-                load
-                  ? <ActivityIndicator size="small" color="#FFF" />
-                  : <Text style={styles.button_text}>Verificar localização</Text>
-              }
-            </TouchableOpacity>
-          </View>
-          {
-            error && (
-              <View style={styles.input}>
-                <Text style={styles.info_text}>Error: {this.state.error}</Text>
-              </View>
-            )
-          }
-          {
-            view && (
-              <View style={styles.info}>
+        <View styles={styles.main}>
+          <TouchableOpacity onPress={this.refresh} style={styles.button}>
+            {
+              load 
+                ? <ActivityIndicator size="small" color="#FFF" />
+                : <Text style={styles.button_text}>Verificar localização</Text>
+            }            
+          </TouchableOpacity>
+        </View>
+
+        {
+          view && (
+            <View style={styles.info}>
+
                 <View style={styles.input}>
                   <Text style={styles.info_text}>Latitude: {this.state.latitude}</Text>
                 </View>
