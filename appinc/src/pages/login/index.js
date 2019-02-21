@@ -41,10 +41,8 @@ class Login extends Component {
   }
 
   async componentWillMount() {
-      //await AsyncStorage.clear();
-      const id = await AsyncStorage.getItem('@Id');
-      this.setState({ btt: id });
-      //console.tron.log(['Teste btt', this.state.btt]);
+    const id = await AsyncStorage.getItem('@Id');
+    this.setState({ btt: id });
   }
 
   navigateToLogged = () => {
@@ -70,8 +68,7 @@ class Login extends Component {
   }
 
   salvarIdProv = () => {
-    //console.tron.log(this.state.inputSave);
-    AsyncStorage.setItem('@IdProv',this.state.inputSave);
+    AsyncStorage.setItem('@IdProv', this.state.inputSave);
   }
 
   confereCadastro = () => {
@@ -81,18 +78,18 @@ class Login extends Component {
       url: 'http://35.231.239.168/api/pericia/usuario/login',
       data: { matricula: inputSave, pass: password },
     })
-    .then((resp) => {
-      if (resp.status === 200) {
-        this.setState({ nome: resp.data.nome });
-        AsyncStorage.setItem('@AppInc:nome', this.state.nome);
-        this.navigateToLogged();
-        AsyncStorage.setItem('@AppInc:matricula', inputSave);
-      } else {
-        this.setState({ viewModal: true, messageRequest: resp.data.mensagem});
-      }
-    }).catch(err => {
-      this.setState({ viewModal: true });
-    });
+      .then((resp) => {
+        if (resp.status === 200) {
+          this.setState({ nome: resp.data.nome });
+          AsyncStorage.setItem('@AppInc:nome', this.state.nome);
+          this.navigateToLogged();
+          AsyncStorage.setItem('@AppInc:matricula', inputSave);
+        } else {
+          this.setState({ viewModal: true, messageRequest: resp.data.mensagem });
+        }
+      }).catch(err => {
+        this.setState({ viewModal: true });
+      });
   }
 
   onPressAnimated = async () => {
@@ -111,37 +108,37 @@ class Login extends Component {
           <Text style={styles.title}>Bem-Vindo</Text>
           <Text style={styles.descript}>Por favor, digite suas credenciais</Text>
           <View style={styles.forms}>
-              <TextInput
-                style={styles.input}
-                autoCapitalize="none"
-                autoCorrect={false}
-                placeholder="ID"
-                underlineColorAndroid="rgba(0,0,0,0)"
-                onChangeText={inputSave => this.setState({ inputSave })}
-                value={this.state.inputSave}
-                defaultValue={btt}
-              />
-              <TextInput
-                style={styles.input}
-                autoCapitalize="none"
-                autoCorrect={false}
-                placeholder="Senha"
-                underlineColorAndroid="rgba(0,0,0,0)"
-                secureTextEntry={true}
-                onChangeText={password => this.setState({ password })}
-                value={this.state.password}
-              />
-                <TouchableOpacity style={styles.testebutton} onPress={() => { this.confereCadastro();}}>
-                  <Text style={styles.buttonText}>
-                    Entrar
+            <TextInput
+              style={styles.input}
+              autoCapitalize="none"
+              autoCorrect={false}
+              placeholder="ID"
+              underlineColorAndroid="rgba(0,0,0,0)"
+              onChangeText={inputSave => this.setState({ inputSave })}
+              value={this.state.inputSave}
+              defaultValue={btt}
+            />
+            <TextInput
+              style={styles.input}
+              autoCapitalize="none"
+              autoCorrect={false}
+              placeholder="Senha"
+              underlineColorAndroid="rgba(0,0,0,0)"
+              secureTextEntry={true}
+              onChangeText={password => this.setState({ password })}
+              value={this.state.password}
+            />
+            <TouchableOpacity style={styles.testebutton} onPress={() => { this.confereCadastro(); }}>
+              <Text style={styles.buttonText}>
+                Entrar
                   </Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.cadastrobutton} onPress={() => { this.navigateToSignUp(); this.salvarIdProv(); }}>
-                  <Text style={styles.buttonText}>
-                    Cadastrar
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.cadastrobutton} onPress={() => { this.navigateToSignUp(); this.salvarIdProv(); }}>
+              <Text style={styles.buttonText}>
+                Cadastrar
                   </Text>
-                </TouchableOpacity>
-           </View>
+            </TouchableOpacity>
+          </View>
         </View>
         {
           viewModal && (
@@ -153,7 +150,7 @@ class Login extends Component {
             />
           )
         }
-       </ImageBackground>
+      </ImageBackground>
     );
   }
 }
