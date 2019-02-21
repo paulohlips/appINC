@@ -130,14 +130,6 @@ class StepList extends Component {
       this.props.setSaveContentForm(form);
       this.setState({ formRedux: false });
     }
-
-    //console.tron.log(['form', form]);
-    const { navigation } = this.props;
-    //const { steps } = this.props;
-    const { viewError, load , saved } = this.state;
-    //console.tron.log('FORMEEE',form);
-    //const { steps, form_name } = form;
-
     return (
       <View style={styles.container}>
         <Header
@@ -145,10 +137,10 @@ class StepList extends Component {
           showArrow
           showInfo
           info={form.info_form}
-          goBack={this.props.navigation.goBack}
+          goBack={this.saveForm}
         />
         {
-          viewError && (
+          this.state.viewError && (
             <View style={styles.message}>
               <Text style={styles.messageError}>Sem conexão!</Text>
             </View>
@@ -156,7 +148,7 @@ class StepList extends Component {
         }
 
 {
-          saved && (
+          this.state.saved && (
             <View style={styles.saved }>
               <Text style={styles.messagesaved}>Salvo!</Text>
             </View>
