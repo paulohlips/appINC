@@ -31,7 +31,7 @@ class Camera extends React.Component {
     for (var key in form.step) {
       if (key === data.data_name) {
         if (form.step[key].filled === true) {
-          this.setState({ image: form.step[key].data });
+          this.setState({ image: form.step[key].data, imagePath: form.step[key].value.uri });
         }
       }
     }
@@ -129,7 +129,8 @@ class Camera extends React.Component {
       console.log('received image', image);
       this.setState({
         image: { uri: image.path, width: image.width, height: image.height, mime: image.mime },
-        images: null
+        images: null,
+        imagesPath: image.path,
       });
     }).catch(e => {
       console.log(e);
@@ -195,7 +196,7 @@ class Camera extends React.Component {
     const { imageData, imagePath, image } = this.state;
     const { form, getSaveStateForm, startControlArray } = this.props;
 
-    if (imagePath) {
+    if (imagePath || image) {
       for (var key in form.step) {
         if (key === data.data_name) {
           const form = {};
