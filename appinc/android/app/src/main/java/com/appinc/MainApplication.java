@@ -3,6 +3,10 @@ package com.appinc;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import fr.bamlab.rnimageresizer.ImageResizerPackage;
+import com.react.rnspinkit.RNSpinkitPackage;
+import fr.snapp.imagebase64.RNImgToBase64Package;
+import org.reactnative.camera.RNCameraPackage;
 import com.terrylinla.rnsketchcanvas.SketchCanvasPackage;
 
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
@@ -33,9 +37,11 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new SketchCanvasPackage(),
-
-           
+            new ImageResizerPackage(),
+            new RNSpinkitPackage(),
+            new RNImgToBase64Package(),
+            new RNCameraPackage(),
+            new SketchCanvasPackage(),           
             new PickerPackage(),          
             new LottiePackage(),
             new ReactNativeAudioPackage(),
