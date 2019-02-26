@@ -98,7 +98,7 @@ class Login extends Component {
     if (inputSave1 == inputSave2){
       Axios({
         method: 'post',
-        url: 'http://35.231.239.168/api/pericia/usuario/geraSenha',
+        url: 'http://35.198.17.69/api/pericia/usuario/geraSenha',
         data: { matricula: idRegistro, pin: pinRegistro, pass: inputSave2 },
       })
       .then((resp) => {

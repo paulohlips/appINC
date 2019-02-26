@@ -79,7 +79,7 @@ class Veiculos extends Component {
       erroconsulta: false,
       naoexiste: false,
     });
-    axios.get(`http://35.231.239.168/api/pericia/denatran/${  this.state.placa}`)
+    axios.get(`http://35.198.17.69/api/pericia/denatran/${  this.state.placa}`)
       .then((resp) => {
         if (resp.data.placa !== null) {
           const dadossinesp = resp.data;

@@ -57,7 +57,7 @@ class Historico extends Component {
 
         axios({
             method: 'post',
-            url: 'http://35.231.239.168/api/pericia/formulario/recebidos',
+            url: 'http://35.198.17.69/api/pericia/formulario/recebidos',
             data: {
                 matricula: idMatricula,
             }
@@ -96,7 +96,7 @@ class Historico extends Component {
 
     renderEnviados = item => {
         return (
-            <TouchableOpacity style={styles.box} onPress={() => { Linking.openURL('http://35.231.239.168/pericia/links.php?id_pericia=' + item.matricula) }}>
+            <TouchableOpacity style={styles.box} onPress={() => { Linking.openURL('http://35.198.17.69/pericia/links.php?id_pericia=' + item.matricula) }}>
                 <Text style={styles.status1}>{" Minha Perícia" + " - " + item.matricula}</Text>
                 <View style={styles.row}>
                     <Text style={styles.status1}> Status :</Text>

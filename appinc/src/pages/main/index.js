@@ -36,7 +36,7 @@ class Main extends Component {
   }
 
   requestFroms = () => {
-    axios.get('http://35.231.239.168/api/pericia/formularios/4')
+    axios.get('http://35.198.17.69/api/pericia/formularios/4')
       .then((resp) => {
         AsyncStorage.setItem('@Form', JSON.stringify(resp.data));
       }).catch(err => {

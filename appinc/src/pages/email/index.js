@@ -98,7 +98,7 @@ class Login extends Component {
     const { inputSave } = this.state;
     Axios({
       method: 'post',
-      url: 'http://35.231.239.168/api/pericia/usuario/cadastro',
+      url: 'http://35.198.17.69/api/pericia/usuario/cadastro',
       data: { matricula: inputSave },
     })
       .then((resp) => {

@@ -75,7 +75,7 @@ class Login extends Component {
     const { password, inputSave, nome } = this.state;
     axios({
       method: 'post',
-      url: 'http://35.231.239.168/api/pericia/usuario/login',
+      url: 'http://35.198.17.69/api/pericia/usuario/login',
       data: { matricula: inputSave, pass: password },
     })
       .then((resp) => {

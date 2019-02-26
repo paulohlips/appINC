@@ -66,6 +66,12 @@ class StepList extends Component {
     return true;
   }
 
+  saveForm2 = () => {
+    const { reference, saveForm, setSaveContentForm, form } = this.props;
+    saveForm(reference);
+    this.saved();
+  }
+
   resetAsync = () => {
     AsyncStorage.clear();
   }
@@ -100,7 +106,7 @@ class StepList extends Component {
     this.setState({ matriculaAsync: matricula });
     axios({
       method: 'post',
-      url: 'http://35.231.239.168/api/pericia/formulario/envio',
+      url: 'http://35.198.17.69/api/pericia/formulario/envio',
       data: data,
       headers: {
         'Content-Type': 'multipart/form-data',
@@ -166,7 +172,7 @@ class StepList extends Component {
               </Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.salvarbutton} onPress={() => this.saveForm() /*this.saved();*/}>
+            <TouchableOpacity style={styles.salvarbutton} onPress={() => this.saveForm2()}>
               <Text style={styles.buttonTextsalvar}>
                 Salvar
               </Text>
