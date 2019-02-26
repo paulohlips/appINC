@@ -105,7 +105,7 @@ class Login extends Component {
     const { inputSave, idRegistro } = this.state;
     Axios({
       method: 'post',
-      url: 'http://35.231.239.168/api/pericia/usuario/validaPin',
+      url: 'http://35.198.17.69/api/pericia/usuario/validaPin',
       data: { matricula: idRegistro, pin: inputSave },
     })
       .then((resp) => {
