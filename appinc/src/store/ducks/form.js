@@ -48,7 +48,14 @@ export default function formState(state = initialState, action) {
       return { ...state, controlArraySize: status };
     }
     case Types.SAVE_FORM: {
-      saveFormAsync({ ref: action.payload.ref, state: { ...state, formEdit: true } });
+      saveFormAsync({ 
+        ref: action.payload.ref, 
+        state: { 
+          ...state, 
+          formEdit: true, 
+          ref: action.payload.ref 
+        }
+      });
       return state;
     }
     case Types.START_UPDATE_PROGRESS:
