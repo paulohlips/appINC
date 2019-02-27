@@ -2,6 +2,7 @@ import React from 'react';
 //import { Dimensions } from 'react-native';
 import { StackNavigator, createDrawerNavigator } from 'react-navigation';
 import { Menu } from './globalComponents';
+import { responsividade } from './styles';
 //import { colors } from './styles';
 
 import Login from './pages/login';
@@ -47,7 +48,7 @@ const Routes = StackNavigator(
       },
       {
         contentComponent: props => <Menu props={props} />,
-        drawerWidth: 270,
+        drawerWidth: responsividade.LARGURA_MENU,
       }
     ),
     StepList: { screen: StepList },

@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { colors, metrics,responsividade } from '../../styles';
+import { colors, metrics, responsividade } from '../../styles';
 
 const styles = StyleSheet.create({
   container: {
@@ -24,20 +24,18 @@ const styles = StyleSheet.create({
 
   input: {
      backgroundColor: 'white',
-     height: responsividade.ALTURABOX,
+     height: responsividade.ALTURA_INPUT * 1.1,
      borderRadius: 4,
      paddingLeft: 20,
      fontSize: 16,
   },
 
-  hint:{
-
-    fontSize: 14,
+  hint: {
+    fontSize: responsividade.fonts.descriptionSize * 0.9,
     fontWeight: 'bold',
     color: 'black',
     opacity: 0.3,
     paddingVertical: 10,
-
   }
 
 });

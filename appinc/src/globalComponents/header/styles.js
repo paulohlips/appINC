@@ -1,18 +1,14 @@
 import { StyleSheet } from 'react-native';
-import { colors, metric } from '../../styles';
+import { colors, metric, responsividade } from '../../styles';
 
 const styles = StyleSheet.create({
   header: {
     backgroundColor: "#344955",
-    padding: 14,
-    paddingTop: 7,
+    padding: responsividade.padding.mainPadding,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    //borderColor: colors.regular,
-    //borderBottomWidth: 0.4,
-    height: 56,
-    //elevation: 1,
+    height: responsividade.ALTURA_HEADER,
   },
 
   iconMenu: {
@@ -35,7 +31,7 @@ const styles = StyleSheet.create({
 
   headerTitle: {
     color: colors.white,
-    fontSize: 20,
+    fontSize: responsividade.fonts.titleSize,
     fontWeight: 'bold',
     alignSelf: 'center',
   },

@@ -1,11 +1,11 @@
 import { StyleSheet } from 'react-native';
-import { colors, respoonsividade } from '../../styles';
+import { colors, responsividade } from '../../styles';
 
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        width: 270,
+        width: responsividade.LARGURA_MENU,
         backgroundColor: colors.primary,
     },
     profile: {
@@ -16,17 +16,17 @@ const styles = StyleSheet.create({
         borderColor: colors.regular,
         paddingVertical: 30,
         paddingLeft: 15,
-        marginTop: 5,
+        marginTop: responsividade.margin.mainMargin / 2,
     },
     profileImage: {
-        width: 75,
-        height:75,
+        width: responsividade.LARGURA_PHOTO,
+        height: responsividade.LARGURA_PHOTO, 
         borderRadius: 50,
         marginRight: 15,
         elevation: 1
     },
     profileName: {
-        fontSize: 20,
+        fontSize: responsividade.fonts.titleSize,
         fontWeight: 'bold',
         color: colors.white,
     },
@@ -45,14 +45,14 @@ const styles = StyleSheet.create({
         flexDirection:'row',
     },
     textButton: {
-        fontSize: 16,
+        fontSize: responsividade.fonts.descriptionSize,
         fontWeight: 'bold',
         color: colors.white,
     },
     button: {
-        marginTop: 20,
+        marginTop: responsividade.margin.secondMargin * 0.3,
         fontWeight: 'bold',
-        fontSize: 16,
+        fontSize: responsividade.fonts.descriptionSize,
         color: colors.white,
     },
     icon: {

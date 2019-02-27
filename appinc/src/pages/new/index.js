@@ -117,11 +117,11 @@ class New extends Component {
     return (
       <View style={styles.container}>
         <Header
-          title='Nova Pericia'
+          title='Nova Perícia'
           showMenu
           openMenu={navigation.toggleDrawer}
         />
-        <ScrollView>
+        <ScrollView contentContainerStyle={styles.scrollview}>
           {
             viewError && (
               <View style={styles.message}>
