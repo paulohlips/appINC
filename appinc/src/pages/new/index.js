@@ -3,14 +3,17 @@ import {
   View,
   Text,
   Picker,
+  PickerIOS,
   TouchableOpacity,
   ScrollView,
   AsyncStorage,
   TextInput,
   Animated,
-  BackHandler
+  BackHandler,
 } from 'react-native';
 import { StackActions, NavigationActions } from 'react-navigation';
+import ModalSelector from 'react-native-modal-selector';
+import SafeAreaView from 'react-native-safe-area-view';
 import { Header, ModalCheck } from '../../globalComponents';
 import styles from './styles';
 
@@ -18,6 +21,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Creators as NewActions } from '../../store/ducks/new';
 import { Creators as FormActios } from '../../store/ducks/form';
+import Alert from '../../globalComponents/alert';
 
 const imageCheck = require('../../assents/lottie/warning.json');
 
@@ -87,9 +91,10 @@ class New extends Component {
     }
   }
 
-  reqUrl = (value) => {
+  reqUrl = (key) => {
+    alert(key)
     const { getNewRequest } = this.props;
-    getNewRequest(value);
+    getNewRequest(key);
     this.setState({ showRef: true });
     Animated.timing(                  // Animate over time
       this.state.fadeAnim_ref,            // The animated value to drive
@@ -112,7 +117,17 @@ class New extends Component {
       viewError,
       messageRequest,
     } = this.state;
+
+    const data = [
+      { key: 30, label: 'Veiculo', value: 30 },
+      { key: 32, label: 'Incendio' },
+      { key: 33, label: 'Genetica Forense' },
+      { key: 6, label: 'Patrimonio' },
+      { key: 1, label: 'Catalogo de componentes' }
+  ];
+
     const { navigation, newState } = this.props;
+    
 
     return (
       <View style={styles.container}>
@@ -136,21 +151,10 @@ class New extends Component {
               </View>
               <Text style={styles.textType}> Perícia: </Text>
             </View>
-            <View style={styles.Picker}>
-              <Picker
-                style={styles.estiloPicker}
-                onValueChange={(hahaha => { this.setState({ baseUrl: hahaha }); this.reqUrl(hahaha); })}
-                selectedValue={this.state.baseUrl}
-              >
-                <Picker.Item label='Selecione a perícia' />
-                <Picker.Item label='Veículos' value='30' />
-                <Picker.Item label='Incêndio' value='32' />
-                <Picker.Item label='Genética Forense' value='33' />
-                <Picker.Item label='Arrombamento de Caixa' value='6' />
-                <Picker.Item label='Catálogo de Componentes' value='1' />
-              </Picker>
-
-            </View>
+            <ModalSelector
+                    data={data}
+                    initValue="Selecione a perícia"
+                    onChange={(option)=>{ this.setState({baseUrl:option.key}); this.reqUrl(option.key)}} />
           </View>
 
           {

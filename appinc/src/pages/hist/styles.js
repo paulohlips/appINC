@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
 
         height: 20,
         color: '#002F7F',
-        fontFamily: 'Roboto',
+        //fontFamily: '//fontFamily: 'Roboto',',
         fontSize: 16,
         fontWeight: '500',
         lineHeight: 21,
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
 
         height: 20,
         color: 'green',
-        fontFamily: 'Roboto',
+        //fontFamily: '//fontFamily: 'Roboto',',
         fontSize: 16,
         fontWeight: '500',
         lineHeight: 21,
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
       },
       status1: {     
         height: 20,
-        fontFamily: 'Roboto',
+        //fontFamily: '//fontFamily: 'Roboto',',
         fontSize: 16,
         fontWeight: '500',
         lineHeight: 21,
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
       },
 
       errot: {
-        fontFamily: 'Roboto',
+        //fontFamily: '//fontFamily: 'Roboto',',
         //fontWeight: 'bold',
         color: "#B83E3E",
       },

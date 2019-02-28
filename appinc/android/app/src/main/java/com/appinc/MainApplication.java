@@ -3,20 +3,17 @@ package com.appinc;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import fr.bamlab.rnimageresizer.ImageResizerPackage;
-import com.react.rnspinkit.RNSpinkitPackage;
-import fr.snapp.imagebase64.RNImgToBase64Package;
-import org.reactnative.camera.RNCameraPackage;
-import com.terrylinla.rnsketchcanvas.SketchCanvasPackage;
-
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
-import com.airbnb.android.react.lottie.LottiePackage;
-import com.rnim.rn.audio.ReactNativeAudioPackage;
-import com.zmxv.RNSound.RNSoundPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
+import com.react.rnspinkit.RNSpinkitPackage;
+import com.zmxv.RNSound.RNSoundPackage;
+import fr.bamlab.rnimageresizer.ImageResizerPackage;
+import fr.snapp.imagebase64.RNImgToBase64Package;
+import com.RNFetchBlob.RNFetchBlobPackage;
+import org.reactnative.camera.RNCameraPackage;
 import com.spyworldxp.barcodescanner.BarcodeScannerPackage;
-
-
+import com.rnim.rn.audio.ReactNativeAudioPackage;
+import com.terrylinla.rnsketchcanvas.SketchCanvasPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -37,17 +34,17 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new ImageResizerPackage(),
-            new RNSpinkitPackage(),
-            new RNImgToBase64Package(),
-            new RNCameraPackage(),
-            new SketchCanvasPackage(),           
-            new PickerPackage(),          
-            new LottiePackage(),
-            new ReactNativeAudioPackage(),
-            new RNSoundPackage(),
+            new PickerPackage(),
             new VectorIconsPackage(),
-            new BarcodeScannerPackage()
+            new RNSpinkitPackage(),
+            new RNSoundPackage(),
+            new ImageResizerPackage(),
+            new RNImgToBase64Package(),
+            new RNFetchBlobPackage(),
+            new RNCameraPackage(),
+            new BarcodeScannerPackage(),
+            new ReactNativeAudioPackage(),
+            new SketchCanvasPackage()
       );
     }
 

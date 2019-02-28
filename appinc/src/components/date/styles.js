@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     width: responsividade.LARGURABOX,
     height: 22,
     color: '#000000',
-    fontFamily: 'Roboto',
+    ////fontFamily: '//fontFamily: 'Roboto',',
     fontSize: 18,
     fontWeight: '400',
     lineHeight: 21,
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   },
   date: {
     color: '#000000',
-    fontFamily: 'Roboto',
+    ////fontFamily: '//fontFamily: 'Roboto',',
     fontSize: 18,
     fontWeight: '400',
     lineHeight: 21,

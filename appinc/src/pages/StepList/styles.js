@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: 'white',
-    fontFamily: 'Roboto',
+    //fontFamily: '//fontFamily: 'Roboto',',
     fontSize: 18,
     fontWeight: '500',
     lineHeight: 28,
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
 
   buttonTextsalvar: {
     color: 'green',
-    fontFamily: 'Roboto',
+    //fontFamily: '//fontFamily: 'Roboto',',
     fontSize: 18,
     fontWeight: '400',
     lineHeight: 28,

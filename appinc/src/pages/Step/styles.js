@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
 
     buttonText: {
       color: '#ffffff',
-      fontFamily: 'Roboto',
+      //fontFamily: '//fontFamily: 'Roboto',',
       fontSize: 18,
       fontWeight: '500',
       lineHeight: 28,
