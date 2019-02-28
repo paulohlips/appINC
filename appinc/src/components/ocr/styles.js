@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
     input: {
         backgroundColor: 'white',
         height: responsividade.ALTURABOX,
+        width: responsividade.largura_tela * 0.9,
         borderRadius: 4,
         paddingLeft: 20,
         fontSize: 16,
