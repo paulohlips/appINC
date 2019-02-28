@@ -1,6 +1,6 @@
 {
   "googleCloud": {
     "api": "https://vision.googleapis.com/v1/images:annotate?key=",
-    "apiKey": "adicionar_chave_da_API"
+    "apiKey": "AIzaSyBy6skq9zHV-m9VwQRjYmqPo0ktQDoGoFI"
   }
 }

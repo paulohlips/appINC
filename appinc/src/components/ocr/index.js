@@ -1,95 +1,82 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Alert, NativeModules } from 'react-native';
-import Camera from 'react-native-camera';
-import ImageResizer from 'react-native-image-resizer';
-import Spinner from 'react-native-spinkit';
+import {
+    View, Text, StyleSheet, ScrollView, Alert,
+    Image, TouchableOpacity, NativeModules, Dimensions, TextInput, AsyncStorage
+} from 'react-native';
 import config from './config';
 import styles from './styles';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+var ImagePicker = NativeModules.ImageCropPicker;
+import axios from 'axios';
 
 class OCR extends Component {
     state = {
-        loading: false,
-        showApiResponse: false,
+        avatarSource: null,
+        videoSource: null,
+        imagePath: null,
+        image: null,
+        images: null,
+        text: null,
     };
 
-    render() {
-        return (
-            <View style={styles.container}>
-                <Camera
-                    ref={(cam) => {
-                        this.camera = cam;
-                    }}
-                    style={styles.preview}
-                    aspect={Camera.constants.Aspect.fill}
-                    playSoundOnCapture={false}>
-                    <View><Text>{this.state.loading}</Text></View>
-                    {
-                        (!this.state.loading) ?
-                            <Text
-                                style={styles.capture}
-                                onPress={this.takePicture.bind(this)} />
-                            :
-                            <View>
-                                <Spinner
-                                    style={styles.spinner}
-                                    isVisible={true}
-                                    size={70}
-                                    type={'Bounce'}
-                                    color={'white'} />
-                            </View>
 
-                    }
-                </Camera>
-            </View>
-        );
-    }
-
-    takePicture() {
-        if (!this.state.loading) {
+    pickSingleWithCamera(cropping) {
+        ImagePicker.openCamera({
+            cropping: cropping,
+            width: 480,
+            height: 640,
+            includeExif: false,
+            includeBase64: true,
+        }).then(async image => {
+            console.tron.log(image);
             this.setState({
-                loading: true
+                image: { uri: image.path, width: image.width, height: image.height },
+                images: null,
+                imagePath: image.path
             });
-
-            const options = {};
-            this.camera.capture({ metadata: options })
-                .then((data) => {
-
-                    resizeImage(data.path, (resizedImageUri) => {
-                        NativeModules.RNImageToBase64.getBase64String(resizedImageUri, async (err, base64) => {
-                            if (err) {
-                                console.error(err)
-                            }
-                            console.log('converted to base64');
-                            let result = await checkForText(base64);
-
-                            console.log(['API response', result.responses[0].fullTextAnnotation.text]);
-                            Alert.alert(result.responses[0].fullTextAnnotation.text);
-                            this.setState({
-                                loading: false, showApiResponse: true
-                            });
-                        })
-                    })
-                })
-                .catch(err => console.error(err));
-        } else {
-            console.log('NO GO' + this.state.loading)
-        }
+            const responseOcr = await this.checkForText(image.data);
+            await console.tron.log(['teste', responseOcr]);
+            if (responseOcr.responses[0]) {
+                await this.setState({ text: responseOcr.responses[0].fullTextAnnotation.text });
+            }
+        }).catch(err => console.error(err));
     }
-}
 
-// Função responsável por ajustar a imagem em 640x480 (recomendação google)
-function resizeImage(path, callback, width = 640, height = 480) {
-    ImageResizer.createResizedImage(path, width, height, 'JPEG', 80).then((resizedImageUri) => {
-        callback(resizedImageUri);
-    }).catch((err) => {
-        console.error(err)
-    });
-}
+    // Chamada a API do Google Cloud Vision passando a foto no body
+    async checkForText(base64) {
+        console.tron.log(['Vamos enviar para o google! '])
+        const body = JSON.stringify({
+            "requests": [
+                {
+                    "image": {
+                        "content": base64
+                    },
+                    "features": [
+                        {
+                            "type": "DOCUMENT_TEXT_DETECTION"
+                        }
+                    ]
+                }
+            ]
+        });
 
-// Chamada a API do Google Cloud Vision passando a foto no body
-async function checkForText(base64) {
-    return await
-        fetch(config.googleCloud.api + config.googleCloud.apiKey, {
+        /*
+        const responseAxios = await axios.post(config.googleCloud.api + config.googleCloud.apiKey, body);
+        await console.tron.log(['axios@@@', responseAxios]);
+
+
+         axios({
+            method: 'post',
+            url: config.googleCloud.api + config.googleCloud.apiKey,
+            body,
+        })
+            .then((resp) => {
+                console.tron.log(['teste no axios', resp]);
+            }).catch(err => {
+                console.tron.log(['teste err no axios', err]);
+            }); */
+
+        return await fetch(config.googleCloud.api + config.googleCloud.apiKey, {
             method: 'POST',
             body: JSON.stringify({
                 "requests": [
@@ -105,13 +92,45 @@ async function checkForText(base64) {
                     }
                 ]
             })
-        }).then((response) => {
+        }).then(response => {
             return response.json();
-        }, (err) => {
-            console.error('promise rejected')
-            console.error(err)
-        });
+            console.tron.log('Chegou a resposta!', response)
+            this.showResult(response);
+        }).catch(err => console.tron.log(['err', err]));
+        await console.tron.log(['ferrou', response])
+    }
+
+    showResult = (result) => {
+        console.tron.log(['result', result]);
+        console.tron.log(['API response', result.responses[0].fullTextAnnotation.text]);
+        Alert.alert(result.responses[0].fullTextAnnotation.text);
+    }
+
+
+    render() {
+        const { text } = this.state;
+        return (
+            <View style={styles.container}>
+
+                <TouchableOpacity onPress={() => this.pickSingleWithCamera(true)}>
+                    <View style={styles.avatarContainer}>
+                        <View style={styles.avatarContainer2}><Icon name="add-a-photo" size={30} style={styles.icon} />
+                            <View style={styles.text_foto}>
+                                <Text style={styles.text}>Tirar uma foto</Text>
+                            </View>
+                        </View>
+                    </View>
+                </TouchableOpacity>
+                {
+                    text && (
+                        <View style={styles.input}>
+                            <Text style={styles.info_text}>{this.state.text} </Text>
+                        </View>
+                    )
+                }
+            </View>
+        );
+    }
 }
 
 export default OCR;
-

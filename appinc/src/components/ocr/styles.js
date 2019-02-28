@@ -5,11 +5,29 @@ import { bold } from 'ansi-colors';
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        width: responsividade.largura_tela,
-        padding: 20,
-        paddingBottom: 40,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 10,
         borderBottomWidth: 0.5,
         borderBottomColor: 'black',
+        paddingBottom: 40,
+    },
+
+    avatarContainer: {
+        width: responsividade.LARGURAFOTO,
+        height: responsividade.ALTURAFOTO,
+        flexDirection: 'row',
+        backgroundColor: "white",
+        padding: 15,
+        margin: 10,
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
+    avatarContainer2: {
+        flexDirection: 'row',
+        backgroundColor: "white",
     },
     Name: {
         width: responsividade.LARGURABOX,
@@ -28,6 +46,7 @@ const styles = StyleSheet.create({
         borderRadius: 4,
         paddingLeft: 20,
         fontSize: 16,
+        flexDirection: 'row',
     },
     button: {
         backgroundColor: "#B83E3E",
@@ -69,7 +88,14 @@ const styles = StyleSheet.create({
         fontSize: 18,
         //fontWeight: '400',
         lineHeight: 21,
-    }
+    },
+    info_text: {
+        fontSize: 15,
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: "black",
+        opacity: 0.5,
+    },
 
 });
 
