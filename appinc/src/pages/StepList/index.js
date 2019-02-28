@@ -20,6 +20,8 @@ import axios from 'axios';
 
 import { bindActionCreators } from 'redux';
 import { Creators as FormAction } from '../../store/ducks/form';
+import { Creators as HistActions } from '../../store/ducks/hist';
+
 
 class StepList extends Component {
   state = {
@@ -91,11 +93,29 @@ class StepList extends Component {
 
   enviaForm = async () => {
     const { matriculaAsync } = this.state;
+    const { reference, formulario, setUpdateHistory } = this.props;
 
     const matriculaProv = await AsyncStorage.getItem('@AppInc:matricula');
     const matricula = JSON.stringify(matriculaProv);
+    
+    const arrayRef = await AsyncStorage.getItem("arrayRef");
+    const array = JSON.parse(arrayRef);
 
-    const { formulario, sendForm } = this.props;
+    let count = 0;
+
+    console.tron.log(['teste', array, formulario.ref]);
+    array.map(item => {
+      console.tron.log(item);      
+      if (item === formulario.ref) {
+        console.tron.log(['deu bom', item, reference]);
+        array.splice(count, 1);
+      }
+      count += 1;
+    });
+
+    console.tron.log(['remove array', array]);
+    await AsyncStorage.setItem('arrayRef', JSON.stringify(array));
+    
     const data = new FormData();
     data.append('form_name', formulario.form.form_name);
 
@@ -103,6 +123,7 @@ class StepList extends Component {
       data.append(formulario.step[key].key, formulario.step[key].value)
     }
 
+    setUpdateHistory();
     this.setState({ matriculaAsync: matricula });
     axios({
       method: 'post',
@@ -112,7 +133,7 @@ class StepList extends Component {
         'Content-Type': 'multipart/form-data',
         'Accept': 'application/json',
         'matricula': matricula,
-
+        'referencia': formulario.ref,
       }
     })
       .then(function (response) {
@@ -190,7 +211,11 @@ const mapStateToProps = state => ({
   formulario: state.formState,
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators(FormAction, dispatch);
+const mapDispatchToProps = dispatch => 
+  bindActionCreators({ 
+    ...FormAction, 
+    ...HistActions,
+  }, dispatch);
 
 StepList.navigationOptions = {
   title: 'Perícia',
