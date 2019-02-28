@@ -10,6 +10,8 @@ import {
 } from 'react-native';
 
 import styles from './styles';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import { responsividade } from '../../styles';
 
 import RNSketchCanvas from '@terrylinla/react-native-sketch-canvas';
 
@@ -31,12 +33,14 @@ export default class Sketch extends Component {
 
   render() {
     const { showScanner, showButton } = this.state;
+    const  { largura_tela } = responsividade;
     return (
       <View style={{justifyContent: 'center', alignItem: 'center'}}>
       {
         showButton && (
           <TouchableOpacity onPress={() => this.setState({ showScanner: true, showButton: false })} style={styles.button}>
-            <Text style={styles.button_text}>Fazer Croqui</Text>
+          <View style={styles.square}><Icon name="create" size={largura_tela< 430 ? 28 : 40} color="black" style={styles.icon} /></View>
+          <View style={styles.parale}><Text style={styles.button_text}>FAZER CROQUI</Text></View>    
           </TouchableOpacity>
         )}
 {

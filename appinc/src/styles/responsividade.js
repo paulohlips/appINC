@@ -70,6 +70,7 @@ export const fonts = {
     titleSize: largura_tela < 430 ? 20 : 24,
     descriptionSize: largura_tela < 430 ? 16 : 20,
     nameSize: largura_tela < 430 ? 18 : 22,
+    errorSize: largura_tela < 430 ? 14 : 18,
 };
 
 export const margin = {
@@ -78,6 +79,6 @@ export const margin = {
 };
 
 export const padding = {
-    mainPadding: largura_tela < 430 ? 10 : 25,
+    mainPadding: largura_tela < 430 ? 10 : 20,
     secondPadding: largura_tela < 430 ? 100 : 110,
 };

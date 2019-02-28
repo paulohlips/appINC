@@ -122,6 +122,13 @@ const styles = StyleSheet.create({
     color: "#344955",
   },
 
+  icon:{
+    padding: 10,
+    borderRadius: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+ },
+
 
 });
 

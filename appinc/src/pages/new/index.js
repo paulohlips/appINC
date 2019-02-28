@@ -179,7 +179,7 @@ class New extends Component {
             newState.showButton && (
               <TouchableOpacity style={styles.button} onPress={() => this.onPressButton()}>
                 <Text style={styles.buttonText}>
-                  Continuar
+                  CONTINUAR
               </Text>
               </TouchableOpacity>
             )

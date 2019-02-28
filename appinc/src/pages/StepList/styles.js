@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     backgroundColor: 'green',
     marginBottom: responsividade.margin.mainMargin,
+    elevation: 1,
   },
 
   enviarbutton: {
@@ -59,10 +60,11 @@ const styles = StyleSheet.create({
     height: responsividade.ALTURA_BUTTON,
     borderRadius: responsividade.BORDER_RADIUS_BUTTON,
     backgroundColor: '#F9AA33',
+    elevation: 1,
 
   },
   buttonText: {
-    color: 'white',
+    color: 'black',
     fontFamily: 'Roboto',
     fontSize: responsividade.fonts.nameSize,
     fontWeight: '400',

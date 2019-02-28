@@ -102,12 +102,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: responsividade.BORDER_RADIUS_BUTTON,
+    elevation: 1,
   },
 
   buttonText: {
-    color: 'white',
-    fontWeight: 'bold',
+    color: 'black',
     fontSize: responsividade.fonts.nameSize,
+    //fontWeight: 'bold',
   },
   input: {
     backgroundColor: colors.transparent,
