@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, StatusBar, Image, AsyncStorage } from 'react-native';
+import SafeAreaView from 'react-native-safe-area-view';
 import Icon from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
 import axios from 'axios';
@@ -78,6 +79,7 @@ class Main extends Component {
 
     return (
       <View style={styles.container}>
+        <SafeAreaView>
         <Header
           showMenu
           showExit
@@ -124,6 +126,7 @@ class Main extends Component {
             </TouchableOpacity>
           </View>
         </View>
+        </SafeAreaView>
       </View>
     );
   }

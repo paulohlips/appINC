@@ -9,9 +9,10 @@ import {
   Alert,
   ActivityIndicator,
   Animated,
-  BackHandler
+  BackHandler,
 } from 'react-native';
 import styles from './styles';
+import SafeAreaView from 'react-native-safe-area-view';
 import StepBox from './components/StepBox';
 import { Load } from '../../components';
 import { Header } from '../../globalComponents';
@@ -136,6 +137,7 @@ class StepList extends Component {
 
     return (
       <View style={styles.container}>
+      <SafeAreaView >
         <Header
           title={form.area}
           showArrow
@@ -143,6 +145,7 @@ class StepList extends Component {
           info={form.info_form}
           goBack={this.saveForm}
         />
+      
         {
           viewError && (
             <View style={styles.message}>
@@ -179,6 +182,7 @@ class StepList extends Component {
             </TouchableOpacity>
           </View>
         </ScrollView>
+        </SafeAreaView>
       </View>
     );
   }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import SafeAreaView from 'react-native-safe-area-view';
 // redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -38,6 +39,7 @@ class StepPage extends Component {
 
     return (
       <View style={styles.container}>
+      <SafeAreaView>
       <Header 
         title={this.props.navigation.state.params.step.step_name} 
         showArrow
@@ -61,6 +63,7 @@ class StepPage extends Component {
           </View>
         ) }
         </ScrollView>
+        </SafeAreaView>
       </View>
     );
   }

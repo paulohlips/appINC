@@ -12,8 +12,8 @@ import {
   BackHandler,
 } from 'react-native';
 import { StackActions, NavigationActions } from 'react-navigation';
-import ModalSelector from 'react-native-modal-selector';
 import SafeAreaView from 'react-native-safe-area-view';
+import ModalSelector from 'react-native-modal-selector';
 import { Header, ModalCheck } from '../../globalComponents';
 import styles from './styles';
 
@@ -92,7 +92,6 @@ class New extends Component {
   }
 
   reqUrl = (key) => {
-    alert(key)
     const { getNewRequest } = this.props;
     getNewRequest(key);
     this.setState({ showRef: true });
@@ -131,11 +130,12 @@ class New extends Component {
 
     return (
       <View style={styles.container}>
+      <SafeAreaView>
         <Header
           title='Nova Pericia'
           showMenu
           openMenu={navigation.toggleDrawer}
-        />
+        />      
         <ScrollView>
           {
             viewError && (
@@ -200,8 +200,8 @@ class New extends Component {
             )
           }
         </ScrollView>
+        </SafeAreaView>
       </View>
-
     );
   }
 }

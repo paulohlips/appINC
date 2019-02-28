@@ -1,5 +1,6 @@
 
 import React, { Component } from 'react';
+import * as Progress from 'react-native-progress';
 //redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -119,7 +120,7 @@ class StepBoxComponent extends Component {
           </View>
 
           <View style={styles.bar}>
-            <ProgressBarAndroid
+            <Progress.Bar
               styleAttr="Horizontal"
               indeterminate={false}
               progress={progress}

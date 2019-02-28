@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, AsyncStorage, TouchableOpacity, Modal, ScrollView, Linking, BackHandler, ActivityIndicator } from 'react-native';
 import { Header } from '../../globalComponents';
+import SafeAreaView from 'react-native-safe-area-view';
 import { NavigationActions, withNavigation, StackActions } from 'react-navigation';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -111,6 +112,7 @@ class Historico extends Component {
         const { navigation } = this.props;
         return (
             <View style={styles.container}>
+                <SafeAreaView>
                 <Header
                     showMenu
                     showClear
@@ -178,6 +180,7 @@ class Historico extends Component {
                         }
                     </ScrollView>
                 </View>
+                </SafeAreaView>
             </View>
         );
     }
