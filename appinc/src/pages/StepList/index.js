@@ -97,25 +97,21 @@ class StepList extends Component {
 
     const matriculaProv = await AsyncStorage.getItem('@AppInc:matricula');
     const matricula = JSON.stringify(matriculaProv);
-    
+
     const arrayRef = await AsyncStorage.getItem("arrayRef");
     const array = JSON.parse(arrayRef);
 
     let count = 0;
 
-    console.tron.log(['teste', array, formulario.ref]);
     array.map(item => {
-      console.tron.log(item);      
       if (item === formulario.ref) {
-        console.tron.log(['deu bom', item, reference]);
         array.splice(count, 1);
       }
       count += 1;
     });
 
-    console.tron.log(['remove array', array]);
     await AsyncStorage.setItem('arrayRef', JSON.stringify(array));
-    
+
     const data = new FormData();
     data.append('form_name', formulario.form.form_name);
 
@@ -172,7 +168,7 @@ class StepList extends Component {
           )
         }
 
-{
+        {
           saved && (
             <View style={styles.saved}>
               <Text style={styles.messagesaved}>Salvo!</Text>
@@ -189,13 +185,13 @@ class StepList extends Component {
             <TouchableOpacity style={styles.enviarbutton} onPress={() => this.enviaForm()}>
 
               <Text style={styles.buttonText}>
-                ENVIAR
+                Enviar
               </Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.salvarbutton} onPress={() => this.saveForm2()}>
               <Text style={styles.buttonTextsalvar}>
-                SALVAR
+                Salvar
               </Text>
             </TouchableOpacity>
           </View>
@@ -211,9 +207,9 @@ const mapStateToProps = state => ({
   formulario: state.formState,
 });
 
-const mapDispatchToProps = dispatch => 
-  bindActionCreators({ 
-    ...FormAction, 
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({
+    ...FormAction,
     ...HistActions,
   }, dispatch);
 

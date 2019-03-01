@@ -73,36 +73,13 @@ class Historico extends Component {
       const data = JSON.stringify(resp.data);
       if (resp.status === 206) {
         this.setState({ loading: false, errorview: true });
-        console.tron.log(['resp', resp]);
       } else {
         this.setState({ loading: false, arrayEnviados: resp.data });
-        console.tron.log(['resp', resp]);
       }
            
     }).catch(err => {
       this.setState({ loading: false, errorview: true });
     });
-
-
-    /* axios({
-      method: "post",
-      url: "http://35.231.239.168/api/pericia/formulario/recebidos",
-      data: {
-        matricula: idMatricula
-      }
-    })
-      .then(resp => {
-        const data = JSON.stringify(resp.data);
-        console.tron.log(['resp', resp]);
-        if (resp.status === 206) {
-
-        }
-        
-      })
-      .catch(err => {
-        this.setState({ loading: false, errorview: true });
-      }); */
-  };
 
   restoreForm = async name => {
     const { navigation, restoreFormState, setForm } = this.props;
@@ -157,7 +134,6 @@ class Historico extends Component {
   render() {
     const { arrayRef, modalVisible, form, arrayEnviados, callFuction } = this.state;
     const { navigation, hist, resetUpdateHistory } = this.props;
-        console.tron.log(['testes arrays', arrayRef, arrayEnviados]);
     if (hist.updateHistory && callFuction) {
       this.setState({ callFuction: false });
       resetUpdateHistory();
