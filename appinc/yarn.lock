@@ -4900,6 +4900,11 @@ react-native-tab-view@~0.0.78:
   dependencies:
     prop-types "^15.6.0"
 
+react-native-ultra-picker-ios@^0.1.8:
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/react-native-ultra-picker-ios/-/react-native-ultra-picker-ios-0.1.8.tgz#2e19a23162f85d2616d990b31878feba27d6aae1"
+  integrity sha512-Ullk2mlfND/a0pjeaysUNkTEbPvZH1JTlXfmtdoE+3CMAFrt/pkakAjHs+uVTYHvzG1BAENzNk383txNbaiRxA==
+
 react-native-vector-icons@^6.0.2:
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/react-native-vector-icons/-/react-native-vector-icons-6.0.2.tgz#826252a72d648cf957d46ada8df890318dac53e1"

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableOpacity, AsyncStorage, Image, ScrollView, Picker, ActivityIndicator } from 'react-native';
+import ModalSelector from 'react-native-modal-selector';
 import styles from './styles';
 import axios from 'axios';
 
@@ -107,7 +108,7 @@ class Veiculos extends Component {
       //consultafipe: false
       loadingfipe: true,
     });
-    const urlFipe = `http://fipeapi.appspot.com/api/1/${  this.state.tipo  }/veiculo/${  this.state.marca  }/${  this.state.modelo  }/${  this.state.anos  }.json`;
+    const urlFipe = `https://fipeapi.appspot.com/api/1/${  this.state.tipo  }/veiculo/${  this.state.marca  }/${  this.state.modelo  }/${  this.state.anos  }.json`;
     axios.get(urlFipe)
       .then(async resp => {
         if (resp.status === 200) {
@@ -121,9 +122,10 @@ class Veiculos extends Component {
       });
   }
 
-  consultaMarcas = (value) => {
-    this.setState({ tipo: value });
-    axios.get(`http://fipeapi.appspot.com/api/1/${  value  }/marcas.json`)
+  consultaMarcas = (key) => {
+    this.setState({ tipo: key });
+    console.tron.log('teste', key);
+    axios.get(`https://fipeapi.appspot.com/api/1/${  key  }/marcas.json`)
       .then((resp) => {
         if (resp.status === 200) {
           this.getMarcas(resp.data);
@@ -145,7 +147,7 @@ class Veiculos extends Component {
 
   pegaModelos = (value) => {
     this.setState({ marca: value });
-    axios.get(`http://fipeapi.appspot.com/api/1/${  this.state.tipo  }/veiculos/${  value  }.json`)
+    axios.get(`https://fipeapi.appspot.com/api/1/${  this.state.tipo  }/veiculos/${  value  }.json`)
       .then((resp) => {
         if (resp.status === 200) {
           this.getModelos(resp.data);
@@ -165,7 +167,7 @@ class Veiculos extends Component {
 
   pegaAno = value => {
     this.setState({ modelo: value });
-    axios.get(`http://fipeapi.appspot.com/api/1/${  this.state.tipo  }/veiculo/${  this.state.marca  }/${  value  }.json`)
+    axios.get(`https://fipeapi.appspot.com/api/1/${  this.state.tipo  }/veiculo/${  this.state.marca  }/${  value  }.json`)
       .then((resp) => {
         if (resp.status === 200) {
           this.getAno(resp.data);
@@ -247,6 +249,12 @@ class Veiculos extends Component {
       loadingfipe
     } = this.state;
 
+    const data = [
+      { key: 'carro', label: 'Carro' },
+      { key: 'motos', label: 'Moto' },
+      { key: 'caminhao', label: 'Caminhao ou Microonibus' },
+    ];
+
     const  { largura_tela } = responsividade;
 
 
@@ -273,17 +281,10 @@ class Veiculos extends Component {
             )
           }
           <View style={styles.Picker}>
-            <Picker
-              style={styles.estiloPicker}
-              onValueChange={(tipo => this.setState({ tipo }), this.consultaMarcas)}
-              selectedValue={this.state.tipo}
-              collapsable
-            >
-              <Picker.Item label='Tipo do veículo' />
-              <Picker.Item label='Carro' value='carro' />
-              <Picker.Item label='Moto' value='motos' />
-              <Picker.Item label='Caminhão ou Microônibus' value='caminhao' />
-            </Picker>
+          <ModalSelector
+                    data={data}
+                    initValue="Selecione o veiculo"
+                    onChange={(option)=>{ this.setState({tipo:option.key}); this.consultaMarcas(option.key)}} />
           </View>
           {
             renderPicker && (
@@ -292,7 +293,6 @@ class Veiculos extends Component {
                   style={styles.estiloPicker}
                   onValueChange={(marca => this.setState({ marca }), this.pegaModelos)}
                   selectedValue={this.state.marca}
-                  collapsable
                 >
                   <Picker.Item label='Fabricante' />
                   {

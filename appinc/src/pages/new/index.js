@@ -12,8 +12,13 @@ import {
   BackHandler,
 } from 'react-native';
 import { StackActions, NavigationActions } from 'react-navigation';
-import SafeAreaView from 'react-native-safe-area-view';
-import ModalSelector from 'react-native-modal-selector';
+import { 
+  UltraPickerIOS, 
+  UltraPickerIOSCloseBar, 
+  Group,
+  Item
+ } from "react-native-ultra-picker-ios";
+ import ModalSelector from 'react-native-modal-selector';
 import { Header, ModalCheck } from '../../globalComponents';
 import styles from './styles';
 
