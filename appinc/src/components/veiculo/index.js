@@ -379,7 +379,7 @@ class Veiculos extends Component {
            
            <View style={styles.button}><View style={styles.square}>
          { loadingfipe
-           ? <ActivityIndicator size="small" color="#FFF" />
+           ? <ActivityIndicator size={largura_tela< 430 ? "small" : "large"} color="#FFF" />
            : <Icon name="ios-car" size={largura_tela< 430 ? 28 : 40} color="black" style={styles.icon}/>
 
          }
@@ -433,7 +433,7 @@ class Veiculos extends Component {
            
            <View style={styles.button}><View style={styles.square}>
          { loading
-           ? <ActivityIndicator size="small" color="#FFF" />
+           ? <ActivityIndicator size={largura_tela< 430 ? "small" : "large"} color="#FFF" />
            : <Icon name="ios-car" size={largura_tela< 430 ? 28 : 40} color="black" style={styles.icon}/>
 
          }

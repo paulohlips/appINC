@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     profileImage: {
         width: responsividade.LARGURA_PHOTO,
         height: responsividade.LARGURA_PHOTO, 
-        borderRadius: 50,
+        borderRadius: 100,
         marginRight: 15,
         elevation: 1
     },

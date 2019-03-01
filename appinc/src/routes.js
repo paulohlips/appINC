@@ -34,7 +34,8 @@ const Routes = StackNavigator(
   {
     Login: { screen: Main
      },
-    Main: { screen: Main },
+    Main: { screen: Login
+     },
     SignUp: { screen: Singup },
     Hash: { screen: Hash },
     Password: { screen: Password },

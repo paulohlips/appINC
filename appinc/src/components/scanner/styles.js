@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     //color: 'white',
     color: "#344955",
     fontSize: responsividade.fonts.descriptionSize,
-    fontWeight: 'bold',
+    //fontWeight: 'bold',
     marginLeft: 5,
 
   },
