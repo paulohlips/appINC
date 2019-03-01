@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.light2,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#784657',
+    //backgroundColor: '#784657',
   },
   icon: {
     color: colors.white,
@@ -36,12 +36,13 @@ const styles = StyleSheet.create({
   },
   forms: {
     marginTop: 30,
-    width: responsividade.WIDTH_SECOND,
+    width: responsividade.WIDTH_MAIN,
+
   },
   forms1: {
     marginTop: 60,
-    width: responsividade.WIDTH_SECOND,
-    backgroundColor: '#784687',
+    width: responsividade.WIDTH_MAIN,
+    //backgroundColor: '#784687',
  },
 
   forms2: {

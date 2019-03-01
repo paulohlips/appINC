@@ -149,7 +149,6 @@ class New extends Component {
                 <Picker.Item label='Arrombamento de Caixa' value='6' />
                 <Picker.Item label='Catálogo de Componentes' value='1' />
               </Picker>
-
             </View>
           </View>
 

@@ -49,7 +49,7 @@ export const ALTURA_INPUT = largura_tela < 430 ? 50 : 60;
 export const BORDER_RADIUS_INPUT = 4;
 
 //Width MainView padrao
-export const WIDTH_MAIN = largura_tela < 430 ? largura_tela * 0.7 : largura_tela * 0.85;
+export const WIDTH_MAIN = largura_tela < 430 ? largura_tela * 0.9 : largura_tela * 0.85;
 export const WIDTH_SECOND = largura_tela < 430 ? largura_tela : largura_tela * 0.85;
 //Header padrão
 export const LARGURA_HEADER = largura_tela < 430 ? largura_tela * 0.9 : largura_tela * 0.75;
@@ -68,7 +68,7 @@ export const ALTURACARD = largura_tela < 430 ? largura_tela*0.40 : largura_tela 
 
 export const fonts = {
     titleSize: largura_tela < 430 ? 20 : 24,
-    descriptionSize: largura_tela < 430 ? 16 : 20,
+    descriptionSize: largura_tela < 430 ? 15 : 20,
     nameSize: largura_tela < 430 ? 18 : 22,
     errorSize: largura_tela < 430 ? 14 : 18,
 };
