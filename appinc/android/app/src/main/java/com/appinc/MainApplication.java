@@ -3,6 +3,8 @@ package com.appinc;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.RNFetchBlob.RNFetchBlobPackage;
+import com.terrylinla.rnsketchcanvas.SketchCanvasPackage;
 import fr.bamlab.rnimageresizer.ImageResizerPackage;
 import com.react.rnspinkit.RNSpinkitPackage;
 import fr.snapp.imagebase64.RNImgToBase64Package;
@@ -37,6 +39,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNFetchBlobPackage(),
+            new SketchCanvasPackage(),
             new ImageResizerPackage(),
             new RNSpinkitPackage(),
             new RNImgToBase64Package(),

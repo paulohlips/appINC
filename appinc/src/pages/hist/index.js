@@ -60,14 +60,14 @@ class Historico extends Component {
     return true;
   }
 
-  requestFroms = async() => {    
+  requestFroms = async () => {
     const arrayRef = await AsyncStorage.getItem('arrayRef');
     const id = await AsyncStorage.getItem("@AppInc:matricula");
     const array = JSON.parse(arrayRef);
     this.setState({ arrayRef: array, idUser: id, errorview: false });
     const idMatricula = this.state.idUser;
 
-    api.post('/pericia/formulario/recebidos', {     
+    api.post('/pericia/formulario/recebidos', {
       matricula: idMatricula
     }).then(resp => {
       const data = JSON.stringify(resp.data);
@@ -76,11 +76,11 @@ class Historico extends Component {
       } else {
         this.setState({ loading: false, arrayEnviados: resp.data });
       }
-           
+
     }).catch(err => {
       this.setState({ loading: false, errorview: true });
     });
-
+  }
   restoreForm = async name => {
     const { navigation, restoreFormState, setForm } = this.props;
     const formAsync = await AsyncStorage.getItem(name);
@@ -129,7 +129,7 @@ class Historico extends Component {
         </View>
       </TouchableOpacity>
     );
-  };
+  }
 
   render() {
     const { arrayRef, modalVisible, form, arrayEnviados, callFuction } = this.state;
@@ -188,9 +188,9 @@ class Historico extends Component {
             )}
 
             {
-              arrayEnviados 
-              ? arrayEnviados.map(item => this.renderEnviados(item))
-              : null}
+              arrayEnviados
+                ? arrayEnviados.map(item => this.renderEnviados(item))
+                : null}
           </ScrollView>
         </View>
       </View>
