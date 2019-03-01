@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { View, Alert, Text, TouchableOpacity } from 'react-native';
-import BarcodeScanner from 'react-native-barcode-scanner-google';
+//import BarcodeScanner from 'react-native-barcode-scanner-google';
 import styles from './styles';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Creators as FormActions } from '../../store/ducks/form';
+
+import QRCodeScanner from 'react-native-qrcode-scanner';
 
 class Scanner extends Component {
 
@@ -59,6 +61,12 @@ class Scanner extends Component {
     startControlArray();
   }
 
+  onSuccess(e) {
+    Linking
+      .openURL(e.data)
+      .catch(err => console.error('An error occured', err));
+  }
+
   render() {
     const { data_name, label, hint, default_value, newState } = this.props.data;
     const { showScanner, showButton, showButton2 } = this.state;
@@ -80,13 +88,18 @@ class Scanner extends Component {
         {
           showScanner && (
             <View style={{ alignItems: 'center', height: 250 }}>
-              <BarcodeScanner
-                style={{ width: 330, height: 250, rigth: 50 }}
-                onBarcodeRead={({ data }) => {
-                  this.setState({ data }); //Guarda o valor de todos os códigos lidos.
-                  this.setState({ showScanner: false, showButton2: true, showCode: true });
-
-                }}
+              <QRCodeScanner
+                onRead={this.onSuccess.bind(this)}
+                topContent={
+                  <Text style={styles.centerText}>
+                    Go to <Text style={styles.textBold}>wikipedia.org/wiki/QR_code</Text> on your computer and scan the QR code.
+                  </Text>
+                }
+                bottomContent={
+                <TouchableOpacity style={styles.buttonTouchable}>
+                   <Text style={styles.buttonText}>OK. Got it!</Text>
+                </TouchableOpacity>
+                }
               />
             </View>
 

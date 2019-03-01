@@ -8,13 +8,13 @@ const ComponentList = (props) => (
   <View style={styles.container}>
     <ScrollView>
 
-      {
+      {/*
         props.data.component_type === 'ocr' && (
           <View style={styles.component}>
             <OCR data={props.data} />
           </View>
         )
-      }
+        */}
       {
         props.data.component_type === 'scanner' && (
           <View style={styles.component}>
