@@ -54,9 +54,7 @@ class StepPage extends Component {
                 <Text style={styles.numberType}>{i + 1}</Text>
               </View>
               <Text style={styles.textType}> {item.label}: </Text>
-            </View>
-            <View style={styles.container}>
-            </View>
+            </View>            
             <ComponentList data={item}/>
           </View>
         ) }

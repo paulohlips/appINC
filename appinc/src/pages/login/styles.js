@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { colors, metrics } from '../../styles';
+import { colors, metrics, responsividade } from '../../styles';
 
 const styles = StyleSheet.create({
 
@@ -25,13 +25,13 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    fontSize: 34,
+    fontSize: responsividade.largura_tela < 430 ? 34 : 45,
     fontWeight: 'bold',
     color: colors.white,
   },
 
   descript: {
-    fontSize: 15,
+    fontSize: responsividade.largura_tela < 430 ? 15 : 20,
     color: colors.lighter,
     marginBottom: metrics.baseMargin,
     marginTop: metrics.baseMargin / 2,
@@ -39,10 +39,10 @@ const styles = StyleSheet.create({
 
   input: {
      backgroundColor: 'rgba(255, 255, 255, 0.6)',
-     borderRadius: 25,
+     borderRadius: 40,
      marginTop: metrics.baseMargin * 2,
-     height: 50,
-     width: 270,
+     height: responsividade.largura_tela < 430 ? 50 : 60,
+     width: responsividade.largura_tela < 430 ? responsividade.largura_tela * 0.7 : responsividade.largura_tela * 0.55,
      paddingHorizontal: metrics.basePadding,
 
    },
@@ -51,8 +51,9 @@ const styles = StyleSheet.create({
      backgroundColor: 'rgba(41, 42, 41, 0.65)',
      borderWidth: 2,
      borderColor: 'rgb(225, 200, 133)',
-     borderRadius: 25,
-     height: 50,
+     borderRadius: 40,
+     height: responsividade.largura_tela < 430 ? 50 : 60,
+     width: responsividade.largura_tela < 430 ? responsividade.largura_tela * 0.7 : responsividade.largura_tela * 0.55,
      marginTop: metrics.baseMargin,
      paddingHorizontal: metrics.basePadding,
      justifyContent: 'center',
@@ -72,7 +73,7 @@ const styles = StyleSheet.create({
    buttonText: {
      color: 'rgb(225, 200, 133)',
      fontWeight: 'bold',
-     fontSize: 16,
+     fontSize: responsividade.largura_tela < 430 ? 16 : 20,
    },
 
    estiloPicker: {

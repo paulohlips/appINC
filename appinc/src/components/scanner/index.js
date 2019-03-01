@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import { View, Alert, Text, TouchableOpacity } from 'react-native';
 import BarcodeScanner from 'react-native-barcode-scanner-google';
 import styles from './styles';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Creators as FormActions } from '../../store/ducks/form';
+import { responsividade } from '../../styles';
 
 class Scanner extends Component {
 
@@ -63,6 +65,7 @@ class Scanner extends Component {
     const { data_name, label, hint, default_value, newState } = this.props.data;
     const { showScanner, showButton, showButton2 } = this.state;
     const { saveStep, step } = this.props.form;
+    const  { largura_tela } = responsividade;
 
     if (saveStep) {
       this.saveFormScanner({ data_name, default_value });
@@ -73,7 +76,8 @@ class Scanner extends Component {
         {
           showButton && (
             <TouchableOpacity onPress={() => this.setState({ showScanner: true, showButton: false })} style={styles.button}>
-              <Text style={styles.button_text}>Escanear código</Text>
+              <View style={styles.square}><Icon name="qrcode" size={largura_tela< 430 ? 28 : 40} color="black" style={styles.icon} /></View>
+              <View style={styles.parale}><Text style={styles.button_text}>ESCANEAR CÓDIGO</Text></View>  
             </TouchableOpacity>
           )}
 

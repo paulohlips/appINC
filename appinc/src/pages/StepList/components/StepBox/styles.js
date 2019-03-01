@@ -3,14 +3,13 @@ import { colors, metrics, responsividade } from '../../../../styles';
 
 const styles = StyleSheet.create({
   container: {
-
-    flexDirection: 'row',
+    alignItems: 'center',   
     justifyContent: 'space-between',
     width: responsividade.LARGURACARD,
     height: responsividade.ALTURACARD,
     backgroundColor: "white",
     borderRadius: 4,
-    marginTop: 8,
+    marginTop: responsividade.margin.mainMargin / 2,
   },
   viewicon: {
     justifyContent: 'center',
@@ -18,20 +17,19 @@ const styles = StyleSheet.create({
     //backgroundColor: '#111111',
   },
   titulo: {
-    width: 200,
-    height: 20,
+    width: responsividade.WIDTH_MAIN * 0.7,
     color: '#000000',
     fontFamily: 'Roboto',
-    fontSize: 18,
+    fontSize: responsividade.fonts.nameSize,
     fontWeight: '500',
     lineHeight: 21,
   },
   descricao: {
-    width: 216,
-    height: 49,
+    width: responsividade.WIDTH_MAIN * 0.7,
     color: '#000000',
+    opacity: 0.7,
     fontFamily: 'Roboto',
-    fontSize: 16,
+    fontSize: responsividade.fonts.descriptionSize,
     lineHeight: 19,
   },
   icon: {
@@ -39,20 +37,19 @@ const styles = StyleSheet.create({
   },
 
   card_titulo:{
-    marginTop: 8,
-    marginLeft: 10,
+    marginTop: responsividade.margin.mainMargin,
+    marginLeft: responsividade.margin.mainMargin * 0.3,
   },
 
   card_descricao:{
-    marginTop: 10,
-    marginLeft: 10,
+    marginTop: responsividade.margin.mainMargin * 0.4,
+    marginLeft: responsividade.margin.mainMargin * 0.3,
   },
 
-  bar:{
-    width: (responsividade.LARGURACARD * 0.9),
-    marginHorizontal: 10,
+  bar: {
+    width: responsividade.LARGURACARD * 0.95,   
     padding: 10,
-
+    marginTop: responsividade.margin.mainMargin,
   },
 
 });

@@ -7,6 +7,7 @@ import {
 import styles from './styles';
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { responsividade } from '../../styles';
 
 var ImagePicker = NativeModules.ImageCropPicker;
 
@@ -181,7 +182,7 @@ class Camera extends React.Component {
   }
 
   renderImage(image) {
-    return <Image style={{ width: 300, height: 300, resizeMode: 'contain' }} source={image} />
+    return <Image resizeMode="contain" style={styles.avatar} source={image} />
   }
 
   renderAsset(image) {
@@ -219,6 +220,7 @@ class Camera extends React.Component {
   render() {
     const { data_name, label, hint, default_value, newState } = this.props.data;
     const { saveStep } = this.props.form;
+    const  { largura_tela } = responsividade;
 
     if (saveStep) {
       this.saveFormInput({ data_name, default_value });
@@ -230,27 +232,29 @@ class Camera extends React.Component {
           {this.state.image ? this.renderAsset(this.state.image) : null}
           {this.state.images ? this.state.images.map(i => <View key={i.uri}>{this.renderAsset(i)}</View>) : null}
         </ScrollView>
-
-        <TouchableOpacity onPress={() => this.pickSingleWithCamera(true)}>
-          <View style={styles.avatarContainer}>
-            <View style={styles.avatarContainer2}><Icon name="add-a-photo" size={30} style={styles.icon} />
-              <View style={styles.text_foto}>
-                <Text style={styles.text}>Tirar uma foto</Text>
+        <View style={styles.buttonsView}>
+          <TouchableOpacity onPress={() => this.pickSingleWithCamera(true)}>
+            <View style={styles.avatarContainer}>
+              <View style={styles.avatarContainer2}>
+                <Icon name="add-a-photo" color = "black" size={largura_tela< 430 ? 20 : 30} style={styles.icon} />
+                <View style={styles.text_foto}>
+                  <Text style={styles.text1}>Tirar foto</Text>
+                </View>
               </View>
             </View>
-          </View>
-        </TouchableOpacity>
+          </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => this.pickSingle(false)} style={styles.button}>
-          <View style={styles.avatarContainer}>
-            <View style={styles.avatarContainer2}><Icon name="photo-library" size={30} style={styles.icon} />
-              <View style={styles.text_foto}>
-                <Text style={styles.text}>Selecionar da galeria</Text>
+          <TouchableOpacity onPress={() => this.pickSingle(false)} style={styles.button}>
+            <View style={styles.avatarContainer1}>
+              <View style={styles.avatarContainer2}>
+                <Icon name="photo-library" color = "white" size={largura_tela< 430 ? 20 : 30} style={styles.icon} />
+                <View style={styles.text_foto}>
+                  <Text style={styles.text}>Abrir galeria</Text>
+                </View>
               </View>
             </View>
-          </View>
-        </TouchableOpacity>
-
+          </TouchableOpacity>
+        </View>
         <View style={styles.containerText}>
           <TextInput
             style={styles.input}

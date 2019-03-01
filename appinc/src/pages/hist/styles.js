@@ -4,9 +4,12 @@ const styles = StyleSheet.create({
     container: { 
         flex: 1,   
         paddingBottom: 60, 
+        
     },
     main: {
-        padding: 10,     
+        padding: 10,   
+        justifyContent: 'center',
+        alignItems: 'center',  
     },
     card: {
         marginHorizontal: 20,
@@ -20,11 +23,11 @@ const styles = StyleSheet.create({
         backgroundColor: colors.white,
     },
     title: {
-        fontSize: 16,
+        fontSize: responsividade.fonts.nameSize,
         color: colors.darker,
     },
     name: {
-        fontSize: 18,
+        fontSize: responsividade.fonts.descriptionSize,
         fontWeight: 'bold',
         color: colors.black
     },
@@ -47,6 +50,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderRadius: 5,
         margin: 5,
+        width: responsividade.LARGURACARD,
+        height: responsividade.ALTURACARD,
         // justifyContent: "flex-start",
         // alignItems: "center",
         padding: 20,
@@ -62,11 +67,11 @@ const styles = StyleSheet.create({
         height: 20,
         color: '#002F7F',
         fontFamily: 'Roboto',
-        fontSize: 16,
+        fontSize:  responsividade.fonts.descriptionSize,
         fontWeight: '500',
         lineHeight: 21,
         opacity: 0.6,
-        marginTop: 3,
+        marginTop: responsividade.margin.mainMargin
     
       },
       statusEnviado:{
@@ -74,21 +79,21 @@ const styles = StyleSheet.create({
         height: 20,
         color: 'green',
         fontFamily: 'Roboto',
-        fontSize: 16,
+        fontSize: responsividade.fonts.descriptionSize,
         fontWeight: '500',
         lineHeight: 21,
         opacity: 0.6,
-        marginTop: 3,
+        marginTop: responsividade.margin.mainMargin,
     
       },
       status1: {     
         height: 20,
         fontFamily: 'Roboto',
-        fontSize: 16,
+        fontSize:  responsividade.fonts.nameSize,
         fontWeight: '500',
         lineHeight: 21,
         // opacity: 0.6,
-        marginTop: 3,
+        marginTop: responsividade.margin.mainMargin,
     
       },    
       row: {

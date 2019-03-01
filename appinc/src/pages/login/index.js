@@ -17,6 +17,7 @@ import {
 
 import LottieView from 'lottie-react-native';
 import axios from 'axios';
+import { responsividade } from '../../styles';
 
 import styles from './styles';
 

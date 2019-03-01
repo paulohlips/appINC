@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import DatePicker from 'react-native-datepicker';
-import { View, Image, Text, TouchableOpacity, AsyncStorage } from 'react-native';
-
+import { View, Image, Text, TouchableOpacity, AsyncStorage, NativeModules } from 'react-native';
 import styles from './styles';
 
 import { connect } from 'react-redux';
@@ -9,12 +8,17 @@ import { bindActionCreators } from 'redux';
 import { Creators as FormActions } from '../../store/ducks/form';
 import moment from 'moment';
 
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import { responsividade } from '../../styles';
+
+// var DatePicker = NativeModules.DatePicker;
+
 
 class MyDatePicker extends Component {
 
   state = {
     date: null,
-    formattedDate: null,
+    formattedDate: "DD/MM/AAAA",
     dataAtual: '2019-01-21',
     showDate: false,
     call: true,
@@ -73,6 +77,7 @@ class MyDatePicker extends Component {
     const { data_name, label, hint, default_value, newState } = this.props.data
     const { saveStep } = this.props.form;
     const { showDate } = this.state;
+    const  { largura_tela } = responsividade;
 
     if (saveStep) {
       this.saveFormInput({ data_name, default_value });
@@ -80,48 +85,52 @@ class MyDatePicker extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.titulo}>{label}:</Text>
-        <View style={styles.direcao}>
-          <DatePicker
-            style={styles.dataPicker}
-            mode="date"
-            placeholder="Calendário"
-            format="YYYY-MM-DD"
-            minDate="2018-01-01"
-            maxDate="2100-01-01"
-            confirmBtnText="Confirm"
-            cancelBtnText="Cancel"
-            onDateChange={(date) => { this.props.submitDATE({ date }); this.setState({ date, call: true }); }}
-            customStyles={{
-              dateIcon: {
-                position: 'relative',
-                width: 0,
-                height: 0,
-              },
-              dateInput: {
-                height: 320,
-                width: 55,
-                borderWidth: 0,
-                borderRadius: 10,
-                backgroundColor: 'transparent',
-              },
-            }}
-            onDateChange={(date) => { this.setState({ date, showDate: true, call: true }); this.getDate(); }}
+        
+         
+          <View style={styles.button}>
+            <View style={styles.square}><Icon name="date-range" size={largura_tela< 430 ? 28 : 40} color="black" style={styles.icon} /></View>
+            <View style={styles.parale}>
+            <DatePicker
+              mode="date"
+              placeholder={this.state.formattedDate}
+              format="YYYY-MM-DD"
+              minDate="2018-01-01"
+              maxDate="2100-01-01"
+              confirmBtnText="Confirm"
+              cancelBtnText="Cancel"
+              onDateChange={(date) => { this.props.submitDATE({ date }); this.setState({ date, call: true }); }}
+              customStyles={{
+                dateIcon: {                  
+                  width: 0,
+                  height: 0,
+                },
+                dateInput: {
+                  //height: 320,
+                  //width: 300,
+                  borderWidth: 0,
+                  borderRadius: 60,
+                  backgroundColor: 'white',
+                },
+              }}
+              onDateChange={(date) => { this.setState({ date, showDate: true, call: true }); this.getDate(); }}
+            />
+                    
 
-          />
-
+            </View>
+            
+        </View>  
           {
             this.state.date && (
 
-              <View style={styles.datecontainer}>
-                {this.getNewDate()}
-                <Text style={styles.date}>{this.state.formattedDate}</Text>
-              </View>
+             
+                this.getNewDate()
+               
 
             )
           }
+          
 
         </View>
-      </View>
     );
   }
 }

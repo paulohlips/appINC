@@ -20,50 +20,87 @@ const styles = StyleSheet.create({
     backgroundColor: colors.transparent,
     color: '#000000',
     fontFamily: 'Roboto',
-    fontSize: 18,
+    fontSize: responsividade.fonts.nameSize,
     fontWeight: '400',
     lineHeight: 21,
   },
 
   input: {
     backgroundColor: 'white',
-    height: responsividade.ALTURABOX,
-    width: responsividade.LARGURABOX,
+    height: responsividade.ALTURA_INPUT,
+    width: responsividade.LARGURA_INPUT,
     margin: 5,
-    borderRadius: 4,
+    borderRadius: responsividade.BORDER_RADIUS_INPUT,
     paddingLeft: 20,
-    fontSize: 16,
+    fontSize: responsividade.fonts.descriptionSize,
   },
 
   input_o: {
     backgroundColor: 'white',
     height: responsividade.ALTURABOX,
     width: responsividade.LARGURABOX,
-    margin: 5,
+    margin: responsividade.margin.mainMargin / 2,
     borderRadius: 4,
     paddingLeft: 20,
-    fontSize: 16,
+    fontSize: responsividade.fonts.descriptionSize,
     justifyContent: 'center',
     alignItems: 'flex-start',
   }
   ,
+  square: {
+    backgroundColor: "#FAAB1A",
+    height: responsividade.ALTURA_BUTTON,
+    width: responsividade.LARGURA_INPUT * 0.3,    
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 60,
+
+
+  },
+
+  parale: {
+    backgroundColor: "transparent",
+    height: responsividade.ALTURA_BUTTON,
+    width: responsividade.LARGURA_INPUT * 0.7,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 60,
+  },
   button: {
-    backgroundColor: "#B83E3E",
-    borderRadius: 50,
-    height: responsividade.ALTURAFORM,
-    width: responsividade.LARGURAFORM,
+    //backgroundColor: "#344955",
+    //backgroundColor: "#FAAB1A",
+    backgroundColor: 'white',
+    elevation: 1,
+    //borderRadius: 50,
+    borderRadius: 60,
+    height: responsividade.ALTURA_BUTTON,
+    width: responsividade.LARGURA_INPUT,    
     margin: 10,
     paddingHorizontal: metrics.basePadding,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 10,
+    flexDirection: 'row',
+    elevation: 1,
+  },
+ picker:{
+  width: 10
+ },
+  button_text:{
+
+    //color: 'black',
+    //color: 'white',
+    color: "#344955",
+    fontSize: responsividade.fonts.descriptionSize,
+    fontWeight: 'bold',
+    marginLeft: 5,
+
   },
   info: {
     alignItems: 'center',
     justifyContent: 'center',
   },
   info_text: {
-    fontSize: 15,
+    fontSize: responsividade.fonts.descriptionSize,
     alignItems: 'center',
     justifyContent: 'center',
     color: "black",
@@ -76,12 +113,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'blue'
   },
 
-  button_text: {
-    color: 'white',
-    fontSize: 15,
-    fontWeight: 'bold'
-  },
-
   main:
   {
     justifyContent: 'center',
@@ -90,12 +121,12 @@ const styles = StyleSheet.create({
 
   Picker: {
     backgroundColor: 'white',
-    height: responsividade.ALTURABOX,
-    width: responsividade.LARGURABOX,
-    margin: 5,
-    borderRadius: 4,
+    height: responsividade.ALTURA_INPUT,
+    width: responsividade.LARGURA_INPUT,
+    margin: responsividade.margin.mainMargin / 2,
+    borderRadius: responsividade.BORDER_RADIUS_INPUT,
     paddingLeft: 20,
-    fontSize: 16,
+    fontSize: responsividade.fonts.descriptionSize,
 
   },
 
@@ -110,19 +141,19 @@ const styles = StyleSheet.create({
   },
 
   hintview: {
-    margin: 10,
-    marginTop: 20,
+    margin: responsividade.margin.mainMargin,
+    marginTop: responsividade.margin.mainMargin,
   },
 
   hint: {
-    fontSize: 14,
+    fontSize: responsividade.fonts.descriptionSize,
     fontWeight: 'bold',
   },
 
   numberType: {
     alignItems: 'center',
     justifyContent: 'center',
-    fontSize: 13,
+    fontSize: responsividade.fonts.descriptionSize,
     color: 'black',
     fontWeight: 'bold',
   },
@@ -134,32 +165,33 @@ const styles = StyleSheet.create({
     width: responsividade.LARGURABOLA * 0.73,
     height: responsividade.LARGURABOLA * 0.73,
     backgroundColor: '#F9AA33',
-    marginLeft: 20
+    marginLeft: responsividade.largura_tela < 430 ? 20 : 0,
   },
 
 
   hint_title: {
     alignItems: 'center',
     flexDirection: 'row',
-
+    height: responsividade.ALTURA_INPUT,
+    width: responsividade.LARGURA_INPUT,
+    justifyContent: 'flex-start',    
   },
 
   erro: {
-    color: "#B83E3E",
-    fontSize: 'bold',
-    fontSize: 14,
-    margin: 10,
+    color: '#B83E3E',
+    fontSize: responsividade.fonts.errorSize,
+    margin: responsividade.margin.mainMargin,
   },
 
   errov: {
-    height: responsividade.ALTURABOX * 0.4,
-    width: responsividade.LARGURABOX,
+    height: responsividade.ALTURA_INPUT,
+    width: responsividade.LARGURA_INPUT,
     borderRadius: 4,
     //paddingLeft: 20,
     fontSize: 16,
     justifyContent: 'center',
     alignItems: 'flex-start',
-    marginBottom: 5,
+    marginBottom: responsividade.margin.mainMargin / 2,
 
   }
 
