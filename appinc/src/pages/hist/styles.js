@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         margin: 5,
         width: responsividade.LARGURACARD,
-        height: responsividade.ALTURACARD,
+        height: responsividade.ALTURACARD * 0.7,
         // justifyContent: "flex-start",
         // alignItems: "center",
         padding: 20,

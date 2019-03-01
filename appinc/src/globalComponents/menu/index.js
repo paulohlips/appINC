@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import styles from './style';
 import { responsividade } from '../../styles';
 
-const pathImage = '../../assents/imgs/perfil.png';
+const pathImage = '../../assents/imgs/avatar.png';
 class Menu extends Component {
     state= {
         nome: '',

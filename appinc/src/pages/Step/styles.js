@@ -32,6 +32,9 @@ const styles = StyleSheet.create({
       fontSize: responsividade.fonts.descriptionSize,
       color: 'black',
       fontWeight: 'bold',
+      width: responsividade.LARGURABOLA * 0.8,
+      textAlign: 'center',
+      // backgroundColor: '#8484'
     },
     ball: {
       alignItems: 'center',
@@ -53,12 +56,10 @@ const styles = StyleSheet.create({
     },
 
     coluna:{
-
       flexDirection: 'column',
-
     },
 
-    linha:{
+    linha: {
       flexDirection: 'row',
       alignItems: 'center',
     // distância entre componentes
