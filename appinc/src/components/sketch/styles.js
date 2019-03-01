@@ -21,25 +21,52 @@ const styles = StyleSheet.create({
      paddingLeft: 20,
      fontSize: 16,
   },
+
+  square: {
+    backgroundColor: "#FAAB1A",
+    height: responsividade.ALTURA_BUTTON,
+    width: responsividade.LARGURA_INPUT * 0.3,    
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 60,
+
+
+  },
+
+  parale: {
+    backgroundColor: "transparent",
+    height: responsividade.ALTURA_BUTTON,
+    width: responsividade.LARGURA_INPUT * 0.7,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 60,
+  },
   button: {
-    backgroundColor: "#B83E3E",
-    borderRadius: 50,
-    height: responsividade.ALTURAFORM,
-    width: responsividade.LARGURAFORM,
+    //backgroundColor: "#344955",
+    //backgroundColor: "#FAAB1A",
+    backgroundColor: 'white',
+    elevation: 1,
+    //borderRadius: 50,
+    borderRadius: 60,
+    height: responsividade.ALTURA_BUTTON,
+    width: responsividade.LARGURA_INPUT,    
     margin: 10,
     paddingHorizontal: metrics.basePadding,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
+    elevation: 1,
   },
  picker:{
   width: 10
  },
   button_text:{
 
-    color: 'white',
-    fontSize: 15,
-    fontWeight: 'bold',
+    //color: 'black',
+    //color: 'white',
+    color: "#344955",
+    fontSize: responsividade.fonts.descriptionSize,
+    //fontWeight: 'bold',
     marginLeft: 5,
 
   },

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, StatusBar, Image, AsyncStorage } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import SafeAreaView from 'react-native-safe-area-view';
-import Icon from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
 import axios from 'axios';
 import { Header } from '../../globalComponents';
 import { Sketch } from '../../components';
+import { responsividade } from '../../styles';
 
 import { NavigationActions, withNavigation } from 'react-navigation';
 
@@ -72,10 +73,12 @@ class Main extends Component {
 
   renderSketch = () => { };
 
+
   render() {
     const { navigation } = this.props;
     const { nome } = this.state
     const name = navigation.getParam('nome', 'Nome não cadastrado');
+    const  { largura_tela } = responsividade;
 
     return (
       <View style={styles.container}>
@@ -99,7 +102,7 @@ class Main extends Component {
 
           <View style={styles.info}>
             <View style={styles.profile}>
-              <Image source={require('../../assents/imgs/perfil.png')} style={styles.ImageStyle} />
+              <Image source={require('../../assents/imgs/avatar.png')} style={styles.ImageStyle} />
             </View>
 
 
@@ -107,21 +110,27 @@ class Main extends Component {
               <Text style={styles.name}>{nome}</Text>
             </View>
 
+            <View style={styles.buttons_view}>
+
             <TouchableOpacity onPress={this.navigateToScreen('NewMenu')}>
               <View style={styles.button}>
-                <Text style={styles.button_text}>Nova Perícia</Text>
+                <Text style={styles.button_text}> NOVA PERÍCIA</Text>
               </View>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={this.navigateToScreen('Hist')}>
-              <View style={styles.button}>
-                <Text style={styles.button_text}>Minhas Perícias</Text>
+              <View style={styles.button3}>
+                <Text style={styles.button_text}>MINHAS PERÍCIAS</Text>
               </View>
             </TouchableOpacity>
 
+
+            </View>
+
+
             <TouchableOpacity onPress={() => { }}>
               <View style={styles.button2}>
-                <Text style={styles.button_text2}>Renovar Token</Text>
+                <Text style={styles.button_text2}>RENOVAR TOKEN</Text>
               </View>
             </TouchableOpacity>
           </View>

@@ -13,6 +13,8 @@ import styles from './styles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Creators as FormActions } from '../../store/ducks/form';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { responsividade } from '../../styles';
 
 
 class GeoLocation extends Component {
@@ -142,6 +144,7 @@ class GeoLocation extends Component {
     if (saveStep) {
       this.saveFormGeoloc({ data_name, default_value });
     }
+    const  { largura_tela } = responsividade;
     return (
       <View style={styles.container}>
       <View>
@@ -152,27 +155,25 @@ class GeoLocation extends Component {
               </View>
           )
         }
-
-          <View style={styles.cabecalho}>
-            <Image source={require('../../assents/imgs/point.png')} style={styles.image} />
-            <View style={styles.texto_geo}>
-              <Text style={styles.label}>{label}</Text>
-            </View>
-          </View>
-        <View styles={styles.main}>
           <TouchableOpacity onPress={this.refresh} style={styles.button}>
-            {
-              load 
-                ? <ActivityIndicator size="small" color="#FFF" />
-                : <Text style={styles.button_text}>Verificar localização</Text>
-            }            
+           
+                  <View style={styles.button}><View style={styles.square}>
+                { load
+                  ? <ActivityIndicator size="small" color="#FFF" />
+                  : <Icon name="ios-pin" size={largura_tela< 430 ? 28 : 40} color="black" style={styles.icon}/>
+
+                }
+                   
+                    </View>
+
+                    <View style={styles.parale}><Text style={styles.button_text}>VERIFICAR LOCALIZAÇÃO</Text></View></View>
+           
           </TouchableOpacity>
-        </View>
+    
 
         {
           view && (
             <View style={styles.info}>
-
                 <View style={styles.input}>
                   <Text style={styles.info_text}>Latitude: {this.state.latitude}</Text>
                 </View>

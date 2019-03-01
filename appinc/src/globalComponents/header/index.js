@@ -9,6 +9,7 @@ import Alert from '../alert';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Creators as FormActions } from '../../store/ducks/form';
+import { responsividade } from '../../styles';
 
 class HeaderRedux extends Component {
   state ={
@@ -53,6 +54,7 @@ class HeaderRedux extends Component {
       saveStepState,
     } = this.props;
     const { showModalInfo, showAlert } = this.state;
+    const { largura_tela } = responsividade;
 
     return (
       <View style={styles.header}>
@@ -62,7 +64,7 @@ class HeaderRedux extends Component {
             {
               showMenu && (
                 <TouchableOpacity onPress={() => openMenu()}>
-                  <Icon name="md-menu" size={28} style={styles.iconMenu} />
+                  <Icon name="md-menu" size={ largura_tela < 430 ? 28 : 40 } style={styles.iconMenu} />
                 </TouchableOpacity>
               )
             }
@@ -76,7 +78,7 @@ class HeaderRedux extends Component {
                     goBack();
                   }}
                 >
-                  <Icon name="md-arrow-back" size={28} style={styles.iconMenu} />
+                  <Icon name="md-arrow-back" size={ largura_tela < 430 ? 28 : 40 } style={styles.iconMenu} />
                 </TouchableOpacity>
               )
             }

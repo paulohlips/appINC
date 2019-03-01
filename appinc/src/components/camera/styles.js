@@ -8,9 +8,9 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       // marginBottom: 20,
       // backgroundColor: 'pink',
-    //   borderWidth: 2,
-    //   borderColor: 'white',
-    //   borderRadius: 10,
+      // borderWidth: 2,
+      // borderColor: 'white',
+      // borderRadius: 10,
       padding: 10,
       borderBottomWidth: 0.5,
       borderBottomColor: 'black',
@@ -19,14 +19,26 @@ const styles = StyleSheet.create({
      },
 
     avatarContainer: {
-      width: responsividade.LARGURAFOTO,
-      height: responsividade.ALTURAFOTO,
+      width: responsividade.LARGURA_INPUT * 0.48,
+      height: responsividade.ALTURA_BUTTON,      
       flexDirection: 'row',
       // margin: 10,
-      backgroundColor: "white",
+      backgroundColor:"#FAAB1A",
       padding: 15,
       // distância entre foto e título do input text
-      margin: 10,
+      borderRadius: 10,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+
+    avatarContainer1: {
+      width: responsividade.LARGURA_INPUT * 0.48,
+      height: responsividade.ALTURA_BUTTON,      
+      flexDirection: 'row',
+      // margin: 10,
+      backgroundColor: "#344955",
+      padding: 15,
+      // distância entre foto e título do input text
       borderRadius: 10,
       justifyContent: 'center',
       alignItems: 'center',
@@ -34,7 +46,7 @@ const styles = StyleSheet.create({
 
     avatarContainer2: {
       flexDirection: 'row',
-      backgroundColor: "white",
+      //backgroundColor: "white",
     },
 
     txt: {
@@ -50,17 +62,24 @@ const styles = StyleSheet.create({
 
     },
 
+    text1: {
+      color: 'black',
+      fontSize: 18,
+      fontWeight: '200',
+    },
+
     text: {
-      color: colors.dark,
+      color: 'white',
       fontSize: 18,
       fontWeight: '200',
     },
 
 
+
     //input text
     containerText: {
       flex: 1,
-      width: responsividade.LARGURAFOTO,
+      width: responsividade.LARGURA_INPUT,
       //alignItems: 'center',
       //justifyContent: 'center',
     },
@@ -73,19 +92,28 @@ const styles = StyleSheet.create({
        fontSize: 18,
        fontWeight: '400',
        lineHeight: 21,
-     }
-,
+    },
+
     input: {
       backgroundColor: 'white',
-      height: responsividade.ALTURABOX,
-      borderRadius: 4,
+      height: responsividade.ALTURA_INPUT,
+      width: responsividade.LARGURA_INPUT,
+      borderRadius: responsividade.BORDER_RADIUS_INPUT,
       paddingLeft: 20,
       fontSize: 16,
     },
 
-    avatar:{
-      width:responsividade.LARGURAFOTO,
-      
+    avatar: {
+      width: responsividade.LARGURA_BUTTON,
+      height: responsividade.LARGURA_BUTTON,
+    },
+
+    buttonsView: {
+      width: responsividade.LARGURA_INPUT,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',      
+      margin: responsividade.margin.mainMargin,
     }
   });
 

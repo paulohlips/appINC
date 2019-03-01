@@ -11,6 +11,7 @@ import { View, Text, TouchableOpacity, ProgressBarAndroid } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { responsividade } from '../../../../styles';
 
 
 class StepBoxComponent extends Component {

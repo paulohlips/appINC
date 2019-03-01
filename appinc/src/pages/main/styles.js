@@ -10,20 +10,19 @@ const styles = StyleSheet.create({
   bodyS: {
     justifyContent: 'center',
     alignItems: 'center',
-      backgroundColor: "#344955"
+    backgroundColor: "#344955"
     //paddingHorizontal: 21,
   },
   halfBody: {
-    height: 170,
-    width: 360,
+    height: responsividade.largura_tela < 430 ? 170 : 200,
     //justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: "#344955"
   },
   tokenView: {
     marginTop: 25,
-    width: 320,
-    height: 55,
+    width: responsividade.largura_tela < 430 ? responsividade.largura_tela * 0.7 : responsividade.largura_tela * 0.55,
+    height: responsividade.largura_tela < 430 ? 55 : 70,
     borderRadius: 50,
     backgroundColor: "rgba(0, 0, 0, 0.3)",
     alignItems: 'center',
@@ -57,14 +56,18 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     margin: metrics.baseMargin,
     elevation: 1,
+    width: responsividade.largura_tela < 430 ? 100 : 300,
+    height:  responsividade.largura_tela < 430 ? 150 : 300,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   ImageStyle: {
-    width: 150,
-    height: 150,
+    width: responsividade.largura_tela < 430 ? 150 : 250,
+    height:  responsividade.largura_tela < 430 ? 150 : 250,
     borderColor: 'white',
     borderWidth: 3,
-    borderRadius: 100,
+    borderRadius:  responsividade.largura_tela < 430 ? 100 : 300,
   },
 
   name_view:{
@@ -85,8 +88,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: metrics.baseMargin,
-    width: responsividade.LARGURABUTTON,
-    height: responsividade.ALTURABUTTON,
+    width: responsividade.largura_tela < 430 ? responsividade.LARGURABUTTON :  responsividade.LARGURABUTTON * 0.55,
+    height: responsividade.largura_tela < 430 ? responsividade.ALTURABUTTON : responsividade.largura_tela * 0.11,
     borderRadius: 200,
     backgroundColor: "#F9AA33",
   },
@@ -95,13 +98,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: metrics.baseMargin,
-    width: responsividade.LARGURABUTTON,
-    height: responsividade.ALTURABUTTON,
+    width: responsividade.largura_tela < 430 ? responsividade.LARGURABUTTON :  responsividade.LARGURABUTTON * 0.55,
+    height: responsividade.largura_tela < 430 ? responsividade.ALTURABUTTON : responsividade.largura_tela * 0.11,
     borderRadius: 200,
     backgroundColor: "#344955",
-    borderColor: "#F9AA33",
-    borderWidth: 0,
+  },
 
+  button3: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: metrics.baseMargin,
+    width: responsividade.largura_tela < 430 ? responsividade.LARGURABUTTON :  responsividade.LARGURABUTTON * 0.55,
+    height: responsividade.largura_tela < 430 ? responsividade.ALTURABUTTON : responsividade.largura_tela * 0.11,
+    borderRadius: 200,
+    backgroundColor: "#F9AA33",
   },
 
   button_text2: {
@@ -121,6 +131,22 @@ const styles = StyleSheet.create({
     letterSpacing: 0,
     color: "#344955",
   },
+
+  icon:{
+    padding: 10,
+    borderRadius: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+ },
+
+ buttons_view: {
+   flexDirection: "row",
+   alignItems: "flex-end",
+   //width: responsividade.largura_tela < 430 ? responsividade.LARGURABUTTON : 700,
+   justifyContent: "space-between",
+
+
+ },
 
 
 });
