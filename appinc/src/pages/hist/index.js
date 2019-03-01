@@ -44,7 +44,6 @@ class Historico extends Component {
   }
 
   async componentWillMount() {
-    console.tron.log(this.props);
     this.requestFroms();
     BackHandler.removeEventListener("hardwareBackPress", this.handleBackButton);
   }
@@ -67,7 +66,6 @@ class Historico extends Component {
     const array = JSON.parse(arrayRef);
     this.setState({ arrayRef: array, idUser: id, errorview: false });
     const idMatricula = this.state.idUser;
-    
 
     api.post('/pericia/formulario/recebidos', {     
       matricula: idMatricula
@@ -131,7 +129,7 @@ class Historico extends Component {
         </TouchableOpacity>
       );
     }
-    return null;      
+    return null;
   }
 
   renderEnviados = item => {
@@ -141,7 +139,7 @@ class Historico extends Component {
         onPress={() => {
           Linking.openURL(
             "http://35.231.239.168/pericia/links.php?id_pericia=" +
-              item.matricula
+            item.matricula
           );
         }}
       >
@@ -164,7 +162,6 @@ class Historico extends Component {
       this.setState({ callFuction: false });
       resetUpdateHistory();
       this.requestFroms();
-      console.tron.log('enterei no update hist');
     }
 
     return (
@@ -179,7 +176,7 @@ class Historico extends Component {
           animationType="slide"
           transparent={false}
           visible={modalVisible}
-          onRequestClose={() => {}}
+          onRequestClose={() => { }}
         >
           <View style={styles.containerModal}>
             <View style={styles.buttonContainer}>
@@ -231,8 +228,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ 
-    ...FormActions, 
+  bindActionCreators({
+    ...FormActions,
     ...NewActions,
     ...HistActions,
   }, dispatch);

@@ -84,13 +84,13 @@ class Veiculos extends Component {
       erroconsulta: false,
       naoexiste: false,
     });
-    axios.get(`http://35.198.17.69/api/pericia/denatran/${  this.state.placa}`)
+    axios.get(`http://35.198.17.69/api/pericia/denatran/${this.state.placa}`)
       .then((resp) => {
         if (resp.data.placa !== null) {
           const dadossinesp = resp.data;
           this.getDadosPlaca(resp.data);
           this.setState({ consulta: true, loading: false, viewDenatran: true });
-        }        else {
+        } else {
           this.setState({ naoexiste: true, loading: false, consulta: true, viewDenatran: false });
         }
       }).catch(err => {
@@ -123,7 +123,7 @@ class Veiculos extends Component {
 
   consultaMarcas = (value) => {
     this.setState({ tipo: value });
-    axios.get(`http://fipeapi.appspot.com/api/1/${  value  }/marcas.json`)
+    axios.get(`http://fipeapi.appspot.com/api/1/${value}/marcas.json`)
       .then((resp) => {
         if (resp.status === 200) {
           this.getMarcas(resp.data);
@@ -145,7 +145,7 @@ class Veiculos extends Component {
 
   pegaModelos = (value) => {
     this.setState({ marca: value });
-    axios.get(`http://fipeapi.appspot.com/api/1/${  this.state.tipo  }/veiculos/${  value  }.json`)
+    axios.get(`http://fipeapi.appspot.com/api/1/${this.state.tipo}/veiculos/${value}.json`)
       .then((resp) => {
         if (resp.status === 200) {
           this.getModelos(resp.data);
@@ -165,7 +165,7 @@ class Veiculos extends Component {
 
   pegaAno = value => {
     this.setState({ modelo: value });
-    axios.get(`http://fipeapi.appspot.com/api/1/${  this.state.tipo  }/veiculo/${  this.state.marca  }/${  value  }.json`)
+    axios.get(`http://fipeapi.appspot.com/api/1/${this.state.tipo}/veiculo/${this.state.marca}/${value}.json`)
       .then((resp) => {
         if (resp.status === 200) {
           this.getAno(resp.data);
@@ -188,7 +188,6 @@ class Veiculos extends Component {
     const { form, getSaveStateForm, startControlArray } = this.props;
     let dados = dadosEnvio;
 
-    console.tron.log(dadosFipe);
     Object.keys(dados).map(key => {
       if (dadosVeiculo) {
         Object.keys(dadosVeiculo).map(key1 => {
@@ -203,7 +202,7 @@ class Veiculos extends Component {
             dados[key] = dadosFipe[key2];
           }
         });
-      }      
+      }
     });
 
     const dv = JSON.stringify(dados);
