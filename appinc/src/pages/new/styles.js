@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.light2,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#784657',
   },
   icon: {
     color: colors.white,
@@ -34,18 +35,16 @@ const styles = StyleSheet.create({
     height: 15,
   },
   forms: {
-    marginHorizontal: metrics.basePadding,
     marginTop: 30,
-    width: responsividade.WIDTH_MAIN,
+    width: responsividade.WIDTH_SECOND,
   },
   forms1: {
-    marginHorizontal: metrics.basePadding,
     marginTop: 60,
-    width: responsividade.WIDTH_MAIN,
+    width: responsividade.WIDTH_SECOND,
+    backgroundColor: '#784687',
  },
 
   forms2: {
-    marginHorizontal: metrics.basePadding,
   },
   numberType: {
     alignItems: 'center',
@@ -122,6 +121,7 @@ const styles = StyleSheet.create({
    scrollview: {
     alignItems: 'center',
     justifyContent: 'center',
+    width: responsividade.largura_tela,
    }
 
 });
