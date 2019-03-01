@@ -89,49 +89,32 @@ class Main extends Component {
         />
 
         <View style={styles.bodyS}>
-          <View style={styles.halfBody}>
-            <View style={styles.tokenView}>
-              <Text style={styles.token}>Token válido por </Text>
-              <Text style={styles.tokenD}>{dias}</Text>
-              <Text style={styles.token}> dias</Text>
-            </View>
+          <View style={styles.tokenView}>
+            <Text style={styles.token}>Token válido por </Text>
+            <Text style={styles.tokenD}>{dias}</Text>
+            <Text style={styles.token}> dias</Text>
           </View>
-
 
           <View style={styles.info}>
             <View style={styles.profile}>
               <Image source={require('../../assents/imgs/avatar.png')} style={styles.ImageStyle} />
             </View>
-
-
             <View style={styles.name_view}>
               <Text style={styles.name}>{nome}</Text>
             </View>
-
-            <View style={styles.buttons_view}>
-
-            <TouchableOpacity onPress={this.navigateToScreen('NewMenu')}>
-              <View style={styles.button}>
-                <Text style={styles.button_text}> NOVA PERÍCIA</Text>
-              </View>
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={this.navigateToScreen('Hist')}>
-              <View style={styles.button3}>
-                <Text style={styles.button_text}>MINHAS PERÍCIAS</Text>
-              </View>
-            </TouchableOpacity>
-
-
-            </View>
-
-
-            <TouchableOpacity onPress={() => { }}>
-              <View style={styles.button2}>
-                <Text style={styles.button_text2}>RENOVAR TOKEN</Text>
-              </View>
-            </TouchableOpacity>
           </View>
+            <View style={styles.buttons_view}>
+              <TouchableOpacity onPress={this.navigateToScreen('NewMenu')}>
+                <View style={styles.button}>
+                  <Text style={styles.button_text}> NOVA PERÍCIA</Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={this.navigateToScreen('Hist')}>
+                <View style={styles.button}>
+                  <Text style={styles.button_text}>MINHAS PERÍCIAS</Text>
+                </View>
+              </TouchableOpacity>
+            </View>          
         </View>
       </View>
     );
