@@ -148,6 +148,7 @@ const styles = StyleSheet.create({
   hint: {
     fontSize: responsividade.fonts.descriptionSize,
     fontWeight: 'bold',
+    width: responsividade.LARGURA_INPUT * 0.8,
   },
 
   numberType: {
@@ -156,6 +157,8 @@ const styles = StyleSheet.create({
     fontSize: responsividade.fonts.descriptionSize,
     color: 'black',
     fontWeight: 'bold',
+    width: responsividade.LARGURABOLA * 0.53,
+    textAlign: 'center',
   },
   miniball: {
     alignItems: 'center',
@@ -165,7 +168,7 @@ const styles = StyleSheet.create({
     width: responsividade.LARGURABOLA * 0.73,
     height: responsividade.LARGURABOLA * 0.73,
     backgroundColor: '#F9AA33',
-    marginLeft: responsividade.largura_tela < 430 ? 20 : 0,
+    //marginLeft: responsividade.largura_tela < 430 ? 20 : 0,
   },
 
 
@@ -174,7 +177,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: responsividade.ALTURA_INPUT,
     width: responsividade.LARGURA_INPUT,
-    justifyContent: 'flex-start',    
+    justifyContent: 'flex-start',     
   },
 
   erro: {

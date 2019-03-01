@@ -32,10 +32,8 @@ import StepList from './pages/StepList';
 
 const Routes = StackNavigator(
   {
-    Login: { screen: Main
-     },
-    Main: { screen: Login
-     },
+    Login: { screen: New },
+    Main: { screen: Main },
     SignUp: { screen: Singup },
     Hash: { screen: Hash },
     Password: { screen: Password },
