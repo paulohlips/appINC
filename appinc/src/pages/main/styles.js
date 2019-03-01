@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     margin: metrics.baseMargin,
     elevation: 1,
-    width: responsividade.largura_tela < 430 ? 100 : 300,
+    width: responsividade.largura_tela < 430 ? 150 : 300,
     height: responsividade.largura_tela < 430 ? 150 : 300,
     justifyContent: 'center',
     alignItems: 'center',
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: metrics.baseMargin,
-    width: responsividade.largura_tela < 430 ? responsividade.LARGURABUTTON * 0.55 :  responsividade.LARGURABUTTON * 0.55,
+    width: responsividade.largura_tela < 430 ? responsividade.LARGURABUTTON  :  responsividade.LARGURABUTTON * 0.55,
     height: responsividade.largura_tela < 430 ? responsividade.ALTURABUTTON : responsividade.largura_tela * 0.11,
     borderRadius: 200,
     backgroundColor: "#F9AA33",
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
 
   button_text: {
     fontFamily: "Roboto",
-    fontSize: 18,
+    fontSize: responsividade.fonts.button,
     fontWeight: "bold",
     fontStyle: "normal",
     letterSpacing: 0,
@@ -140,8 +140,8 @@ const styles = StyleSheet.create({
  },
 
  buttons_view: {
-   //backgroundColor: 'red',
-   flexDirection: "row",
+   //backgroundColor: 'red',"
+   flexDirection:  responsividade.largura_tela < 430 ? "column" : "row",
    alignItems: "center",
    width: responsividade.largura_tela * 0.9,
    justifyContent: 'space-around',

@@ -69,6 +69,7 @@ export const ALTURACARD = largura_tela < 430 ? largura_tela*0.40 : largura_tela 
 export const fonts = {
     titleSize: largura_tela < 430 ? 20 : 24,
     descriptionSize: largura_tela < 430 ? 15 : 20,
+    button: largura_tela < 430 ? 15 : 20,
     nameSize: largura_tela < 430 ? 18 : 22,
     errorSize: largura_tela < 430 ? 14 : 18,
 };
