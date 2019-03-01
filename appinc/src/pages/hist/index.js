@@ -18,6 +18,7 @@ import {
 } from "react-navigation";
 import styles from "./styles";
 import Icon from "react-native-vector-icons/Ionicons";
+import api from '../../services/api';
 import axios from "axios";
 
 import { connect } from "react-redux";
@@ -61,14 +62,31 @@ class Historico extends Component {
   }
 
   requestFroms = async() => {    
-    const arrayRef = await AsyncStorage.getItem("arrayRef");
+    const arrayRef = await AsyncStorage.getItem('arrayRef');
     const id = await AsyncStorage.getItem("@AppInc:matricula");
     const array = JSON.parse(arrayRef);
     this.setState({ arrayRef: array, idUser: id, errorview: false });
     const idMatricula = this.state.idUser;
     
 
-    axios({
+    api.post('/pericia/formulario/recebidos', {     
+      matricula: idMatricula
+    }).then(resp => {
+      const data = JSON.stringify(resp.data);
+      if (resp.status === 206) {
+        this.setState({ loading: false, errorview: true });
+        console.tron.log(['resp', resp]);
+      } else {
+        this.setState({ loading: false, arrayEnviados: resp.data });
+        console.tron.log(['resp', resp]);
+      }
+           
+    }).catch(err => {
+      this.setState({ loading: false, errorview: true });
+    });
+
+
+    /* axios({
       method: "post",
       url: "http://35.231.239.168/api/pericia/formulario/recebidos",
       data: {
@@ -78,12 +96,14 @@ class Historico extends Component {
       .then(resp => {
         const data = JSON.stringify(resp.data);
         console.tron.log(['resp', resp]);
-        this.setState({ arrayEnviados: resp.data });
-        this.loading();
+        if (resp.status === 206) {
+
+        }
+        
       })
       .catch(err => {
         this.setState({ loading: false, errorview: true });
-      });
+      }); */
   };
 
   restoreForm = async name => {
@@ -139,13 +159,14 @@ class Historico extends Component {
   render() {
     const { arrayRef, modalVisible, form, arrayEnviados, callFuction } = this.state;
     const { navigation, hist, resetUpdateHistory } = this.props;
-        console.tron.log(arrayRef);
+        console.tron.log(['testes arrays', arrayRef, arrayEnviados]);
     if (hist.updateHistory && callFuction) {
       this.setState({ callFuction: false });
       resetUpdateHistory();
       this.requestFroms();
       console.tron.log('enterei no update hist');
     }
+
     return (
       <View style={styles.container}>
         <Header
@@ -193,7 +214,8 @@ class Historico extends Component {
               </View>
             )}
 
-            {arrayEnviados
+            {
+              arrayEnviados 
               ? arrayEnviados.map(item => this.renderEnviados(item))
               : null}
           </ScrollView>
