@@ -28,23 +28,20 @@ class OCR extends Component {
             includeExif: false,
             includeBase64: true,
         }).then(async image => {
-            console.tron.log(image);
             this.setState({
                 image: { uri: image.path, width: image.width, height: image.height },
                 images: null,
                 imagePath: image.path
             });
             const responseOcr = await this.checkForText(image.data);
-            await console.tron.log(['teste', responseOcr]);
             if (responseOcr.responses[0]) {
                 await this.setState({ text: responseOcr.responses[0].fullTextAnnotation.text });
             }
-        }).catch(err => console.error(err));
+        });
     }
 
     // Chamada a API do Google Cloud Vision passando a foto no body
     async checkForText(base64) {
-        console.tron.log(['Vamos enviar para o google! '])
         const body = JSON.stringify({
             "requests": [
                 {
@@ -59,22 +56,6 @@ class OCR extends Component {
                 }
             ]
         });
-
-        /*
-        const responseAxios = await axios.post(config.googleCloud.api + config.googleCloud.apiKey, body);
-        await console.tron.log(['axios@@@', responseAxios]);
-
-
-         axios({
-            method: 'post',
-            url: config.googleCloud.api + config.googleCloud.apiKey,
-            body,
-        })
-            .then((resp) => {
-                console.tron.log(['teste no axios', resp]);
-            }).catch(err => {
-                console.tron.log(['teste err no axios', err]);
-            }); */
 
         return await fetch(config.googleCloud.api + config.googleCloud.apiKey, {
             method: 'POST',
@@ -94,18 +75,8 @@ class OCR extends Component {
             })
         }).then(response => {
             return response.json();
-            console.tron.log('Chegou a resposta!', response)
-            this.showResult(response);
-        }).catch(err => console.tron.log(['err', err]));
-        await console.tron.log(['ferrou', response])
+        }).catch()
     }
-
-    showResult = (result) => {
-        console.tron.log(['result', result]);
-        console.tron.log(['API response', result.responses[0].fullTextAnnotation.text]);
-        Alert.alert(result.responses[0].fullTextAnnotation.text);
-    }
-
 
     render() {
         const { text } = this.state;

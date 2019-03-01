@@ -43,7 +43,6 @@ class Historico extends Component {
   }
 
   async componentWillMount() {
-    console.tron.log(this.props);
     this.requestFroms();
     BackHandler.removeEventListener("hardwareBackPress", this.handleBackButton);
   }
@@ -60,13 +59,13 @@ class Historico extends Component {
     return true;
   }
 
-  requestFroms = async() => {    
+  requestFroms = async () => {
     const arrayRef = await AsyncStorage.getItem("arrayRef");
     const id = await AsyncStorage.getItem("@AppInc:matricula");
     const array = JSON.parse(arrayRef);
     this.setState({ arrayRef: array, idUser: id, errorview: false });
     const idMatricula = this.state.idUser;
-    
+
 
     axios({
       method: "post",
@@ -77,7 +76,6 @@ class Historico extends Component {
     })
       .then(resp => {
         const data = JSON.stringify(resp.data);
-        console.tron.log(['resp', resp]);
         this.setState({ arrayEnviados: resp.data });
         this.loading();
       })
@@ -111,7 +109,7 @@ class Historico extends Component {
         </TouchableOpacity>
       );
     }
-    return null;      
+    return null;
   }
 
   renderEnviados = item => {
@@ -121,7 +119,7 @@ class Historico extends Component {
         onPress={() => {
           Linking.openURL(
             "http://35.231.239.168/pericia/links.php?id_pericia=" +
-              item.matricula
+            item.matricula
           );
         }}
       >
@@ -139,12 +137,10 @@ class Historico extends Component {
   render() {
     const { arrayRef, modalVisible, form, arrayEnviados, callFuction } = this.state;
     const { navigation, hist, resetUpdateHistory } = this.props;
-        console.tron.log(arrayRef);
     if (hist.updateHistory && callFuction) {
       this.setState({ callFuction: false });
       resetUpdateHistory();
       this.requestFroms();
-      console.tron.log('enterei no update hist');
     }
     return (
       <View style={styles.container}>
@@ -158,7 +154,7 @@ class Historico extends Component {
           animationType="slide"
           transparent={false}
           visible={modalVisible}
-          onRequestClose={() => {}}
+          onRequestClose={() => { }}
         >
           <View style={styles.containerModal}>
             <View style={styles.buttonContainer}>
@@ -209,8 +205,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ 
-    ...FormActions, 
+  bindActionCreators({
+    ...FormActions,
     ...NewActions,
     ...HistActions,
   }, dispatch);
