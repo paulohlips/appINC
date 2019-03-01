@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 import { colors, metrics, responsividade } from '../../styles';
 
 const styles = StyleSheet.create({
@@ -6,6 +6,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     backgroundColor: '#EDF0F2',
+    paddingBottom: Platform.OS === 'ios' ? responsividade.padding.mainPadding : null,
   },
 
   message: {

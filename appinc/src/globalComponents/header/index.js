@@ -58,7 +58,6 @@ class HeaderRedux extends Component {
 
     return (
       <View style={styles.header}>
-
         <StatusBar backgroundColor='#344955' barStyle="light-content" />
           <View style={styles.viewIcon}>
             {

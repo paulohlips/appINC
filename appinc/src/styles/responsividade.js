@@ -1,4 +1,4 @@
-import { Dimensions } from 'react-native';
+import { Dimensions, Platform } from 'react-native';
 
 export const largura_tela = Dimensions.get('window').width;
 export const altura_tela = Dimensions.get('window').height;

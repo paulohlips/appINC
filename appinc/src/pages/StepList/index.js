@@ -136,8 +136,7 @@ class StepList extends Component {
     const { viewError, load, saved } = this.state;
 
     return (
-      <View style={styles.container}>
-      <SafeAreaView >
+      <View style={styles.container}>      
         <Header
           title={form.area}
           showArrow
@@ -182,7 +181,6 @@ class StepList extends Component {
             </TouchableOpacity>
           </View>
         </ScrollView>
-        </SafeAreaView>
       </View>
     );
   }

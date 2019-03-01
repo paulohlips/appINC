@@ -129,8 +129,7 @@ class New extends Component {
     
 
     return (
-      <View style={styles.container}>
-      <SafeAreaView>
+      <View style={styles.container}>      
         <Header
           title='Nova Perícia'
           showMenu
@@ -200,7 +199,6 @@ class New extends Component {
             )
           }
         </ScrollView>
-        </SafeAreaView>
       </View>
     );
   }

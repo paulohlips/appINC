@@ -1,14 +1,15 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 import { colors, metric, responsividade } from '../../styles';
 
 const styles = StyleSheet.create({
   header: {
     backgroundColor: "#344955",
     padding: responsividade.padding.mainPadding,
+    paddingTop: Platform.OS === 'ios' ? responsividade.padding.mainPadding * 3.7 : null, 
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    height: responsividade.ALTURA_HEADER,
+    height: Platform.OS === 'ios' ? responsividade.ALTURA_HEADER * 1.5 : responsividade.ALTURA_HEADER,
   },
 
   iconMenu: {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, StatusBar, Image, AsyncStorage } from 'react-native';
+import { View, Text, TouchableOpacity, SafeAreaView, Image, AsyncStorage } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import SafeAreaView from 'react-native-safe-area-view';
+// import SafeAreaView from 'react-native-safe-area-view';
 import styles from './styles';
 import axios from 'axios';
 import { Header } from '../../globalComponents';
