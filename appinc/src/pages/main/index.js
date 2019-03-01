@@ -100,15 +100,15 @@ class Main extends Component {
 
           <View style={styles.info}>
             <View style={styles.profile}>
-            <View style={styles.icon}>
-            <Icon name="person" size={largura_tela< 430 ? 60 : 120} color="#fff" style={styles.icon} />
-          </View>
+              <Image source={require('../../assents/imgs/avatar.png')} style={styles.ImageStyle} />
             </View>
 
 
             <View style={styles.name_view}>
               <Text style={styles.name}>{nome}</Text>
             </View>
+
+            <View style={styles.buttons_view}>
 
             <TouchableOpacity onPress={this.navigateToScreen('NewMenu')}>
               <View style={styles.button}>
@@ -117,14 +117,18 @@ class Main extends Component {
             </TouchableOpacity>
 
             <TouchableOpacity onPress={this.navigateToScreen('Hist')}>
-              <View style={styles.button}>
+              <View style={styles.button3}>
                 <Text style={styles.button_text}>MINHAS PERÍCIAS</Text>
               </View>
             </TouchableOpacity>
 
+
+            </View>
+
+
             <TouchableOpacity onPress={() => { }}>
               <View style={styles.button2}>
-                <Text style={styles.button_text2}>RENOVAR TOEKN</Text>
+                <Text style={styles.button_text2}>RENOVAR TOKEN</Text>
               </View>
             </TouchableOpacity>
           </View>
