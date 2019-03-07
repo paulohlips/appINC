@@ -140,7 +140,7 @@ class Historico extends Component {
         style={styles.box}
         onPress={() => {
           Linking.openURL(
-            "http://35.231.239.168/pericia/links.php?id_pericia=" +
+            "http://35.198.17.69/pericia/links.php?id_pericia=" +
               item.matricula
           );
         }}
