@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     height: responsividade.largura_tela < 430 ? 150 : 250,
     borderColor: 'white',
     borderWidth: 3,
-    borderRadius: responsividade.largura_tela < 430 ? 100 : 300,
+    borderRadius: responsividade.largura_tela < 430 ? 75 : 300,
   },
 
   name_view:{

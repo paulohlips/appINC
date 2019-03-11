@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
         flex: 1,
         width: responsividade.LARGURA_MENU,
         backgroundColor: colors.primary,
+        paddingTop: 20
     },
     profile: {
         flexDirection: 'row',
@@ -21,7 +22,7 @@ const styles = StyleSheet.create({
     profileImage: {
         width: responsividade.LARGURA_PHOTO,
         height: responsividade.LARGURA_PHOTO, 
-        borderRadius: 100,
+        borderRadius: 40,
         marginRight: 15,
         elevation: 1
     },
