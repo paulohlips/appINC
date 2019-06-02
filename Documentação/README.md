@@ -164,7 +164,7 @@ Componente que permite gravar audio e executar atraves de uma mescla de dois com
 * [react-native-audio](https://github.com/jsierles/react-native-audio)
 * [react-native-sound](https://github.com/zmxv/react-native-sound)
 
-##### 3. Selecionar Data
+##### 3. Data (Calendário)
 
 É o componente responsável pela gravação e reprodução de áudio o que permite que os áudios gravados possam ser reproduzidos antes de serem enviados ao servidor, contando ainda com as opções de pausar, parar e retornar à gravação.
 
@@ -188,7 +188,7 @@ Este é o componente que permite ao usuário inserir um texto e tem como caracte
 
 * [TextInput](https://facebook.github.io/react-native/docs/textinput)
 
-##### 7. Leito de Codigo de Barras e QR Code
+##### 7. Leitor de Codigo de Barras e QR Code
 
 Responsável pela leitura de códigos de barras e bi-dimensionais (QRcode). Este componente foi projetado para facilitar o processo de cadeia de custódia das evidências físicas coletadas no local de crime, visto que pode conectar as evidências coletadas com os dados preenchidos no aplicativo.
 
@@ -205,6 +205,45 @@ Componente que permite a confecção de desenho à mão livre em diversas cores,
 Este componente permite integrar o aplicativo a APIs e BDs externos, com auxílio do cliente HTTP Axios, que envia e trata requisições HTTP possibilitando a comunicação com servidores externos aos quais o app possua credenciais de acesso. Um exemplo utilizado no projeto é a consulta à API da tabela FIPE.
 
 * [Axios](https://github.com/axios/axios)
+
+#### 10. OCR
+
+O OCR (Optical Character Recognition) é utilizado para leitura e reconhecimento de textos. A
+captura do texto é feita utilizando a câmera do dispositivo móvel, mas o processamento e a posterior
+resposta depende de uma API externa. No período de desenvolvimento deste projeto foi utilizada a Google
+Uma observação importante é que o resultado final depende da qualidade do material lido,
+resolução da câmera do dispositivo e também existe uma margem de erro da própria API externa, por isso
+deve-se confrontar sempre o resultado da leitura com o material previamente lido para atestar a qualidade
+da leitura.
+
+* [API_Vision](https://cloud.google.com/vision/docs/ocr?hl=pt-br)
+* [Requests_Google_API](https://cloud.google.com/vision/docs/request?hl=pt-br)
+
+
+#### 11. Período
+Utiliza as o mesma biblioteca do componente Data, o react-native-datepicker. Trabalha com duas datas associadas onde a ​ data inicial nunca é anterior ao dia em que o usuário está utilizando o componente e a ​ data final nunca é posterior a ​ data inical . 
+
+#### 12. Coleção
+
+Esta estrutura, que se aplica a todos os componentes, permite que um mesmo
+componente seja utilizado mais de uma vez e relacionado a um mesmo campo do formulário, um exemplo
+prático é a foto de um veículo onde o campo “foto frontal” pode possuir mais de uma foto caso o usuário
+deseje criar uma coleção de fotos.
+
+#### 13. Grupo
+
+O grupo é uma coleção de dados heterogêneos que se mostra útil em situações onde um
+mesmo campo possua informações de diferentes componentes e assim como a coleção citada acima é
+possível utilizá-lo quantas vezes o usuário desejar. Um exemplo de utilização em perícias de genética
+forense onde uma amostra de material genético possível uma ​ data, um ​ código de barras e uma descrição
+feita com ​ texto ​ , esse exemplo então utiliza um grupo {data, leitor de código de barras, entrada de texto} e o mesmo se repete para cada amostra a ser documentada.
+
+
+#### 14. Notas
+Esta estrutura não faz parte do conjunto de informações utilizada na confecção do laudo
+pré-formatado, as ​ Notas foram desenvolvidas com o intuito de permitir que o usuário possa fazer pequenas
+anotações em áudio vinculadas ao aos campos em que este tenha interesse de guardar alguma
+observação.
 
 ### Componentes Globais
 
