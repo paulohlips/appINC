@@ -38,63 +38,66 @@ O diretório ./src contém o núcleo do aplicativo onde ficam os principais arqu
 * /routes: configura a ordem de exibição das páginas no aplicativo utilizando o conceito de StackNavigation.
 
 ```bash.
-├───assets
-│   ├───img
-│   └───lottie
-├───components
-│   ├───audio
-│   ├───camera
-│   ├───checkbox
-│   ├───date
-│   ├───geolocation
-│   ├───InputText
-│   ├───scanner
-│   ├───sketch
-│   ├───veiculo
-│   └───vestigios
-├───config
-├───globalComponents
-│   ├───alert
-│   ├───header
-│   ├───info
-│   ├───load
-│   ├───menu
-│   └───modal
-├───pages
-│   ├───components
-│   │   ├───audio
-│   │   ├───camera
-│   │   ├───checkbox
-│   │   ├───date
-│   │   ├───geoloc
-│   │   ├───group
-│   │   ├───input
-│   │   ├───scanner
-│   │   ├───sketch
-│   │   └───veiculo
-│   │ 
-│   ├───email
-│   ├───hash
-│   ├───hist
-│   ├───login
-│   ├───main
-│   ├───new
-│   ├───offline
-│   ├───password
-│   ├───Step
-│   │   └───components
-│   │       └───ComponentsList
-│   └───StepList
-│       └───components
-│           └───StepBox
-│ 
-├───services
-├───store
-│   ├───actions
-│   ├───ducks
-│   └───sagas
-└───styles
-|
+└── src
+    ├── assents
+    │   ├── imgs
+    │   ├── lottie
+    │   └── pdf
+    ├── components
+    │   ├── audio
+    │   ├── camera
+    │   ├── checkbox
+    │   ├── date
+    │   ├── geolocation
+    │   ├── InputText
+    │   ├── ocr
+    │   ├── scanner
+    │   ├── sketch
+    │   ├── veiculo
+    │   └── vestigios
+    ├── config
+    ├── globalComponents
+    │   ├── alert
+    │   ├── header
+    │   ├── info
+    │   ├── load
+    │   ├── menu
+    │   └── modal
+    ├── pages
+    │   ├── components
+    │   │   ├── audio
+    │   │   ├── camera
+    │   │   ├── checkbox
+    │   │   ├── date
+    │   │   ├── geoloc
+    │   │   ├── group
+    │   │   ├── input
+    │   │   ├── ocr
+    │   │   ├── scanner
+    │   │   ├── sketch
+    │   │   ├── veiculo
+    │   │   └── vestigio
+    │   ├── email
+    │   ├── hash
+    │   ├── hist
+    │   ├── login
+    │   ├── main
+    │   ├── new
+    │   ├── offline
+    │   ├── password
+    │   ├── Step
+    │   │   └── components
+    │   │       └── ComponentsList
+    │   ├── StepList
+    │   │   └── components
+    │   │       └── StepBox
+    │   └── Testes
+    ├── services
+    ├── store
+    │   ├── actions
+    │   ├── ducks
+    │   └── sagas
+    └── styles
 └───routes
 ```
 
@@ -206,7 +209,7 @@ Este componente permite integrar o aplicativo a APIs e BDs externos, com auxíli
 
 * [Axios](https://github.com/axios/axios)
 
-#### 10. OCR
+##### 10. OCR
 
 O OCR (Optical Character Recognition) é utilizado para leitura e reconhecimento de textos. A
 captura do texto é feita utilizando a câmera do dispositivo móvel, mas o processamento e a posterior
@@ -220,17 +223,17 @@ da leitura.
 * [Requests_Google_API](https://cloud.google.com/vision/docs/request?hl=pt-br)
 
 
-#### 11. Período
+##### 11. Período
 Utiliza as o mesma biblioteca do componente Data, o react-native-datepicker. Trabalha com duas datas associadas onde a ​ data inicial nunca é anterior ao dia em que o usuário está utilizando o componente e a ​ data final nunca é posterior a ​ data inical . 
 
-#### 12. Coleção
+##### 12. Coleção
 
 Esta estrutura, que se aplica a todos os componentes, permite que um mesmo
 componente seja utilizado mais de uma vez e relacionado a um mesmo campo do formulário, um exemplo
 prático é a foto de um veículo onde o campo “foto frontal” pode possuir mais de uma foto caso o usuário
 deseje criar uma coleção de fotos.
 
-#### 13. Grupo
+##### 13. Grupo
 
 O grupo é uma coleção de dados heterogêneos que se mostra útil em situações onde um
 mesmo campo possua informações de diferentes componentes e assim como a coleção citada acima é
@@ -239,7 +242,7 @@ forense onde uma amostra de material genético possível uma ​ data, um ​ c�
 feita com ​ texto ​ , esse exemplo então utiliza um grupo {data, leitor de código de barras, entrada de texto} e o mesmo se repete para cada amostra a ser documentada.
 
 
-#### 14. Notas
+##### 14. Notas
 Esta estrutura não faz parte do conjunto de informações utilizada na confecção do laudo
 pré-formatado, as ​ Notas foram desenvolvidas com o intuito de permitir que o usuário possa fazer pequenas
 anotações em áudio vinculadas ao aos campos em que este tenha interesse de guardar alguma
