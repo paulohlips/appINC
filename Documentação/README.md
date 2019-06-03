@@ -3,10 +3,10 @@
 # Sistema Móvel de Suporte à Perícia - AppINC
 
 #### Introdução
-O appINC é uma solução composta de um aplicativo para dispositivos móveis e o correspondente servidor de processamento, customização e armazenamento de POPs (Procedimento Operacional Padrão) dando suporte ao usuário durante a coleta de vestígios e a confecção dos laudos em docx editável.
+O appINC é uma solução composta de um aplicativo para dispositivos móveis e o correspondente servidor de processamento, customização e armazenamento de POPs (Procedimento Operacional Padrão) dando suporte ao usuário durante a coleta de vestígios e a confecção dos laudos em arquivos com extensão .DOCX editáveis.
 
 
-#### Executando o projeto:
+#### Executando o projeto (Sistema Operacional Android):
 
 Para executar o projeto devem ser seguidos os seguintes passos:
 
@@ -23,6 +23,45 @@ ou
 ```
 $ react-native run-ios
 ```
+
+#### Executando o projeto (Sistema Operacional IOS):
+
+*  Clonar o projeto no [GitHub](https://github.com/paulohlips/appINC.git) ;
+* Dentro do diretório do projeto instalar as dependências com : 
+```
+$ yarn
+```
+* Dentro do diretório do projeto, vincular as bibliotecas que contém código nativo com o comando : 
+```
+$ react-native link
+```
+* Inicializar o XCode e por meio da barra de navegação, acessar o diretório em que o projeto foi clonado.
+Dentro do diretório, seguir o caminho abaixo para acessar o arquivo “appincv2.xcodeproj”:
+
+```bash.
+└── diretório_clonado
+    ├── ios
+         └── appincv2.xcodeproj
+```
+
+Basta clicar neste arquivo que o XCode se encarregará de carregar as dependências da aplicação e deixar a mesma pronta para o deploy. 
+
+* Execução do projeto (Emulador)
+
+Para executar o projeto em um emulador, basta acessar a barra de navegação do XCode, que contém um campo de seleção de dispositivo e um botão "Play", que inicializa o dispositivo emulado e executa o projeto no mesmo.
+
+* Execução do projeto (Dispositivo físico)
+
+Para executar o projeto em um dispositivo físico com Sistema Operacional IOS, basta conectar o dispositivo e seleciona-lo para executar o projeto na barra de navegação. Se esta for a primeira vez que você executa um aplicativo no seu dispositivo iOS, talvez seja necessário registrar seu dispositivo para desenvolvimento.Abra o menu Product na barra de menus do Xcode e vá para Destination . Procure e selecione seu dispositivo na lista. O Xcode registrará seu dispositivo para desenvolvimento.
+
+* "Deploy" da aplicação
+
+Para realizar o deploy da aplicação, deve-se selecionar a opção “Generic IOS Device”, localizada na mesma aba que se encontram as opções de simulação, na barra de navegação do XCode. Ao selecionar esta opção, a aba “Product” do programa habilitará uma opção “Archive”. Selecionar esta opção resultará na compilação do projeto. Caso tudo esteja certo, ao fim do processo surgirá uma janela com o arquivo gerado. Selecione este arquivo e clique na opção “deploy”. Por fim, haverá uma mensagem nesta janela deixando claro que o deploy foi realizado com sucesso
+
+* TestFlight
+
+Após a realização do "deploy" da aplicação, é possível acessar as versões do projeto que já passaram por este processo com sucesso (caso exista mais de uma) por meio da [Página](https://appstoreconnect.apple.com/), na conta responsável pela aplicação. Para isso, basta selecionar a opção "Meus Apps", acessar o aplicativo e clicar na opção “TestFlight”. Este processo não é instantâneo, e pode-se levar alguns minutos para que os usuários de teste possam acessar a versão disponibilizada.
+
 #### Árvore de diretórios
 
 O diretório ./src contém o núcleo do aplicativo onde ficam os principais arquivos de construção do aplicativo.
